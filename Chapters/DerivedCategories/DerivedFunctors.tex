@@ -1,0 +1,670 @@
+
+\section{Derived functors}
+
+Let $F : \Aa \to \Bb$ be an \emph{additive} functor 
+between abelian categories; it naturally extends
+to a unique functor between the associated categories of
+cochain complexes $C^{\bullet}(\Aa) \to C^{\bullet}(\Bb)$
+and hence, by dividing out by homotopy equivalence,
+it induces a well-defined additive functor 
+$\Tilde{F}:\cat{K}(\Aa) \to \cat{K}(\Bb)$:
+indeed, if $s$ is a homotopy between two
+cochain maps $f^{\bullet},g^{\bullet}:A^{\bullet} \to \Tilde{A}^{\bullet}$, 
+then the identity
+\begin{align*}
+    \Tilde{F}(f^{\bullet}) - \Tilde{F}(g^{\bullet})
+    &= \Tilde{F}(f^{\bullet} - g^{\bullet}) \\
+    &= \Tilde{F}\left(sd_{A}+d_{\Tilde{A}}s\right) 
+    = \Tilde{F}(s)\Tilde{F}\left(d_{A}\right) + \Tilde{F}\left(d_{\Tilde{A}}\right)\Tilde{F}(s)
+    = \Tilde{F}(s)d_{F(A)} + d_{F(\Tilde{A})}F(s)
+\end{align*}
+shows that $\Tilde{F}(s)$ is a homotopy between
+$\Tilde{F}(f^{\bullet})$ and $\Tilde{F}(g^{\bullet})$.
+Moreover, we can check that 
+$\Tilde{F}:\cat{K}(\Aa) \to \cat{K}(\Bb)$ is an
+exact functor between triangulated categories:
+    \begin{itemize}
+        \item[(\textbf{EF1})] since the functor $\Tilde{F}$
+        sends a complex $A^{\bullet} \in \cat{K}(\Aa)$ to
+        the complex
+        \begin{equation*}
+            \begin{tikzcd}[column sep=large]
+                \dots \ar[r]
+                & F(A^{i-1}) \ar[r, "F(d_{A}^{i-1})"]
+                & F(A^{i}) \ar[r, "F(d_{A}^{i})"]
+                & F(A^{i+1}) \ar[r]
+                & \dots
+            \end{tikzcd}
+        \end{equation*}
+        it is clear that $\Tilde{F}$ commutes with the shift functor:
+        \begin{equation*}
+            \big( \Tilde{F}(A^{\bullet})[1] \big)^{n}
+            = \Tilde{F}(A^{\bullet})^{n-1} 
+            = F(A^{n-1})
+            = F\big( (A^{\bullet}[1])^{n} \big)
+            = \Tilde{F}(A^{\bullet}[1])^{n}\,;
+        \end{equation*}
+
+        \item[(\textbf{EF2})] recall that the image of a direct sum
+        via an additive functor is the direct sum of the images:
+        in particular, given a map 
+        $f^{\bullet}:A^{\bullet} \to \Tilde{A}^{\bullet}$ in $\cat{K}(\Aa)$,
+        then $\Tilde{F}\big(\cat{C}(f^{\bullet})\big) 
+        \simeq \cat{C}\big(\Tilde{F}(f^{\bullet})\big)$,
+        and hence any distinguished triangle of the form
+        \begin{equation*}
+            \begin{tikzcd}
+                A^{\bullet} \ar[r, "f^{\bullet}"]
+                & B^{\bullet} \ar[r]
+                & \cat{C}(f^{\bullet}) \ar[r]
+                & A^{\bullet}{[1]}
+            \end{tikzcd}
+        \end{equation*}
+        is sent to a distinguished triangle
+        \begin{equation*}
+            \begin{tikzcd}
+                \Tilde{F}(A^{\bullet}) \ar[r, "\Tilde{F}(f^{\bullet})"]
+                & \Tilde{F}(B^{\bullet}) \ar[r]
+                & \cat{C}\big(\Tilde{F}(f^{\bullet})\big) \ar[r]
+                & \Tilde{F}(A^{\bullet}){[1]}\,;
+            \end{tikzcd}
+        \end{equation*}
+        by definition of distinguished triangles in the homotopy
+        category, this is enough to conclude that $\Tilde{F}$
+        preserves all triangles.
+    \end{itemize}
+
+Now consider the following question:
+given the diagram
+\begin{equation*}
+    \begin{tikzcd}
+        \cat{K}^{*}(\Aa) \ar[r] \ar[d, "\Tilde{F}"'] & \cat{D}^{*}(\Aa) \\
+        \cat{K}^{}(\Bb) \ar[r] & \cat{D}^{}(\Bb)
+    \end{tikzcd}
+\end{equation*}
+there exists a triangulated functor $\cat{D}^{*}(\Aa) \to \cat{D}^{}(\Bb)$
+making the diagram commute? When $F:\Aa \to \Bb$ is an exact functor
+of abelian categories, then the answer is yes: indeed, $\Tilde{F}$
+sends any acyclic complex $A^{\bullet}$ to an acyclic complex because,
+for every $n \in \Z$, the short exact sequence
+\begin{equation*}
+    \begin{tikzcd}
+        \cat{0} \ar[r]
+        & \ker d_{A}^{n} \ar[r]
+        & A^{n} \ar[r, "d_{A}^{n}"]
+        & \ker d_{A}^{n+1} \ar[r]
+        & \cat{0}
+    \end{tikzcd}
+\end{equation*}
+is sent to the sequence
+\begin{equation*}
+    \begin{tikzcd}
+        \cat{0} \ar[r]
+        & \ker d_{F(A)}^{n} \ar[r]
+        & \Tilde{F}(A^{\bullet})^{n} \ar[r, "d_{F(A)}^{n}"]
+        & \ker d_{F(A)}^{n+1} \ar[r]
+        & \cat{0}
+    \end{tikzcd}
+\end{equation*}
+which is exact in $\Bb$, and hence $H^{n}(\Tilde{F}(A^{\bullet}) = \cat{0}$.
+Thus, the hypothesis of the following lemma are satisfied:
+
+\begin{lemma}\label{induced-derived-functor}
+    Let $G:\cat{K}^{*}(\Aa) \to \cat{K}^{}(\Bb)$
+    be an exact functor of triangulated categories.
+    Then $G$ naturally induces a commutative diagram
+        \begin{equation*}
+            \begin{tikzcd}
+                \cat{K}^{*}(\Aa) \ar[r, "G"] \ar[d]
+                & \cat{K}^{}(\Bb) \ar[d] \\
+                \cat{D}^{*}(\Aa) \ar[r] & \cat{D}^{}(\Bb)
+            \end{tikzcd}
+        \end{equation*}
+        if one of the two following conditions is satisfied:
+        \begin{rmnumerate}
+            \item the image of a qis under $G$ is a qis;
+            \item the functor $G$ sends acyclic complexes to acyclic complexes.
+        \end{rmnumerate}
+        \begin{proof}
+            If condition (i) holds, then the composition 
+            $\cat{K}^{*}(\Aa) \to \cat{K}^{}(\Bb) \to \cat{D}^{}(\Bb)$
+            sends each qis to an isomorphism, hence by the universal
+            property of the derived category of $\Aa$,
+            it factors through $\cat{D}^{*}(\Aa)$ as in the diagram above.
+
+            Assume now that condition (ii) holds true and consider
+            a qis $f^{\bullet} : A^{\bullet} \to B^{\bullet}$;
+            the cone $\cat{C}(f^{\bullet})$ is acyclic,
+            so by hypothesis $\cat{C}\big(G(f^{\bullet})\big)$ is acyclic too,
+            which implies that $G(f^{\bullet})$ is a quasi-isomorphism.
+            Thus, $G$ sends quasi-isomorphisms to quasi-isomorphisms,
+            and we conclude by part (i).
+        \end{proof}
+\end{lemma}
+
+\begin{rmk}
+    In the Lemma above, the functor $G$ need not 
+    come from a functor between the abelian categories!
+\end{rmk}
+
+If $F$ is not exact, the image of an acyclic complex in $A$, 
+i.e. one that becomes trivial in $\cat{D}(\Aa)$, is not, 
+in general, acyclic. Thus, the naive extension of $F$ 
+to a functor between the derived categories 
+$\cat{D}(\Aa) \to \cat{D}(\Bb)$ does not make sense
+and in this case a more complicated construction is needed 
+in order to induce a natural functor between the derived categories. 
+The new functor, called the \emph{derived functor}, 
+will not produce a commutative diagram 
+as in \hyperref[induced-derived-functor]{Lemma~\ref*{induced-derived-functor}}, 
+but it has the advantage to encode more information 
+even when applied to an object in the abelian category. 
+Roughly, it explains why the original functor fails to be exact.
+In order to ensure existence of the derived functor, 
+we will always have to assume some kind of exactness:
+for a \textbf{left exact} functor $F : \Aa \to \Bb$,
+one constructs the \textbf{right derived functor}
+\begin{equation*}
+    RF : \cat{D}^{+}(\Aa) \longrightarrow \cat{D}^{}(\Bb)\,,
+\end{equation*}
+and for a \textbf{right exact} functor $G:\Aa \longrightarrow \Bb$
+one constructs the \textbf{left derived} functor
+\begin{equation*}
+    LG : \cat{D}^{-}(\Aa) \longrightarrow \cat{D}^{}(\Bb)\,.
+\end{equation*}
+They can be defined by a universal property:
+
+\begin{df}
+    Let $F:\cat{K}^{+}(\Aa) \to \cat{K}^{}(\Bb)$ be a triangulated functor.
+    A \textbf{right derived functor} for $F$ is a triangulated functor
+    \begin{equation*}
+        RF : \cat{D}^{+}(\Aa) \longrightarrow \cat{D}^{}(\Bb)\,,
+    \end{equation*}
+    together with a morphism of functors
+        $\epsilon : Q \circ F \to RF \circ Q$ such that,
+        for any pair $(\Phi,\eta)$ of a triangulated functor
+        $\Phi:\cat{D}^{+}(\Aa) \to \cat{D}^{+}{(\Bb)}$ and natural
+        transformation $\eta : Q \circ F \to \Phi \circ Q$,
+        there exists a unique morphism of functors
+        $\alpha : RF \to \Phi$ such that
+        $\eta = \alpha_{Q(-)} \circ \epsilon$;
+        more explicitly, for every $A^{\bullet} \in \cat{K}^{+}(\Aa)$,
+        in $\cat{D}^{}(\Bb)$ we have the following commutative diagram:
+        \begin{equation*}
+            \begin{tikzcd}
+                Q \circ F(A^{\bullet}) \ar[rr, "\eta_{A^{\bullet}}"]
+                \ar[dr, "\epsilon_{A^{\bullet}}"']
+                & & \Phi \circ Q(A^{\bullet}) \\
+                & RF \circ Q (A^{\bullet}) \ar[ur, "\alpha_{Q(A^{\bullet})}"'] & \,.
+            \end{tikzcd}
+        \end{equation*}
+
+    Similarly, if $G:\cat{K}^{-}(\Aa) \to \cat{K}^{-}(\Bb)$ is a triangulated functor,
+    a \textbf{left derived functor} for $G$ is a triangulated functor
+    \begin{equation*}
+        LG : \cat{D}^{-}(\Aa) \longrightarrow \cat{D}^{-}(\Bb)\,,
+    \end{equation*}
+    together with a morphism of functors
+        $\epsilon : LG \circ Q \to Q \circ F$ such that,
+        for any pair $(\Phi,\eta)$ of a triangulated functor
+        $\Phi:\cat{D}^{-}(\Aa) \to \cat{D}^{-}{(\Bb)}$ and natural
+        transformation $\eta : \Phi \circ Q \to Q \circ G$,
+        there exists a unique morphism of functors
+        $\beta : \Phi \to LG$ such that
+        $\eta = \epsilon \circ \beta_{Q(-)}$;
+        more explicitly, for every $A^{\bullet} \in \cat{K}^{-}(\Aa)$,
+        in $\cat{D}^{-}(\Bb)$ we have the following commutative diagram:
+        \begin{equation*}
+            \begin{tikzcd}
+                \Phi \circ Q(A^{\bullet}) \ar[rr, "\eta_{A^{\bullet}}"]
+                \ar[dr, "\beta_{Q(A^{\bullet})}"']
+                & & Q \circ G(A^{\bullet}) \\
+                & LG \circ Q (A^{\bullet}) \ar[ur, "\epsilon_{A^{\bullet}}"'] & \,.
+            \end{tikzcd}
+        \end{equation*}
+\end{df}
+
+Of course, when $LG$ or $RF$ exists, 
+it is unique up to unique isomorphism,
+for it is defined by a universal property.
+A sufficient condition for derived functors
+to exist is the existence of enough injectives
+and projectives.
+
+\begin{prop}\label{derived-functor}
+    If $F:\cat{K}^{+}(\Aa) \to \cat{K}^{}(\Bb)$ is
+    a triangulated functor and $\Aa$ has enough
+    injective objects, then the right derived functor
+    $RF$ exists.
+
+    Similarly, if $\Aa$ has enough projectives
+    and $G:\cat{K}^{-}(\Aa) \to \cat{K}^{}(\Bb)$
+    is triangulated, then $LG$ exists.
+    \begin{proof}
+        We do the case of the right derived functor:
+        if $\Ii_{\Aa}$ is the full subcategory of injective objects of $\Aa$, 
+        then consider $\psi:\cat{D}^{+}(\Aa) \to \cat{K}^{+}(\Ii_{\Aa})$
+        a quasi-inverse of the equivalence stated in 
+        \hyperref[inj-equivalence]{Theorem~\ref*{inj-equivalence}}
+        and define $RF$ to be the composition
+        $RF := Q \circ F\vert_{\cat{K}^{+}(\Ii_{\Aa})} \circ \psi$,
+        i.e.
+        \begin{equation*}
+            \begin{tikzcd}
+                \cat{K}^{+}(\Ii_{\Aa}) \ar[r, hook] \ar[d, "Q"]
+                & \cat{K}^{+}(\Aa) \ar[r, "F"]
+                & \cat{K}^{}(\Bb) \ar[d, "Q"] \\
+                \cat{D}^{+}(\Aa) \ar[u, "\psi", bend left] 
+                \ar[rr, dashed, "RF"] & & \cat{D}^{}(\Bb)\,.
+            \end{tikzcd}
+        \end{equation*}
+
+        To define $\epsilon: Q \circ F \to RF \circ Q$
+        on objects, let $A^{\bullet}$ be a complex bounded below
+        and consider a qis $A^{\bullet} \to I^{\bullet}$
+        in $\cat{K}^{+}(\Aa)$, 
+        where $I^{\bullet} \in \cat{K}^{+}(\Ii_{\Aa})$,
+        which exists because of the equivalence 
+        $\cat{D}^{+}(\Aa) \simeq \cat{K}^{+}(\Ii_{\Aa})$.
+        By applying $Q$ to the induced morphism 
+        $F(A^{\bullet}) \to F(I^{\bullet})$, one gets a morphism
+        \begin{equation*}
+            \epsilon_{A^{\bullet}} :
+            Q \circ F(A^{\bullet}) 
+            \longrightarrow Q \circ F(I^{\bullet}) 
+            \simeq Q \circ F \circ \psi \big( Q(I^{\bullet}) \big)
+            \simeq RF \circ Q (A^{\bullet})\,,
+        \end{equation*}
+        where we used that $Q(I^{\bullet}) \simeq Q(A^{\bullet})$.
+        One can check that $\epsilon$ is natural because,
+        given any map $f^{\bullet} : A^{\bullet} \to B^{\bullet}$
+        and quasi-isomorphisms $A^{\bullet} \to I^{\bullet}$
+        and $B^{\bullet} \to J^{\bullet}$, there is a unique
+        (up to homotopy) induced map $I^{\bullet} \to J^{\bullet}$
+        in $\cat{K}^{+}(\Ii_{\Aa})$, 
+        making the following diagram in $\cat{K}^{+}(\Aa)$ commute:
+        \begin{equation*}
+            \begin{tikzcd}
+                A^{\bullet} \ar[r, "\textrm{qis}"] \ar[d, "f^{\bullet}"']
+                & I^{\bullet} \ar[d, dashed, "\exists !"] \\
+                B^{\bullet} \ar[r, "\textrm{qis}"] & J^{\bullet}\,.
+            \end{tikzcd}
+        \end{equation*}
+
+        Consider now any $(\Phi,\eta)$ as in the definition of derived functor,
+        and we show that $\eta$ factors through $\epsilon$:
+        as above, let $A^{\bullet} \simeq I^{\bullet}$, where $I^{\bullet}$.
+    \end{proof}
+\end{prop}
+
+The above result actually holds in a more general setting:
+given a functor $F$ between homotopy categories,
+the right and the left derived functors exist whenever
+we find a class of objects adapted to the functor.
+
+\begin{df}
+    Given a triangulated functor $F:\cat{K}^{*}(\Aa) \to \cat{K}^{}(\Bb)$,
+    a triangulated subcategory $\Kk_{F} \subset \cat{K}^{*}(\Aa)$
+    is \textbf{$F$-adapted} if it satisfies the following two conditions:
+    \begin{rmnumerate}
+        \item if $A^{\bullet} \in \Kk_{F}$ is acyclic,
+        then $F(A^{\bullet})$ is acyclic;
+
+        \item any $A^{\bullet} \in \cat{K}^{*}(\Aa)$ is quasi-isomophic
+        to a complex in $\Kk_{F}$.
+    \end{rmnumerate}
+\end{df}
+
+We can define the notion of adapted class already
+on the level of the abelian category $\Aa$.
+
+\begin{df}
+    Let $F:\Aa \to \Bb$ be a left (resp. right) exact functor between abelian categories.
+    A class of objects $\Ii_{F} \subset \Aa$ is \textbf{$F$-adapted}
+    if the following conditions hold true:
+    \begin{rmnumerate}
+        \item the class $\Ii_{F}$ is closed under finite sums, 
+        i.e. given $A, B \in \Ii_{F}$, then $A \oplus B \in \Ii_{F}$;
+        \item if $A^{\bullet} \in \cat{K}^{+}(\Ii_{F})$ 
+        (resp. $\cat{K}^{-}(\Ii_{F})$) is acyclic,
+        then $F(A^{\bullet})$ is acyclic too;
+        \item any object of $\Aa$ can be embedded into an
+        object of $\Ii_{F}$.
+    \end{rmnumerate}
+\end{df}
+
+One can prove that, whenever $\Ii_{F}$ is an adapted class for a
+left exact functor $F$, then the localization 
+of $\cat{K}^{+}(\Ii_{F})$ by the class of quasi-isomorphisms
+is equivalent to the derived category $\cat{D}^{+}(\Aa)$;
+for a complete description of this fact, 
+check \parencite[Proposition~III.6.4]{gelfand}:
+the idea is that $F$ sends qis of complexes in $\Ii_{F}$
+to qis by condition (ii), while condition (iii) ensures
+that we can identify any object $A \in \Aa$ with an
+object of $\cat{K}^{+}(\Ii_{F})$, as it happens
+with injetive resolutions.
+In fact, this is not by chance: whenever $\Aa$ has enough
+injectives, the class $\Ii_{\Aa}$ spanned by injective objects
+is $F$-adapted for \emph{any} left exact functors, indeed
+we know that $I \oplus J$ is injective whenever $I, J \in \Ii$;
+left exactness guarantees (ii) and (iii) is the definition of
+injective resolution.
+
+Whenever $\Ii_{F} \subset \Aa$ is an $F$-adapted class 
+with respect to a left exact functor $F:\Aa \to \Bb$,
+one can prove that the full subcategory
+$\cat{K}^{+}(\Ii_{F})$ is an adapted
+with respect to the induced homotopy functor
+$\Tilde{F}:\cat{K}^{+}(\Aa) \to \cat{K}(\Bb)$,
+thus there exists the right derived functor,
+that we will write as
+\begin{equation*}
+    RF : \cat{D}^{+}(\Aa) \longrightarrow \cat{D}(\Bb)\,.
+\end{equation*}
+An analogous statement is true for 
+right exact functors and the class of projective objects;
+for a complete treatment, see \parencite[Theorem~III.6.8]{gelfand}.
+By assuming these general constructions,
+we can deduce the following
+
+\begin{cor}
+    Let $F:\Aa \to \Bb$ be an additive functor between abelian categories.
+    \begin{itemize}
+        \item If $\Aa$ has enough injective objects and $F$ is left exact,
+        then the right derived functor $RF: \cat{D}^{+}(\Aa) \to \cat{D}(\Bb)$ exists.
+        \item If $\Aa$ has enough projective objects and $F$ is right exact,
+        then the left derived functor $LF: \cat{D}^{-}(\Aa) \to \cat{D}(\Bb)$ exists.
+    \end{itemize}
+\end{cor}
+
+\begin{df}
+    Whenever the right derived functor $RF$ of a left exact functor $F:\Aa \to \Bb$ exists,
+    for every $i \in \Z$ we define
+    \begin{equation*}
+        R^{i}F : \cat{D}^{+}(\Aa) \longrightarrow \Bb\,,
+        \qquad A^{\bullet} \longmapsto H^{i}\big(RF(A^{\bullet})\big)\,.
+    \end{equation*}
+    By precomposing with the canonical embedding $\Aa \subset \cat{D}^{+}(\Aa)$,
+    we can define, for every $i \in \Z$, the \textbf{$i$-th higher derived functor}
+    $R^{i}F : \Aa \longrightarrow \Bb$.
+\end{df}
+
+The proof of \hyperref[derived-functor]{Proposition~\ref*{derived-functor}}
+shows a way to compute the higher derived functors of $F$: indeed,
+whenever $\Aa$ has enough injectives, for any $A \in \Aa$
+we can pick an injective resolution $\cat{0} \to A \to I^{\bullet}$ and,
+by the the natural isomorphism $\epsilon : Q \circ F \simeq RF \circ Q$,
+we have 
+\begin{equation*}
+    RF^{i}(A) = H^{i}\big( RF(A[0]) \big) 
+    %\simeq H^{i}\big(Q(I^{\bullet})\big) 
+    \simeq H^{i}\big(F(I^{\bullet})\big)\,.
+\end{equation*}
+It follows that, if $i<0$, the higher derived functors are $RF^{i}=0$
+and $R^{0}F(A) \simeq F(A)$ by left exactness:
+\begin{equation*}
+    R^{0}F(A) = H^{0}\big(F(I^{\bullet})\big) 
+    = \ker\big(F(I^{0}) \to F(I^{1})\big) \simeq F(A)
+\end{equation*}
+
+\begin{cor}
+    Let $F : \Aa \to \Bb$ be a left exact functor,
+    where $\Aa$ has enough injectives. Then every short exact sequence in $\Aa$
+    \begin{equation*}
+        \begin{tikzcd}
+            \cat{0} \ar[r]
+            & A \ar[r] 
+            & B \ar[r]
+            & C \ar[r]
+            & \cat{0}
+        \end{tikzcd}
+    \end{equation*}
+    gives rise in $\Bb$ to the long exact sequence
+    \begin{equation*}
+        \begin{tikzcd}[column sep=small]
+            \cat{0} \ar[r]
+            & F(A) \ar[r] 
+            & F(B) \ar[r]
+            & F(C) \ar[r]
+            & R^{1}F(A) \ar[r]
+            & R^{1}F(B) \ar[r]
+            & \dots \\
+            \dots \ar[r]
+            & R^{i}F(A) \ar[r] 
+            & R^{i}F(B) \ar[r]
+            & R^{i}F(C) \ar[r]
+            & R^{i+1}F(A) \ar[r]
+            & R^{i+1}F(B) \ar[r]
+            & \dots
+        \end{tikzcd}
+    \end{equation*}
+    \begin{proof}
+        According to \hyperref[SES-TRI]{Exercise~\ref*{SES-TRI}},
+        any short exact sequence in $\Aa$ gives a distinguished triangle
+        $A \to B \to C \to A[1]$ in $\cat{D}^{+}(\Aa)$.
+        Since $RF$ is triangulated, the triangle 
+        $RF(A) \to RF(B) \to RF(C) \to RF(A)[1]$ 
+        is distinguished in $\cat{D}^{+}(\Bb)$,
+        thus it induces a LECS by \hyperref[derived-LECS]{Exercise~\ref*{derived-LECS}},
+        which is the desired long exact sequence in $\Bb$.
+    \end{proof}
+\end{cor}
+
+\begin{exercise}
+    Let $F$ be a left exact functor and $\Ii_{F}$ an $F$-adapted class in $\Aa$.
+    We say that $A \in \Aa$ is \textbf{$F$-acyclic} if $R^{i}F(A) \simeq \cat{0}$
+    for all $i \ne 0$. Show that we obtain an $F$-adapted class by
+    enlarging $\Ii_{F}$ by all $F$-acyclic objects.
+    \begin{proof}
+        It is enough to check the three conditions in the definition of 
+        $F$-adapted class:
+        \begin{rmnumerate}
+            \item by additivity of the functors $R^{i}F$, it holds
+            \begin{equation*}
+                R^{i}F(A \oplus B) \simeq R^{i}F(A) \oplus R^{i}F(B)\,,
+            \end{equation*}
+            thus the sum of finitely many $F$-acyclic objects is still $F$-acyclic.
+            Nevertheless, the sum $I \oplus A$ of some $I \in \Ii_{F}$ 
+            and $A$ an $F$-acyclic object needs not be neither in $\Ii_{F}$,
+            nor $F$-acyclic. Thus, when we say ``enlarge'',
+            we mean we need to consider also direct sums of these objects;
+
+            \item consider 
+
+            \item any objects of $\Aa$ can be embedded into some object of $\Ii_{F}$,
+            so it still remains true if we enlarge the class.
+        \end{rmnumerate}
+    \end{proof}
+\end{exercise}
+
+\begin{ex}[\textbf{Kernel}]
+    Let $\Aa$ be an abelian category.
+    Let $\Aa^{\{\ast \to \ast\}}$ be the category whose
+    objects are maps $f:A \to A'$ in $\Aa$;
+    a morphism $\Phi$ from $f:A \to A'$ to $g:B \to B'$
+    is a pair $(\phi,\phi')$ of arrows $\phi:A \to B$
+    and $\phi':A' \to B'$ such that the following square commutes:
+    \begin{equation*}
+        \begin{tikzcd}
+            A \ar[r, "\phi"] \ar[d,"f"'] & B \ar[d, "g"]\\
+            A' \ar[r, "\phi'"] & B'\,.
+        \end{tikzcd}
+    \end{equation*}
+    Given any two morphisms $\Phi = (\phi,\phi') : f \to g$
+    and $\Psi = (\psi,\psi'):g \to h$, set $\Psi \circ \Phi$
+    to be the componentwise composition, i.e.
+    $$\Psi \circ \Phi := (\psi \circ \phi,\psi' \circ \phi')\,.$$
+    One can check this composition is associative,
+    making $\Aa^{\{\ast \to \ast\}}$ into a category.
+    Moreover, $\Aa^{\{\ast \to \ast\}}$ is abelian:
+    \begin{itemize}
+        \item[(\textbf{A1})] if we write $\cat{0}$
+        for the zero object of $\Aa$, then the zero morphism
+        $0: \cat{0} \to \cat{0}$ is the zero object of 
+        $\Aa^{\{\ast \to \ast\}}$;
+
+        \item[(\textbf{A2})] the existence of finite products
+        and coproducts in $\Aa^{\{\ast \to \ast\}}$ 
+        follows by their existence in $\Aa$: 
+        indeed, given $f:A \to A'$ and $g:B \to B'$,
+        their product is given by $f \oplus g : A \oplus B \to A' \oplus B'$
+        because, for any object $t:C \to C'$ and 
+        any pair of maps $t \to f, t \to g$, we have the factorization
+        \begin{equation*}
+            \begin{tikzcd}
+                   & C \arrow[ld] \arrow[rrd] \arrow[dd, "t"', near end] \arrow[rd, "\exists !"', dashed] &                                                                  &                   \\
+A \arrow[dd, "f"'] &                                                                            & A \oplus B \arrow[ll, crossing over] \arrow[r]  & B \arrow[dd, "g"] \\
+                   & C' \arrow[ld] \arrow[rrd] \arrow[rd, "\exists !"', dashed]                 &                                                                  &                   \\
+A'                 &                                                                            & A' \oplus B' \arrow[ll] \arrow[r] \arrow[from=uu, "\exists !"', dashed, crossing over]                               & B'         \,,          
+\end{tikzcd}
+        \end{equation*}
+        which can be rewritten as the following commutative diagram
+        in $\Aa^{\{\ast \to \ast\}}$
+        \begin{equation*}
+            \begin{tikzcd}
+                & t \ar[d, dashed, "\exists !"'] \ar[dr] \ar[dl] & \\
+                f & f \oplus g \ar[l] \ar[r] & g\,.
+            \end{tikzcd}
+        \end{equation*}
+        The coproduct of $f$ and $g$ is given again by $f \otimes g$
+        because $A \times B \simeq A \amalg B$ in $\Aa$, which is indeed the direct sum;
+
+        \item[(\textbf{A3})] we already know that $\Aa$ has kernels, 
+        and hence for any $\Phi:f \to g$ in 
+        $\Aa^{\{\ast \to \ast\}}$ we have
+        \begin{equation*}
+            \begin{tikzcd}
+                \ker \phi \ar[r, "i", hook] \ar[d, "\exists !"', "k", dashed]
+                & A \ar[r, "\phi"] \ar[d, "f"] 
+                & B \ar[d, "g"] \\
+                \ker \phi' \ar[r, hook]
+                & A' \ar[r, "\phi'"]
+                & B'\,,
+            \end{tikzcd}
+        \end{equation*}
+        where the vertical arrow $k$ is the unique map
+        described by the universal property of $\ker \phi'$,
+        which exists by $\phi' \circ f \circ i 
+        = g \circ \phi \circ i = 0$.
+        We claim that $k = \ker \Phi$: given any $t:C \to C'$
+        and $\Psi:t \to f$ such that $\Phi \circ \Psi = 0$,
+        then in $\Aa$ we have the commutative diagram
+        \begin{equation*}
+            \begin{tikzcd}
+C \arrow[rrd, shorten=1mm] \arrow[rrrd, "0", shorten=3mm] \arrow[rd, "\exists !"', dashed] \arrow[dd, "t"'] &                                            &                                       &                   \\
+                                                                                  & \ker \phi \arrow[r, hook]  & A \arrow[r, "\phi"']  & B \arrow[dd, "g"] \\
+C' \arrow[rrd, shorten=1mm] \arrow[rrrd, "0", shorten=3mm] \arrow[rd, "\exists !"', dashed]                 &                                            &                                       &                   \\
+                                                                                  & \ker \phi' \arrow[from=uu, "k"', crossing over] \arrow[r, hook]                 & A' \arrow[from=uu, "f"', crossing over]\arrow[r, "\phi'"']                & B'     \,,          
+\end{tikzcd}
+        \end{equation*}
+        which can be written in $\Aa^{\{\ast \to \ast\}}$ as the commutative diagram
+        \begin{equation*}
+            \begin{tikzcd}
+                t \ar[rd, "\Psi"'] \ar[rrd, "0"] \ar[d, dashed] & & \\
+                k \ar[r] & f \ar[r, "\Phi"'] & g\,,
+            \end{tikzcd}
+        \end{equation*}
+        which proves $k = \ker \Phi$. 
+        Similarly, one shows that $\Coker \Phi$ is given by the induced map
+        on cokernels;
+        
+        \item[(\textbf{A4})] consider $\Phi = (\phi,\phi') : f \to g$ 
+        in $\Aa^{\{\ast \to \ast\}}$. Since axiom \hyperref[A4]{(\textbf{A4})} 
+        holds in $\Aa$, then $\operatorname{coim} \phi \simeq \operatorname{im} \phi$
+        and $\operatorname{coim} \phi' \simeq \operatorname{im} \phi'$, which means
+        that $\operatorname{coim} \Phi \simeq \operatorname{im} \Phi$ beacuse
+        isomorphisms in $\Aa^{\{\ast \to \ast\}}$ are given by pairs of isomorphisms.
+    \end{itemize}
+
+    We now define the functor
+    \begin{equation*}
+        \ker: \Aa^{\{\ast \to \ast\}} \longrightarrow \Aa\,,
+        \qquad \big( f \to g \big) 
+        \longmapsto \big( \ker f \to \ker g \big)\,.
+    \end{equation*}
+    This is an additive functor between abelian categories, 
+    and we claim it is left exact: given a short exact sequence 
+    $0 \to f \to g \to h \to 0$ in $\Aa^{\{\ast \to \ast\}}$,
+    in $\Aa$ we get a commutative diagram of the form
+    \begin{equation*}
+        \begin{tikzcd}
+            %\cat{0} \ar[r]
+            & \ker f \ar[d, hook] \ar[r, dashed, "i"]
+            & \ker g \ar[d, hook] \ar[r, dashed, "j"]
+            & \ker h \ar[d, hook] 
+            & \\
+            \cat{0} \ar[r]
+            & A \ar[d, "f"] \ar[r]
+            & B \ar[d, "g"] \ar[r]
+            & C \ar[d, "h"] \ar[r]
+            & \cat{0} \\
+            \cat{0} \ar[r]
+            & A' \ar[r]
+            & B' \ar[r]
+            & C' \ar[r]
+            & \cat{0} \,.
+        \end{tikzcd}
+    \end{equation*}
+    Notice that $i:\ker f \to \ker g$ is a monomorphism, 
+    for given $t:W \to \ker f$ such that $i \circ t = 0$,
+    then the composition $W \to A \to B$ is zero again,
+    so that $t$ factors through $\ker\big(A \to B) \simeq \cat{0}$.
+    Thus $\ker i \simeq \cat{0}$ and this shows $\ker$ is exact on the left.
+    To show exactness in $\ker g$, noticce that 
+    the exactness of the middle row implies $j \circ i = 0$,
+    so that we have an induced map $\operatorname{im} i \to \ker j$.
+    Conversely, we can find a map $\ker j \to \operatorname{im} i$
+    which will be the inverse of the above 
+    $\ker j \to \operatorname{im} i$
+    because of the uniqueness guaranteed by the universal property.
+    To get the desired map, one sees that the composition
+    \begin{equation*}
+        \ker j \to \ker g \to B \xhookrightarrow{\psi} C
+    \end{equation*}
+    is the zero map, and hence we get a factorization through
+    $\ker j \to \ker \phi$; by exactness, 
+    $\operatorname{im} \phi \simeq \ker \psi$, and by composing
+    $\ker j \to \operatorname{im} \phi \to \operatorname{im}\phi'$
+    we get the zero morphism (because it commutes with $\ker j \to \ker g \to B \to B'$), and hence we can lift $\ker j \to \operatorname{im} i$.
+    \begin{equation*}
+\begin{tikzcd}
+                                                         &   \operatorname{im} i                                                               & \ker j \arrow[rd, hook] \arrow[rrrdd, "0", bend left] \arrow[ddd, dashed, crossing over] \ar[l, "\exists !"', dashed] &                                      &  &                   \\
+\ker f \arrow[d, hook] \arrow[rrr, "i"] \ar[ru, dashed]                 &                                                                 &                                                                           & \ker g \arrow[d, hook]               &  &                   \\
+A \arrow[rrr, "\phi"] \arrow[rd, dashed] \arrow[dd, "f"'] &                                                                 &                                                                           & B \arrow[rr, "\psi"] \arrow[dd, "g"] &  & C \arrow[dd, "h"] \\
+                                                         & \operatorname{im}\phi \ar[from=uuu, crossing over] \arrow[r, no head, equals] & \ker \psi \arrow[ru, hook] \arrow[from=uuu, dashed, crossing over]                                              &                                      &  &                   \\
+A' \arrow[rrr, "\phi'"]  \arrow[rd, dashed]               &                                                                 &                                                                           & B' \arrow[rr]                        &  & C'                \\
+                                                         & \operatorname{im}\phi' \arrow[rru, hook]   \arrow[from=uu, crossing over]                     &                                                                           &                                      &  &        \,.          
+\end{tikzcd}
+    \end{equation*}
+
+    Now that we know $\ker$ is a left exact functor,
+    assume $\Aa$ has enough injective objects; it follows that
+    $\Aa^{\{\ast \to \ast\}}$ has enough injectives too:
+    indeed, a map $I \to J$ between injective objects in $\Aa$
+    is injective as an object of $\Aa^{\{\ast \to \ast\}}$,
+    and by the dual version of \hyperref[res-htp]{Proposition~\ref*{res-htp}}
+    we can always find an injective resolution
+        \begin{equation}\label{ladder-ker}
+            \begin{tikzcd}
+                \cat{0} \ar[r]
+                & A \ar[r] \ar[d, "f"]
+                & I^{0} \ar[r] \ar[d, "j^{0}"] 
+                & I^{1} \ar[r] \ar[d, "j^{1}"]
+                & I^{2} \ar[r] \ar[d, "j^{2}"]
+                & \dots \\
+                \cat{0} \ar[r]
+                & A' \ar[r] 
+                & J^{0} \ar[r]  
+                & J^{1} \ar[r] 
+                & J^{2} \ar[r] 
+                & \dots
+            \end{tikzcd}
+        \end{equation}
+    for any object $f \in \Aa^{\{\ast \to \ast\}}$.
+    This means that we can compute $\ker$'s higher right derived functors:
+    given any $f : A \to A'$, 
+    we already know that $R^{0}\ker f \simeq \ker f$,
+    so now consider an injective resolution $f \to j^{\bullet}$
+    as in \eqref{ladder-ker}.\todo{Finish this exercise.}
+\end{ex}

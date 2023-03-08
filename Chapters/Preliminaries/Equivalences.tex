@@ -1,0 +1,152 @@
+
+\section{Equivalences}
+
+\begin{df}
+    Given two categories $\Aa$ and $\Bb$ and
+    a functor $F : \Aa \to \Bb$.
+    For any two objects $A, A' \in \Aa$ 
+    consider the map
+    \begin{equation*}
+        F_{A,A'} : \Hom_{\Aa}(A,A') \longrightarrow \Hom_{\Bb}(F(A),F(A'))\,.
+    \end{equation*}
+    The functor $F$ is called:
+    \begin{itemize}
+        \item \textbf{full} if $F_{A,A'}$ is surjective
+        for any $A, A' \in \Aa$;
+
+        \item \textbf{faithful} if $F_{A,A'}$ is injective
+        for any $A, A' \in \Aa$;
+
+        \item \textbf{fully faithful} if $F$ is both full and faithful.
+    \end{itemize}
+\end{df}
+
+Recall that a \emph{morphism of functors},
+or \emph{natural transformation},
+$\phi : F \to F'$ between two functors
+$F,F' : \Aa \to \Bb$ is a collection of arrows
+$\phi_{A} \in \Hom_{\Bb}(F(A), F'(A))$, for every $A \in \Aa$,
+which is functorial in $A$, i.e. given $f : A \to B$ in $\Aa$,
+the diagram
+\begin{center}
+    \begin{tikzcd}
+        F(A) \ar[r, "\phi_{A}"] \ar[d, "F(f)"'] 
+        & F'(A) \ar[d, "F'(f)"] \\
+        F(B) \ar[r, "\phi_{B}"] & F'(B)
+    \end{tikzcd}
+\end{center}
+commutes. Thus, once two categories $\Aa$ and $\Bb$
+are fixed, one may verify that functors from $\Aa$ to $\Bb$
+and natural transformations form a category 
+$\cat{Fun}(\Aa, \Bb)$. In here, two functors $F,F'$
+are \textbf{isomorphic} if and only if
+there exists a natural transformation $\phi:F \to F'$
+such that $\phi_{A}$ is an isomorphism in $\Bb$, 
+for every $A \in \Aa$.
+
+\begin{df!}\label{cat-equivalence}
+    A functor $F : \Aa \to \Bb$ is called 
+    an \textbf{equivalence} if there exists a
+    functor $F^{-1} : \Bb \to \Aa$ such that
+    $F^{-1} \circ F \simeq \cat{1}_{\Aa}$ in $\cat{Fun}(\Aa, \Aa)$
+    and
+    $F \circ F^{-1} \simeq \cat{1}_{\Bb}$ in $\cat{Fun}(\Bb, \Bb)$,
+    where $\cat{1}_{\Aa}$ and $\cat{1}_{\Bb}$
+    denote the identity functors. The functor $F^{-1}$ is called a \textbf{quasi-inverse} of $F$.
+
+    Two categories $\Aa$ and $\Bb$ are called \textbf{equivalent} if there exists an
+    equivalence $F:\Aa \to \Bb$.
+\end{df!}
+
+In particular, notice that 
+for any $A,A' \in \Aa$,
+%for any arrow $f: A \to A'$ in $\Aa$,
+%there exists a commutative diagram
+%\begin{center}
+%    \begin{tikzcd}
+%        F^{-1} \circ F(A) \ar[rr, "F^{-1} \circ F(f)"] \ar[d, "\simeq"']
+%        & & F^{-1} \circ F(A') \ar[d, "\simeq"] \\
+%        A \ar[rr, "f"] & & A'\,,
+%    \end{tikzcd}
+%\end{center}
+the map $F_{A,A'} : \Hom_{\Aa}(A, A') \to \Hom_{\Bb}(F(A),F(A'))$
+is bijective, whose inverse is the composition
+\begin{equation*}
+    \Hom_{\Bb}(F(A),F(A')) \longrightarrow
+    \Hom_{\Aa}(F^{-1} \circ F(A), F^{-1} \circ F(A')) \simeq
+    \Hom_{\Aa}(A, A')\,.
+\end{equation*}
+Thus, an equivalence is fully faithful. It holds a partial converse:
+
+\begin{prop}
+    A fully faithful functor $F : \Aa \to \Bb$ is an equivalence
+    if and only if every $B \in \Bb$ is isomorphic
+    to an object of the form $F(A)$, for some $A \in \Aa$.
+    \begin{proof}
+        If $F$ is an equivalence, then by definition there exists
+        a quasi-inverse $F^{-1}$ and for every $B \in \Bb$ we have
+        $B \simeq F(F^{-1}(B))$.
+
+        Conversely, we build a quasi-inverse $F^{-1}$ 
+        in the following way: for every $B \in \Bb$,
+        let $\phi_{B} : B \simeq F(A_{B})$ a fixed isomorphism,
+        with $A_{B} \in \Aa$. Since $F$ is fully faithful,
+        for any two $B, B' \in \Bb$ the map $F_{A_{B}, A_{B'}}$ 
+        is bijective, hence we can define $F^{-1}$ to be
+        \begin{equation*}
+            \Big( f : B \to B' \Big)
+            \longmapsto
+            \left( \left(F_{A_{B},A_{B'}}\right)^{-1}(\phi_{B'} \circ f \circ \phi_{B}^{-1}) : A_B \to A_B' \right)\,,
+        \end{equation*}
+        and then one verifies that $F^{-1}$ works.
+    \end{proof}
+\end{prop}
+
+\begin{cor}
+    Any fully faithful functor $F:\Aa \to \Bb$
+    defines and equivalence between $\Aa$ and
+    the full subcategory $\Bb_{\Aa} \subset \Bb$
+    of all objects of $\Bb$ isomorphic to $F(A)$,
+    for some $A \in \Aa$.
+\end{cor}
+
+The following result is fundamental to understand
+when a functor $F$ can be represented by an object,
+i.e. the functor is nothing but the morphisms hitting
+some \emph{universal object}.
+Let $\cat{Fun}(\Aa^{op})$ be the category of all
+contravariant functors from $\Aa$ to $\CSet$,
+whose objects are $F : \Aa^{op} \to \CSet$.
+There exists a natural functor
+\begin{equation*}
+    h : \Aa \longrightarrow \cat{Fun}(\Aa^{op})\,,
+    \quad A \longmapsto \Hom_{\Aa}(-,A)\,,
+\end{equation*}
+called the \textbf{Yoneda embedding}.
+
+\begin{thm}[Yoneda's Lemma]\label{yoneda}
+    For any fixed $A \in \Aa$, the map 
+    \begin{equation*}
+        \Hom_{\cat{Fun}(\Aa^{op})}\left( h(A), F \right)
+        \longrightarrow F(A)\,, \quad
+        \phi \longmapsto \phi_{A}(\cat{1}_{A})
+    \end{equation*}
+    is bijective and it is functorial
+    both in $A$ and in $F$.
+    It follows that the Yoneda embedding $h$ defines 
+    an equivalence between $\Aa$ and the full subcategory 
+    of \textbf{representable functors}.
+
+    \begin{proof}
+        See \parencite{riehl}.
+    \end{proof}
+\end{thm}
+
+As a consequence, it follows that an object $A \in \Aa$ is
+determined by all the morphisms that hit it: more
+precisely, whenever there exist $A,A' \in \Aa$ such that
+for every $T \in \Aa$ there are natural isomorphisms
+\begin{equation*}
+    \Hom_{\Aa}(T,A) \simeq \Hom_{\Aa}(T,A')\,,
+\end{equation*}
+then we conclude that $A \simeq A'$ in $\Aa$.

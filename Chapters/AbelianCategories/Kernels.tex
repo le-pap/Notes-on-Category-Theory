@@ -1,0 +1,210 @@
+\section{Zero objects and kernels}
+
+\begin{df}
+    By a \textbf{zero object} in a category $\Aa$
+    we mean an object $\cat{0}$ which is both 
+    an initial and a terminal object.
+\end{df}
+
+\begin{ex}
+    In the category of abelian groups, or any category of modules over a ring, both notions coincide and correspond to the group (respectively the module) reduced to {0}.
+\end{ex}
+
+\begin{df}
+    Consider a category $\Aa$ with a zero object $\cat{0}$.
+    A morphism $f : A \to B$ is a \textbf{zero morphism}
+    when it factors through the zero object, 
+    which means that the following triangle commutes
+    \begin{equation*}
+        \begin{tikzcd}
+            A \ar[rr, "f"] \ar[dr] & & B \\
+            & \cat{0} \ar[ur] & \,.
+        \end{tikzcd}
+    \end{equation*}
+\end{df}
+
+Notice that the factorization is unique by definition
+zero object; in particular, for each pair of objects
+$A$ and $B$ in $\Aa$, there always exists a unique
+zero morphism $0_{AB} \in \Hom_{\Aa}(A,B)$.
+We will soon drop the indices, 
+whenever it is clear from the context.
+
+Notice that the notion of having ``zero morphisms'' 
+allows us to talk about \emph{complexes}, which are
+sequences of objects and morphisms whose composite 
+is zero. If we want to talk about \emph{exactness},
+we need \emph{kernels} and \emph{images}.
+
+If we consider a morphism $f : G \to H$
+in the category of abelian groups, 
+we know that the kernel of $f$ is a subgroup of $G$, 
+which is defined by
+\begin{equation*}
+    \ker f = \Set{g \in G | f(g) = 0 = 0_{GH}(g)}\,.
+\end{equation*}
+In particular, we see that the diagram
+\begin{equation*}
+    \begin{tikzcd}
+        \ker f \ar[r, "\subset"]
+        & G \ar[r, shift left=0.7ex, "f"] \ar[r, shift right=0.7ex, "0_{GH}"']
+        & H\,
+    \end{tikzcd}
+\end{equation*}
+is an equalizer.
+
+\begin{df}
+    Let $\Aa$ be a category with a zero object $\cat{0}$.
+    The \textbf{kernel} of a morphism $f : A \to B$
+    is the equalizer of $f$ and the zero morphism $0_{AB}$,
+    whenever it exists. As equalizers are unique up to isomorphisms,
+    we will denote the kernel of $f$ by $\ker f$:
+    \begin{equation*}
+    \begin{tikzcd}
+        \ker f \ar[r]
+        & A \ar[r, shift left=0.7ex, "f"] \ar[r, shift right=0.7ex, "0_{AB}"']
+        & B\,.
+    \end{tikzcd}
+\end{equation*}
+\end{df}
+
+\begin{rmk}
+    Since it is an equalizer, the map $\ker f \to A$ is a 
+    monomorphism; in the example of $\Aa = \cat{Ab}$ it
+    is indeed an inclusion of a subgroup. Hence, this agrees
+    with the intuition that the kernel is something
+    ``contained'' in the domain $A$. 
+    The converse does not hold true: there exist
+    monomorphisms that are not kernels. For instance,
+    if $\Aa = \cat{Grp}$ is the category of groups,
+    then any inclusion of a subgroup $H \subset G$ is
+    a monomorphism in $\Aa$, but if $H$ is not normal,
+    then it cannot be a kernel.
+\end{rmk}
+
+We define the dual notion of a kernel.
+
+\begin{df}
+    Let $\Aa$ be a category with a zero object $\cat{0}$.
+    The \textbf{cokernel} of a morphism $f : A \to B$
+    is the coequalizer of $f$ and the zero morphism $0_{AB}$,
+    whenever it exists. As coequalizers are unique up to isomorphisms,
+    we will denote the cokernel of $f$ by $\Coker f$:
+    \begin{equation*}
+    \begin{tikzcd}
+        A \ar[r, shift left=0.7ex, "f"] \ar[r, shift right=0.7ex, "0_{AB}"']
+        & B \ar[r] & \Coker f\,.
+    \end{tikzcd}
+\end{equation*}
+\end{df}
+
+We have almost everything we need to develop
+the homological algebra language. Indeed, in order
+to talk about ``\emph{exactness}'' of
+composable arrows, 
+we define \textbf{images} and \textbf{coimages}.
+
+\begin{df}
+    Let $\Aa$ be a category with a zero object $\cat{0}$,
+    and assume that all equalizers and coequalizers exist.
+    Given a morphism $f:A \to B$, we call \textbf{image} of $f$
+    the kernel of $B \to \Coker f$ and we denote it by $\im f$.
+    Thus, we have a factorization
+    \begin{equation*}
+        \begin{tikzcd}
+            A \ar[r, "f"] \ar[rd, dashed] & B \ar[r, "c"] & \Coker f\\
+            & \im f := \ker c \ar[u, hook] & \,.
+        \end{tikzcd}
+    \end{equation*}
+    Dually, we define the \textbf{coimage} of $f$ as the cokernel of the kernel of $f$,
+    thus we have the factorization
+    \begin{equation*}
+        \begin{tikzcd}
+            \ker f \ar[r, "k"] & A \ar[r, "f"] \ar[d,two heads] & B \\
+            & \operatorname{coim} f := \Coker k \ar[ur, dashed] & \,.
+        \end{tikzcd}
+    \end{equation*}
+\end{df}
+
+\begin{ex}
+    Given a morphism $f : A \to B$ in $\Aa = \cat{Ab}$, then $\im f$ coincides
+    with the set theoretic image of the map, that is
+    \begin{equation*}
+        \im f = \Set{f(a) | a \in A}\,;
+    \end{equation*}
+    this forms a subgroup of $B$ and we may identify the cokernel of $f$
+    with the quotient
+    \begin{equation*}
+        \Coker f = B/\im f\,.
+    \end{equation*}
+    In particular, if we consider the inclusion $\ker f \subset A$,
+    its cokernel is
+    \begin{equation*}
+        \operatorname{coim} f = A/\ker f\,.
+    \end{equation*}
+\end{ex}
+
+\begin{prop}\label{coim-im}
+    For any $f : A \to B$, there
+    exists a unique map $\operatorname{coim}f \to \im f$ that
+    makes the following square commute:
+        \begin{equation*}
+            \begin{tikzcd}
+                A \ar[r, "f"] \ar[d] & B \\
+                \operatorname{coim} f \ar[r] & \im f \ar[u] \,.
+            \end{tikzcd}
+        \end{equation*}
+    \begin{proof}
+        By definition of kernel, the composition $\ker f \to A \overset{f}{\to} B$
+        is the zero map, hence we get the factorization
+        \begin{equation*}
+        \begin{tikzcd}
+            \ker f \ar[r] & A \ar[r, "f"] \ar[d,two heads, "\pi"'] & B \\
+            & \operatorname{coim} f \ar[ur, dashed, "f'"'] & \,.
+        \end{tikzcd}
+        \end{equation*}
+        Now we notice that the diagram
+        \begin{equation*}
+        \begin{tikzcd}
+            A \ar[r,two heads, "\pi"] 
+            & \operatorname{coim} f  \ar[r, "0"] \ar[dr, "f'"'] 
+            & \Coker f \\
+            & & B \ar[u, "c"'] 
+        \end{tikzcd}
+        \end{equation*}
+        commutes, and since $\pi$ is an epimorphism, then $cf' = 0$.
+        Since the image is the kernel of $c$, there exists a unique map $\ol{f}$
+        which makes the following diagram commute
+        \begin{equation*}
+        \begin{tikzcd}
+            \ker f \ar[r] & A \ar[r, "f"] \ar[d,two heads, "\pi"'] 
+            & B \ar[r, "c"] & \Coker f \\
+            & \operatorname{coim} f \ar[ur, "f'"'] \ar[r, dashed, "\ol{f}"'] 
+            & \im f \ar[u, hook] & \,.
+        \end{tikzcd}
+        \end{equation*}
+    \end{proof}
+\end{prop}
+
+\begin{rmk}
+    In abstract categorical nonsense, this statement
+    may look at first a bit counter intuitive,
+    but it is in fact a very familiar statement in algebra:
+    if we consider the case $\Aa = \cat{Ab}$, then
+    the proposition tells that every homomorphism $f:A \to B$
+    factors as
+    \begin{equation*}
+        \begin{tikzcd}
+             A \ar[r, "f"] \ar[d,two heads, "\pi"'] 
+            & B \\
+            A/\ker f \ar[r, "\ol{f}"', "\simeq"] 
+            & \im f \ar[u, hook] \,,
+        \end{tikzcd}
+        \end{equation*}
+    where the map $\ol{f}$ is an isomorphism.
+    This is the well-known 
+    \textbf{First Isomorphism Theorem} (\textbf{for abelian groups})!
+    Be careful that, in general, the map $\ol{f}$ needs \textbf{not}
+    be an iso, and this property is what characterizes 
+    \textbf{abelian categories}.
+\end{rmk}

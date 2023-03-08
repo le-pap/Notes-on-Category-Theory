@@ -1,0 +1,340 @@
+
+For the whole chapter, fix a commutative ring $\Lambda$ 
+with unit $1 \ne 0$. We are going to study new
+additional structures on $\Lambda$-algebras, 
+namely \emph{differential} and \emph{graded} structures;
+the aim of this is to define and understand their main properties,
+and after that we will be able to
+approach the related concept of graded modules over these algebras. 
+In the geometric setting, our main interest will be the special case
+of the semisimple algebra $\Lambda = k$,
+for some field and $m \le 1$.
+
+The differential structure on these new objects
+allows us to talk about \emph{cohomology}.
+It is well known that isomorphic complexes
+yield the same information in cohomology,
+while the converse is false in general;
+thus, we are going to focus on a class of very well-behaved 
+graded algebras, \emph{intrinsically formal} algebras:
+strictly speaking, these objects are determined
+by their cohomology. 
+
+Intrinsic formality of DGA-algebras
+can be characterized in terms of vanising
+of some \emph{Hochschild cohomology groups},
+thus we safe a section to define this notion.
+
+\section{DG-algebras}
+
+	Every $\Lambda$-algebra in this chapter is associative,
+	not necessarily commutative,
+	with unit $1 \ne 0$.
+	
+	\begin{df}
+		A $\Lambda$-algebra $A$ is \textbf{graded algebra}
+		if there exist submodules $\Set{A^{k} | k \in \Z}$,
+		such that $1 \in A^{0}$ and,
+		for every $i,j \in \Z$, we have multiplications
+		\begin{equation*}
+			A^{i} \otimes_{\Lambda} A^{j} \longrightarrow A^{i+j}\,,
+			\quad x \otimes y \longmapsto xy\,,
+		\end{equation*}
+		such that $A = \bigoplus_{k \in \Z} A^{k}$.
+		An element of $A^{k}$ is said \textbf{homogeneous of degree $k$};
+		sometimes we will simply write $\deg(x)$ instead of $k$,
+		for a homogeneous element $x \in A^{k}$.
+		
+		A graded $\Lambda$-algebra is \textbf{graded-commutative} 
+		(or \textbf{anti-}, sometimes called \textbf{super-}commutative),
+		if it holds
+		\begin{equation*}
+			yx = (-1)^{kh} xy\,,
+			\quad \text{for every } x \in A^{k}, y \in A^{h}\,.
+		\end{equation*}
+	\end{df}
+	
+	The concept of differential graded algebra $A$ is not new:
+	it boils down to a cochain complex whose differential
+	must satisfy some compatibility axiom with respect to the multiplication.
+	
+	\begin{df}
+		A \textbf{differential} on a graded algebra $A$ is a
+		$\Lambda$-linear endomorphism $d:A \to A$
+		such that $d^{2} = 0$ and, for every $k \in \Z$,
+		it holds $d(A^{k}) \subset A^{k+1}$;
+		moreover, $d$ must satisfy the following \textbf{graded Liebniz rule}:
+		\begin{equation}\label{graded-liebniz}
+		 	d(xy) = (dx)y + (-1)^{k}x (dy)\,,
+		 	\quad \text{for } x \in A^{k}\,.
+		 \end{equation} 
+		A \textbf{DG-algebra} $\Aa = (A,d)$
+		is a graded $\Lambda$-algebra $A$ endowed with a differential $d$.
+	\end{df}
+	
+	\begin{rmk}
+		Notice that \eqref{graded-liebniz} implies that $d(1)=0$.
+	\end{rmk}	
+	
+	The condition $d(A^{k}) \subset A^{k+1}$ in the above definition
+	allows us to interpret a DG-algebra $\Aa = (A,d)$ as a
+	sequence
+	\begin{equation*}
+		\begin{tikzcd}
+			\dots \ar[r] & A^{k-1} \ar[r, "d"] \ar[rr, bend right=20, "0"']
+			& A^{k} \ar[r, "d"] 
+			& A^{k+1} \ar[r] & \dots
+		\end{tikzcd}
+	\end{equation*}
+	thus, any DG-algebra is a cochain complex $\Aa = A^{\bullet}$
+	of $\Lambda$-modules,
+	whose coboundary map is the same $d$ at each level;
+	this means we can compute its cohomology
+	$H^{*}(\Aa)$. The interesting fact is that 
+	this is not just a module:
+	indeed, the relation \eqref{graded-liebniz} implies that
+	the multiplication induced on $H^{*}(\Aa)$ 
+	is well defined and moreover
+	\begin{equation*}
+		H^{k}(\Aa) \otimes H^{h}(\Aa) \longrightarrow H^{k+h}(\Aa)\,,
+		\quad [x] \cdot [y] = [xy]
+	\end{equation*}
+	shows that the cohomology inherits a graded $\Lambda$-algebra 
+	structure $H^{*}(\Aa) = \oplus_{k} H^{k}(\Aa)$.
+	By endowing it with a trivial differential $d=0$,
+	we conclude that the cohomology $H^{*}(\Aa)$ of a DG-algebra $\Aa$
+	is again a DG-algebra.
+	
+	
+	We define $\cat{DG}_{\Lambda}$ to be the category whose objects
+	are DG-algebras over $\Lambda$, 
+	and morphisms $f:\Aa \to \Bb$ between them
+	given by homomorphisms of unital $\Lambda$-algebras
+	\begin{equation*}
+		f : A \longrightarrow B\,, \quad 
+		\text{s.t. } f\left(1_{A}\right) = 1_{B}\,,
+	\end{equation*}
+	which are also maps of complexes, that is 
+	$f(A^{k}) \subset B^{k}$ and $f \circ d = \delta \circ f$.
+	One can check that $\cat{DG}_{\Lambda}$ is an abelian category
+	(we might expect this because it is a category of modules).
+	
+	\begin{df}
+		Given a DG-algebra $\Aa = (A,d)$, we define its \textbf{opposite algebra}
+		$\Aa^{op} = (A^{op},d)$ as the DG-algebra whose elements and differential
+		are the same of $\Aa$, but we consider a new multiplication
+		\begin{equation*}
+			a \cdot^{op} b := (-1)^{\deg{a}\deg{b}} ba\,,
+		\end{equation*}
+		where $ba$ denotes the usual multiplication in $\Aa$.
+		Notice that $\Aa$ is graded-commutative if and only if $\Aa = \Aa^{op}$.
+	\end{df}
+	
+	\begin{ex}
+		Let $X$ be a smooth real manifold.
+		The algebra $\Omega^{\bullet}(X)$
+		of smooth differential forms endowed with 
+		the \emph{exterior derivative} is a DG-algebra
+		and $\Omega^{\bullet}$ determines a functor
+		\begin{equation*}
+			\Omega^{\bullet} : \cat{Man} \longrightarrow \cat{DG}_{\R}\,,
+		\end{equation*}
+		where $\cat{Man}$ is the category of smooth manifolds and smooth maps.
+	\end{ex}
+	
+	\begin{ex}
+		Taking cohomology defines a covariant functor 
+		$H^{*}:\cat{DG}_{\Lambda} \to \cat{DG}_{\Lambda}$.
+	\end{ex}
+	
+	\begin{ex}
+		Given a finite dimensional $k$-vector space $V$, 
+		define $T^{0} := k$ and for each $k \ge 1$ set
+		\begin{equation*}
+			T^{k}(V) := T^{\otimes k} 
+			= \underbrace{V \otimes_{k} \dots \otimes_{k} V}_{k \text{ times}}\,.
+		\end{equation*}
+		Then $T(V) := \bigoplus_{k \ge 0} T^{k}(V)$ naturally 
+		inherits an associative multiplication
+		\begin{equation*}
+			T^{k}(V) \otimes_{k} T^{h}(V) \longrightarrow T^{k+h}(V)\,;
+		\end{equation*}
+		from the canonical isomorphism $k \otimes_{k} V \simeq V$ 
+		we deduce that $1 \in T^{0}(V)$ is the unit of the multiplication,
+		hence $T(V)$ is a graded algebra over $k$,
+		called \textbf{tensor algebra} of $V$.
+		
+		Let $\{e_{1}, \dots, e_{n}\}$ be a basis of $V$,
+		and set $A^{-k}:=T^{k}(V)$.
+		We can define a differential $d:T(V) \to T(V)$
+		by setting on basis elements 
+		\begin{equation*}
+			d(e_{i}) = (-1)^{i}\,, \quad i \in \Set{1, 2, \dots, n}\,,
+		\end{equation*}
+		and then extending it componentwise to a map
+		\begin{equation*}
+			d : A^{-k} \longrightarrow A^{-k+1}\,, \quad
+			d(e_{i_{1}} \otimes \dots \otimes e_{i_{k}})
+			= \sum_{j=1}^{k} e_{i_1} \otimes \dots 
+			\otimes d(e_{i_{j}}) \otimes \dots \otimes e_{i_{k}}\,.
+		\end{equation*}
+	\end{ex}
+	
+	
+	From now on, we will consider DG-algebras with terms of 
+	non-negative degree, that is $A^{k} = \cat{0}$ for $k<0$,
+	and set $\Aa^{+} := \bigoplus_{k \ge 0} A^{k}$ for the
+	submodule of positive degree elements.
+	
+	\begin{df}
+		An \textbf{augmentation} on a DG-algebra $\Aa$
+		is a morphism $\epsilon : \Aa \to \Lambda$
+		of unital $\Lambda$-algebras such that $\epsilon \circ d = 0$ and
+		\begin{equation*}
+			\epsilon(x) = 0\,, \quad \text{for }
+			x \in \Aa^{+}\,.
+		\end{equation*}
+	\end{df}
+	
+	Thus, an augmentation is determined by its restriction to $A^{0}$.
+	If we write $\iota : \Lambda \to A$ be the map
+	$\iota(\lambda) := \lambda \times 1_{A}$, 
+	then $\epsilon \circ \iota = \cat{1}_{\Lambda}$ and hence
+	we may identify the ground ring $\Lambda$ with a subring of $A$;
+	in particular, notice that $\Lambda$ is a direct summand of $A$
+	by the \hyperref[split-lemma]{Split Lemma}.
+	Notice that the condition $\epsilon d = 0$ implies
+	that there is a well defined aumentation on $H^*(\Aa)$.
+	
+	
+	\begin{df}
+		A DG-algebra $\Aa$ endowed with an augmentation $\epsilon$
+		will be called \textbf{DGA-algebra} 
+		(which stands for \textbf{differential augmented graded algebra}).
+		Given two DGA-algebras 
+		$\Aa = (A,d,\epsilon)$ and $\Aa' = (A',d',\epsilon')$,
+		a \textbf{DGA-homomorphism} is a morphism
+		of DG-algebras compatible with augmentations,
+		that is $\epsilon' \circ f = \epsilon$.
+		\begin{equation*}
+			\begin{tikzcd}
+				A \ar[rr, "f"] \ar[dr, "\epsilon"'] & & A' \ar[dl, "\epsilon'"] \\
+				& \Lambda & \,.
+			\end{tikzcd}
+		\end{equation*}
+	\end{df}
+	
+	We will write $\cat{DGA}_{\Lambda}$ for the category of
+	DGA-algebras over $\Lambda$.
+	Notice that a DGA-homomorphism induces a morphism $f*:H*(\Aa) \to H^*(\Aa')$
+	of DGA-algebras, hence cohomology defines a covariant functor
+	$H^*:\cat{DGA}_{\Lambda} \to \cat{DGA}_{\Lambda}$.
+	
+	\begin{ex}
+		Given a topological space $X$, let $S(X)$ denote its
+		singular simplicial complex. For each pair of spaces $X,Y$,
+		one can define a chain map 
+		$\sigma : S(X) \otimes_{\Z} S(Y) \to S(X \times Y)$.
+		Now, assume $X$ is a topological group, 
+		with a continuous multiplication
+		\begin{equation*}
+			\mu: X \times X \longrightarrow X\,,
+		\end{equation*}
+		with neutral element $e \in X$;
+		then the composition
+		\begin{equation*}
+			\begin{tikzcd}
+				S(X) \otimes_{\Z} S(X) \ar[r, "\sigma"]
+				& S(X \times X) \ar[r, "\mu_{\bullet}"]
+				& S(X)
+			\end{tikzcd}
+		\end{equation*}
+		defines an associative multiplication on $S(X)$,
+		whose neutral element is the $0$-simplex $e$,
+		called \textbf{Pontrjagin product}.
+		Moreover, there exists an augmentation $\epsilon : S(X) \to \Z$
+		which sends each $0$-simplex (i.e. a point of $X$) to $1 \in \Z$,
+		and vanishes on higher dimensional simplices;
+		this makes $S(X)$ into a DGA-algebra\footnote{In this case, $S(X)$ is a
+		DGA-algebra whose differential follows the \emph{homological} convention,
+		while our definition is based on the cochain complex convention.}.
+	\end{ex}
+	
+	\begin{prop}
+		The category $\cat{DGA}_{\Lambda}$ is a %symmetric 
+		monoidal category.
+		\begin{proof}
+			Consider any two DGA-algebras $\Aa = (A^{\bullet},d,\epsilon)$
+			and $\Bb = (B^{\bullet}, \delta, \eta)$.
+			We define their tensor product $\Aa \otimes \Bb$
+			to be the cochain complex $A^{\bullet} \otimes B^{\bullet}$
+			as defined in \hyperref[tensor-complex]{Example~\ref{tensor-complex}},
+			i.e. the complex whose degree $n$ elements are
+			\begin{equation*}
+				\left( A^{\bullet} \otimes B^{\bullet} \right)^{n}
+				= \bigoplus_{k \in \Z} A^{k} \otimes_{\Lambda} B^{n-k}\,,
+			\end{equation*}
+			equipped with the differential $D$ defined by
+			\begin{equation*}
+				D(a \otimes b) = da \otimes b + (-1)^{\deg(a)}a \otimes \delta b\,.
+				% \quad \text{for } a \in A^{k}\,.
+			\end{equation*}
+			We can define the multiplication
+			\begin{equation*}
+				(a \otimes b) \cdot (a' \otimes b')
+				:= (-1)^{\deg(a)\deg(a')}(aa') \otimes (bb')\,,
+			\end{equation*}
+			in such a way that $(A^{\bullet} \otimes B^{\bullet},D)$
+			becomes a DG-algebra: indeed, it holds
+			\begin{align*}
+				D\big((a \otimes b) \cdot (a' \otimes b')\big)
+				&= (-1)^{\deg(a)\deg(a')} D\big( (aa') \otimes (bb') ) \\
+				&= (-1)^{\deg(a)\deg(a')} \big( d(aa') \otimes bb'
+				+ (-1)^{\deg(aa')} aa' \otimes \delta(bb') \big) \\
+				&= (-1)^{\deg(a)\deg(a')} 
+				\Big( (da)a' \otimes bb' + (-1)^{\deg(a)}a(da') \otimes bb' \\
+				&+ (-1)^{\deg(a) + \deg(a')} 
+				\big(aa' \otimes (\delta b)b' 
+				+ (-1)^{\deg(b)} aa' \otimes b(\delta b')\big)\Big) \\
+				&= 
+				\big( (-1)^{\deg(a')} ( da \otimes b %\cdot (a' \otimes b')
+				+ (-1)^{\deg(a)} a \otimes \delta b) \cdot (a' \otimes b') \big) \\
+				&+ \big((a \otimes b) \cdot (da' \otimes b' + a' \otimes \delta b' )\big) \\
+				&= (-1)^{\deg(a')} \big( D(a \otimes b) \cdot (a' \otimes b')
+				+ \big)\\
+				&= D(a \otimes b) \cdot (a' \otimes b')
+				+(-1)^{\deg(a \otimes b)} (a \otimes b) \cdot D(a' \otimes b')
+			\end{align*}\todo{Please fix this.}
+			so the differential satisfies the Liebniz rule \eqref{graded-liebniz}.
+			Finally, the map $\alpha$ defined on every simple tensor 
+			$a \otimes b$ by
+			\begin{equation*}
+				\alpha( a \otimes b ) := \epsilon(a)\eta(b) = 0\,,
+			\end{equation*}
+			is an augmentation on $\Aa \otimes \Bb$ because
+			it clearly vanishes on elements of $(\Aa \otimes \Bb)^{0}
+			= A^{0} \otimes B^{0}$, and
+			by composing it with the differential one gets
+			\begin{equation*}
+				\alpha \circ D
+				= (\epsilon \circ d) \eta
+				\pm \epsilon (\eta \circ \delta)
+				= 0\,.
+			\end{equation*}
+			This shows that $\Aa \otimes \Bb 
+			= (A^{\bullet} \otimes B^{\bullet}, D, \alpha)$
+			is a DGA-algebra.
+			One can check that $\cat{DG}_{\Lambda}$ equipped with $\otimes$
+			becomes a monoidal category by
+			an analgous argument as for $C^{\bullet}(\cat{Mod}_{\Lambda})$.
+		\end{proof}
+	\end{prop}
+	
+
+	
+	
+	
+	
+	
+	
+	

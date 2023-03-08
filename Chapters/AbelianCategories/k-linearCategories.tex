@@ -1,0 +1,184 @@
+
+\section{\texorpdfstring{$k$}{k}-linear categories}
+% FOR MATH SYMBOLS IN TITLES 
+% https://latex.org/forum/viewtopic.php?t=21256
+
+
+As the categories we will eventally be interested in
+have a geometric origin, i.e. are defined in terms
+of certain variety over some base field $k$,
+we usually deal with the following special kind of categories.
+
+\begin{df}
+    Let $k$ be an arbitrary field. 
+    A \textbf{$k$-linear category} is an additive category
+    $\Aa$ such that the groups $\Hom_{\Aa}(A,A')$
+    are $k$-linear vector spaces, for any $A,A' \in \Aa$.
+    Moreover, we require the compositions to be $k$-bilinear.
+\end{df}
+
+In short, a $k$-linear category $\Aa$ is a $\cat{Vect}_{k}$-enriched category,
+where we require $\Aa(A,A') = \Hom_{\Aa}(A,A')$.
+
+\begin{ex}
+    Since $\Vv = \Vect{k}$ endowed with $\otimes_{k}$
+    is a symmetric monoidal closed category,
+    then it is enriched over itself,
+    i.e. it is $k$-linear.
+\end{ex}
+
+\begin{df}
+    Given $\Aa,\Bb$ two $k$-linear categories,
+    an additive functor $F : \Aa \to \Bb$ 
+    is called \textbf{$k$-linear}
+    if the map $F_{A,A'} : \Hom_{\Aa}(A,A') \to \Hom_{\Bb}(F(A),F(A'))$ 
+    is a $k$-linear map for any two
+    $A,A' \in \Aa$. As in the additive case, 
+    $k$-linear functors from $\Aa$ to $\Bb$ 
+    and natural transformations
+    form a category $\cat{Fun}_{k}(\Aa, \Bb)$.
+\end{df}
+
+
+As special case of the 
+\hyperref[enriched-yoneda]{\textbf{Theorem~\ref*{enriched-yoneda}}},
+we will adapt the \hyperref[yoneda]{\textbf{Yoneda's Lemma}~\ref*{yoneda}} 
+to the $k$-linear setting:
+first, we recall that a \textbf{$k$-linear} equivalence
+$F : \Aa \to \Bb$ between two $k$-linear categories
+is an equivalence which is a $k$-linear functor,
+whose quasi-inverse $F^{-1}$ is again $k$-linear.
+
+%\begin{thm}[Additive Yoneda]
+%    For an additive category $\Aa$, the Yoneda embedding
+%    \begin{equation*}
+%        \Aa \longrightarrow \cat{Fun}_{+}(\Aa^{op},\Ab)\,, \quad
+%        A \longmapsto \Hom_{\Aa}(-,A)
+%    \end{equation*}
+%    defines an equivalence between $\Aa$ and
+%    the category of contravariant \emph{additive} functors
+%    between $\Aa$ and the category of abelian groups.
+%\end{thm}
+
+%Similarly, it holds:
+
+\begin{thm}[\textbf{Linear Yoneda's Lemma}]\label{linear-yoneda}
+    Let $k$ be a field. For a $k$-linear category $\Aa$, 
+    the Yoneda embedding
+    \begin{equation*}
+        \Aa \longrightarrow \cat{Fun}_{k}(\Aa^{*},\cat{Vect}_{k})\,, \quad
+        A \longmapsto \Hom_{\Aa}(-,A)
+    \end{equation*}
+    defines an equivalence between $\Aa$ and
+    the category of contravariant \emph{$k$-linear} functors
+    between $\Aa$ and the category of vector spaces over $k$.
+\end{thm}
+
+\begin{lemma}\label{tensor-w-zero}
+    Any $k$-linear category $\Dd$ is tensored over
+    finite-dimensional vector spaces, i.e.
+    given $n \in \NN$ and $A \in \Dd$,
+    then
+    \begin{equation*}
+        k^{n} \otimes_{\Dd} A = A^{\oplus n}\,.
+    \end{equation*}
+    In particular, for every $A \in \Dd$, one has
+    $0 \otimes_{\Dd} A \simeq \cat{0}$.
+    \begin{proof}
+        Given any object $B \in \Dd$, one notices that
+        \begin{align*}
+            \Hom_{\Dd}(k^{n} \otimes_{\Dd} A, B)
+            \simeq \Hom_{k}(k^{n}, \Hom_{\Dd}(A,B)) 
+            \simeq \Hom_{\Dd}(A,B)^{\oplus n}
+            \simeq \Hom_{\Dd}\left( A^{\oplus n}, B \right)\,,
+        \end{align*}
+        thus, $k^{n} \otimes_{\Dd} A = A^{\oplus n}$ 
+        by the covariant version of the \hyperref[linear-yoneda]{Linear Yoneda's Lemma}.
+    \end{proof}
+\end{lemma}
+
+\begin{df}
+    Let $\Aa$ be a $k$-linear category.
+    A \textbf{Serre functor} is a $k$-linear equivalence
+    $S : \Aa \to \Aa$ such that, for any two objects
+    $A,A' \in \Aa$, there exists an isomorphism
+    of $k$-vector spaces
+    \begin{equation*}
+        \sigma_{A,A'} : \Hom_{\Aa}(A,A') 
+        \xrightarrow[]{\sim} \Hom_{\Aa}(A',S(A))^*\,,
+    \end{equation*}
+    which is functorial both in $A$ and $A'$.
+\end{df}
+
+A Serre functor induces a pairing
+\begin{equation*}
+    \Hom_{\Aa}(A',S(A)) \times \Hom_{\Aa}(A,A') \longrightarrow k\,,
+    \quad (f,g) \longmapsto \langle f | g \rangle 
+    := \sigma_{A,A'}(g)(f)\,.
+\end{equation*}
+
+In order to avoid any trouble with the dual, 
+one usually assumes that all Hom’s in A are \emph{finite-dimensional}. 
+Under this hypothesis it is easy to see that a Serre functor, 
+if it exists, is unique up to isomorphism. 
+More generally one has the following
+
+\begin{lemma}\label{serre-eq-comm}
+    Let $\Aa$ and $\Bb$ be $k$-linear categories with
+    finite dimensional $\Hom$'s. Assume $\Aa$, resp. $\Bb$,
+    is endowed with a Serre functor $S_{\Aa}$, resp. $S_{\Bb}$.
+    Then any $k$-linear equivalence $F:\Aa \to \Bb$ commutes
+    with Serre duality, i.e. there exists an isomorphism
+    \begin{equation*}
+        F \circ S_{\Aa} \simeq S_{\Bb} \circ F\,.
+    \end{equation*}
+    \begin{proof}
+        We show the two functors are isomorphic
+        by applying the \hyperref[yoneda]{Yoneda Lemma~\ref*{yoneda}}:
+        given any two $A, A' \in \Aa$, 
+        we compute the Serre duality in $\Aa$
+        and we use that $F$
+        is fully faithful to get
+        \begin{align*}
+            \Hom_{\Aa}(A,A') \simeq \Hom_{\Aa}(A',S_{\Aa}(A))^* 
+            \simeq \Hom_{\Bb}\big(F(A'),F(S_{\Aa}(A))\big)^*\,.
+        \end{align*}
+        On the other hand, if we first apply $F$ and then Serre duality
+        we obtain
+        \begin{align*}
+            \Hom_{\Aa}(A,A') 
+            \simeq \Hom_{\Bb}(F(A),F(A'))
+            \simeq \Hom_{\Bb}\big(F(A'),S_{\Bb}(F(A))\big)^*\,.
+        \end{align*}
+        Since $F$ is essentially surjective, 
+        for every $B \in \Bb$ we have isomorphisms
+        \begin{align*}
+            \Hom_{\Bb}\big(F(A'),S_{\Bb}(F(A))\big)^*
+            \simeq \Hom_{\Bb}\big(F(A'),S_{\Bb}(F(A))\big)^*\,,
+        \end{align*}
+        thus, by passing to the double dual we conclude.
+    \end{proof}
+\end{lemma}
+
+\begin{rmk}
+    Let $\Aa$ and $\Bb$ be $k$-linear categories 
+    as in the hypothesis of \hyperref[serre-eq-comm]{Lemma~\ref*{serre-eq-comm}}.
+    If $F: \Aa \to \Bb$ is a functor such that $G \dashv F$,
+    then Serre duality gives us a way to build a right adjoint for $F$:
+    indeed, we have $F \dashv S_{\Aa} \circ  G \circ S_{\Bb}^{-1}$.
+    To see this,  we have natural isomorphisms
+    \begin{align*}
+        \Hom_{\Aa}(A, S_{\Aa} \circ  G \circ S_{\Bb}^{-1}(B)) 
+        &\simeq \Hom_{\Bb}(G \circ S_{\Bb}^{-1}(B),A)^{*} \\
+        &\simeq \Hom_{\Bb}(S_{\Bb}^{-1}(B),F(A))^{*} \\
+        &\simeq \Hom_{\Bb} \big(F(A), S_{\Bb} \circ S_{\Bb}^{-1}(B)\big)^{**} \\
+        &\simeq \Hom_{\Bb}(F(A),B)\,.
+    \end{align*}
+\end{rmk}
+
+ A similar argument allows the construction of 
+ a left adjoint if a right adjoint 
+ $F \dashv H$ is given. 
+ In particular, for functors between categories with 
+ Serre functors the existence of the left or 
+ the right adjoint implies the existence of the other one.

@@ -1,0 +1,298 @@
+
+\section{Monoidal categories}
+
+%\emph{The following is taken from \parencite[Chapter~VII]{mclane}.}
+
+%\vspace{6pt}
+
+We want to give the definition of a category $\Vv$ 
+endowed with a product $\otimes$ that behaves similarly
+to a product in a \textbf{monoid}, that is a bifunctor 
+$\otimes : \Vv \times \Vv \to \Vv$ which is \emph{associative}
+\begin{equation*}
+    X \otimes ( Y \otimes Z) = (X \otimes Y) \otimes Z
+\end{equation*}
+and there is an object $e$ which is the ``\emph{neutral element}''
+with respect to this product, i.e.
+\begin{equation*}
+    e \otimes X = X = X \otimes e\,,
+\end{equation*}
+for all objects $X,Y,Z$ in $\Vv$.
+As we know, requiring equalities in the above equations
+may be too strict in the categorical setting,
+hence we will relax this condition accordingly
+by requiring that these properties hold \emph{up to natural isomorphism};
+by experience, we know for instance that the category of vector spaces
+over a field $k$ has this exact behaviour with the tensor product:
+indeed, we have a canonical isomorphism
+\begin{equation*}
+    U \otimes_{k} ( V \otimes_{k} W) = (U \otimes_{k} V) \otimes_{k} W
+\end{equation*}
+for all $k$-vector spaces $U,V,W$, and the $1$-dimensional line
+$k$ is the neutral element. 
+Closer analysis shows that more care is requisite in this identification 
+- one must use the right isomorphism, 
+and one must verify that the resulting identification of multiple 
+products can be made in a "coherent" way.
+
+\begin{df}
+    A \textbf{monoidal category} $\Vv = (\Vv, \otimes, e, \alpha, l, r)$
+    is a category $\Vv$, a bifunctor $\otimes:\Vv \times \Vv \to \Vv$,
+    an object $e$ and three natural isomorphisms:
+    \begin{itemize}
+        \item \textbf{associator:} 
+        $\alpha : - \otimes ( - \otimes - ) \simeq (- \otimes -) \otimes -$;
+        \item  \textbf{left unit law:} $l: e \otimes - \simeq \cat{1}_{\Vv} $;
+        \item  \textbf{right unit law:} $r: - \otimes e \simeq \cat{1}_{\Vv} $;
+    \end{itemize}
+    such that they satisfy the following properties:
+    \begin{itemize}
+        \item[(\textbf{M5})]\label{M5} \textbf{pentagon equation:} for every four objects $X,Y,Z$ and $W$ 
+        in $\Vv$, the following penthagon containing all possible dispositions
+        of brackets among $4$ letters commutes:
+        \begin{center}
+        \begin{tikzcd}[column sep=0.1in]
+             & (X \otimes Y) \otimes (Z \otimes W) \ar[rd, "\alpha"] &  \\
+            X \otimes \big(  Y \otimes ( Z \otimes W ) \big) 
+            \ar[ru, "\alpha"] \ar[d, "\cat{1}_{X} \otimes \alpha"']
+            && \big( ( X \otimes Y )  \otimes Z \big) \otimes W\\
+              X \otimes \big( (Y \otimes Z) \otimes W \big) \ar[rr, "\alpha"]
+            & & \big( X \otimes ( Y \otimes Z) \big) \otimes W \ar[u, "\alpha \otimes \cat{1}_{W}"] 
+        \end{tikzcd}
+        \end{center}
+        \item[(\textbf{M3})]\label{M3} \textbf{triangle equations:} 
+        for every two objects $X, Y$ in $\Vv$, we want the neutral element $e$
+        to be compatible with the associativity in the sense that the following triangle
+        \begin{center}
+        \begin{tikzcd}
+            X \otimes (e \otimes Y) \ar[rr, "\alpha"] \ar[dr, "\cat{1}_{X} \otimes l"'] 
+            & & (X \otimes e) \otimes Y \ar[dl, "r \otimes \cat{1}_{Y}"] \\
+            & X \otimes Y & 
+        \end{tikzcd}
+        \end{center}
+        is commutative.
+    \end{itemize}
+\end{df}
+
+\begin{ex!}\label{finite-prod}
+    Every category $\Vv$ with finite products is \textbf{monoidal}:
+    for every $X, Y$ in $\Vv$, we define $X \otimes Y := X \times Y$ any chosen product,
+    and the neutral element $e$ to be a terminal object. Then $l$ is given by composing 
+    with the projection on the second factor, while $r$ by projecting on the first;
+    $\alpha$ is the unique isomorphism given by the universal property of products.
+    Then one checks that both property (\textbf{M5}) and (\textbf{M3}) 
+    hold by noticing that all maps
+    commute with the projections of the four (resp. three) fold products.
+\end{ex!}
+
+\begin{df}
+    Let $\Vv$ be a monoidal category with product $\otimes$ and denote by
+    $\tau : \Vv \times \Vv \to \Vv \times \Vv$ the ``switch'' functor
+    that permutes the two components, i.e. for any two objects
+    $X,Y \in \Vv$ it is defined as
+    \begin{equation*}
+        \tau(X,Y) := (Y,X)\,.
+    \end{equation*}
+    Then $\Vv$ is
+    said to be \textbf{symmetric} if there is a natural isomorphism
+    $\gamma : (-\otimes-) \simeq (-\otimes-) \circ \tau$, i.e.
+    for every pair of object $X,Y$, there is an isomorphism
+    $$\gamma_{X,Y} : X \otimes Y \simeq Y \otimes X\,,$$
+    natural in both $X$ and $Y$; 
+    moreover, it satisfies the following coherence
+    conditions:
+    \begin{itemize}
+        \item[(\textbf{S1})]\label{S1}%
+        the transformation $\gamma$ is involutive in the sense that
+        \begin{equation*}
+            \gamma_{X,Y} \circ \gamma_{Y,X} = \cat{1}_{X \otimes Y}\,;
+        \end{equation*}
+        \item[(\textbf{S2})]\label{S2}%
+        it is compatible with the unital laws:
+        \begin{equation*}
+            r_{X} = l_{X} \circ \gamma_{X,e}\,;
+        \end{equation*} 
+        \item[(\textbf{S3})]\label{S3}%
+        \textbf{exagon equation:} 
+        for all $X,Y,Z$ in $\Vv$, the following diagram commutes:
+        \begin{center}
+        \begin{tikzcd}
+            X \otimes (Y \otimes Z) \ar[r, "\alpha"] \ar[d, "\cat{1}_{X} \otimes \gamma"']%_{Y,Z}"']
+            & (X \otimes Y) \otimes Z \ar[r, "\gamma"]
+            & Z \otimes (X \otimes Y) \ar[d, "\alpha"] \\
+            X \otimes (Z \otimes Y) \ar[r, "\alpha"]%_{X,Z \otimes Y}"] 
+            & (X \otimes Z) \otimes Y \ar[r, "\gamma \otimes \cat{1}_{Y}"] 
+            & (Z \otimes X) \otimes Y \,.
+        \end{tikzcd}
+        \end{center}
+    \end{itemize}
+\end{df}
+
+\begin{ex}
+    In fact, categories with finite products in \hyperref[finite-prod]{Example~\ref*{finite-prod}}
+    are symmetric monoidal categories.
+\end{ex}
+
+\begin{ex}
+    For each commutative unital ring $R$, the category $\Vv=\Mod_{R}$
+    of modules over $R$ is monoidal with respect to the tensor product $\otimes_{R}$
+    is a symmetric monoidal category. The neutral element is $e = R$.
+    Our main interest is the case of $R=k$ a field 
+    and vector spaces $\cat{Vect}_{k}$ over it.
+\end{ex}
+
+\begin{ex}
+    The category $\Vv=\cat{CGHaus}_{\ast}$ of pointed compactly generated
+    Hausdorff spaces is a symmetric monoidal category, 
+    whose product $\otimes = \wedge$ is the \textbf{smash product}
+    and neutral element given by $e = (S^{0}, +1)$ the discrete set with two points.
+\end{ex}
+
+\begin{ex}
+    Remember that a poset $(P, \le)$ gives rise to a category $\cat{P}_{\le}$
+    whose objects are elements of $P$, and arrows given by the ordering, i.e.
+    for any $x,y \in P$, then there exists $x \to y$ if and only if $x \le y$.
+    Assume $P$ has a top element $1$. If $P$ is a meet-semilattice,
+    i.e. for any two elements $x,y \in P$ there exists their greatest lower bound
+    $x \wedge y$, then the category $\Vv=\cat{P}_{\le}$ endowed with the operation
+    $\wedge$ is a symmetric monoidal category, whose neutral element is $e=1$.
+\end{ex}
+
+\begin{ex!}\label{tensor-complex}
+    Let $\Aa=\Mod_{R}$ and 
+    consider any two cochain complexes $X^{\bullet}, Y^{\bullet} 
+    \in \cat{C}^{\bullet}(\Aa)$.
+    We define the \textbf{tensor product} $X^{\bullet} \otimes Y^{\bullet}$
+    to be the complex whose $n$-th level is given by
+        \begin{equation*}
+            \left( X^{\bullet} \otimes Y^{\bullet} \right)^{n}
+            := \bigoplus_{p+q=n} X^{p} \otimes_{R} Y^{q}\,,
+        \end{equation*}
+    and the coboundary map $d^{n}:\left( X^{\bullet} \otimes Y^{\bullet} \right)^{n}
+    \to \left( X^{\bullet} \otimes Y^{\bullet} \right)^{n+1}$
+    is defined on simple tensors as
+    \begin{equation*}
+        d^{n}(x \otimes y) := d_{X}^{p}(x) \otimes y + (-1)^{p}x \otimes d_{Y}^{q}(y)\,,
+        \quad \text{with } x \in X^{p}, y \in Y^{q}\,.
+    \end{equation*}
+    One verifies that $(\Cc^{\bullet}(\Aa), \otimes)$ is a monoidal category,
+    with unital element $e=R$, seen as a complex concentrated in degree zero.
+    Moreover, $\Cc^{\bullet}(\Aa)$ is also symmetric:
+    indeed, the isomorphisms $\gamma_{X^{\bullet},Y^{\bullet}}$
+    are given by graded commutativity.
+    
+    One can generalize this example to any abelian category $\Aa$
+    which is, in addition, a symmetrical monoidal category.
+\end{ex!}
+
+\begin{df}
+    A symmetric monoidal category $(\Vv, \otimes)$ is \textbf{closed} if,
+    for each object $B \in \Vv$, the functor
+    \begin{equation*}
+        - \otimes B: \Vv \longrightarrow \Vv
+    \end{equation*}
+    has a right adjoint, written $[B,-] : \Vv \to \Vv$.
+\end{df}
+
+\begin{rmk}
+    The notion of monoidal closed category can be seen as
+    a generalized setting in which it holds the ``$\otimes - \Hom$''
+    adjunction that is familiar in the category of $R$-modules,
+    as recalled in the next example.
+\end{rmk}
+
+\begin{ex}
+    Given a commutative unital ring $R$, 
+    the symmetric monoidal category $\Vv = \Mod_{R}$
+    is closed: indeed, given any three $R$-modules $M,N$ and $P$, 
+    it is well known that there exists a natural isomorphism
+    \begin{equation*}
+        \Hom_{R}(M \otimes_{R} N, P) \simeq \Hom_{R}\left(M, \Hom_{R}(N,P)\right)\,,
+    \end{equation*}
+    thus we deduce that $\Hom_{R}(N,-)$ is a right adjoint to $-\otimes_{R} N$.
+\end{ex}
+
+
+\begin{ex}
+    By \hyperref[finite-prod]{Example~\ref*{finite-prod}},
+    the category $\Vv = \cat{Set}$ has finite products, 
+    hence it is a monoidal category, endowed with
+    $\otimes = \times$ the cartesian product.
+    Clearly, it is symmetric and, moreover,
+    the \textbf{Exponential law} shows that $\cat{Set}$
+    is monoidal closed: precisely, for any $Y$ a fixed set,
+    the exponentiation functor
+    \begin{equation*}
+        (-)^{Y}:\cat{Set} \longrightarrow \cat{Set}\,,
+        \quad Z \longmapsto Z^{Y} := \Hom_{\cat{Set}}(Y,Z)
+    \end{equation*}
+    is a left adjoint to $- \times Y$,
+    for we have natural bijections
+    \begin{equation*}
+        Z^{X \times Y} \simeq \left(Z^{Y}\right)^{X}
+    \end{equation*}
+\end{ex}
+
+\begin{rmk!}\label{v-morphisms}
+    Taking the previous example into account, for every $X,Y \in \Vv$,
+    we might think of $[X,Y] \in \Vv$ as the object in $\Vv$
+    that classifies morphisms between $X$ and $Y$.
+    In particular, notice that by definition one has
+    \begin{equation*}
+        \Hom_{\Vv}(X,X) \simeq \Hom_{\Vv}(e \otimes X,X) \simeq \Hom_{\Vv}(e,[X,X])\,,
+    \end{equation*}
+    which yield a \textbf{unit morphism} $\cat{u}_{X}:e \to [X,X]$, 
+    corresponding with the identity $\cat{1}_{B}$.
+    On the other hand, from the identifications
+    \begin{equation*}
+        \Hom_{\Vv}(Y,Y) \simeq \Hom_{\Vv}(Y \otimes e, Y) \simeq \Hom_{\Vv}(Y,[e,Y]),
+    \end{equation*}
+    one gets the isomorphism $i_{Y}:Y \to [e,Y]$, 
+    which allows us to think of $[e,Y]$ as ``\emph{points of $Y$}'':
+    note the similarity with $Y \simeq \Hom_{\cat{Set}}(\ast,Y)$ 
+    in the category of sets, or even $G \simeq \Hom_{\Z}(\Z,G)$
+    in $\Ab$. Finally, there is a stronger hint which validates
+    this interpretation: for every $X,Y \in \Vv$, the adjunction
+    \begin{equation*}
+        \Hom_{\Vv}([X,Y], [X,Y]) \simeq \Hom_{\Vv}([X,Y] \otimes X, Y)
+    \end{equation*}
+    sends the identity $\cat{1}_{[X,Y]}$ 
+    to the \textbf{evaluation morphism}
+    \begin{equation*}
+        \cat{ev}_{XY} : [X,Y] \otimes X \longrightarrow Y\,.
+    \end{equation*}
+    Thanks to this, for every triple $X,Y,Z \in \Vv$
+    we can define \textbf{composition morphisms}
+    \begin{equation*}
+        \cat{c}_{XYZ} : [X,Y] \otimes [Y,Z] \longrightarrow [X,Z]
+    \end{equation*}
+    as the morphism corresponding via adjunction
+    to the composite
+    \begin{equation*}
+            {[X,Y] \otimes [Y,Z] \otimes X} 
+            \simeq {[X,Y] \otimes X \otimes [Y,Z]} 
+            \to {Y \otimes [Y,Z]}
+            \simeq {[Y,Z] \otimes Y}
+            \to Z\,.
+    \end{equation*}
+\end{rmk!}
+
+\begin{prop}
+    In a symmetric monoidal closed category $\Vv$:
+    \begin{rmnumerate}
+        \item the unit morphisms $\cat{u}_{X}:e \to [X,X]$ are natural in $X$;
+        \item the morphisms $i_{Y} : Y \to [e,Y]$ are isomorphisms, 
+        and they are natural in $Y$.
+    \end{rmnumerate}
+    \begin{proof}
+        The inverse of $i_{Y}$ is given by the composite
+        \begin{equation*}
+            \begin{tikzcd}
+                {[e,Y]} \ar[r, "r_{[e,Y]}^{-1}"]
+                & {[e,Y] \otimes e} \ar[r, "\cat{ev}_{eY}"]
+                & Y\,.
+            \end{tikzcd}
+        \end{equation*}
+        We omit the routine computations.
+    \end{proof}
+\end{prop}

@@ -1,0 +1,1206 @@
+
+\section{Triangulated categories}
+
+The notion of triangulated category generalizes the structure 
+that exact triangles give to $\cat{K}(\Aa)$. 
+One should think of exact triangles as 
+substitutes for short exact sequences.
+
+Consider a category $\Dd$ equipped with 
+an equivalence $T:\Dd \to \Dd$.
+\begin{df}
+    A \textbf{triangle} on an ordered triple
+    $(A,B,C)$ of objects of $\Dd$ is a 
+    triple $(\alpha,\beta,\delta)$ of morphisms
+    \begin{center}
+        \begin{tikzcd}
+            A \ar[r,"\alpha"]
+            & B \ar[r, "\beta"]
+            & C \ar[r, "\delta"]
+            & T(A)\,;
+        \end{tikzcd}
+    \end{center}
+    the triangle $(\alpha,\beta,\delta)$ 
+    is usually displayed as follows:
+    \begin{center}
+        \begin{tikzcd}
+            A \ar[rr,"\alpha"]
+            & & B \ar[dl, "\beta"] \\
+            & C \ar[ul, "\delta"] &\,.
+        \end{tikzcd}
+    \end{center}
+    A \textbf{morphism of triangles} is a triple $(f,g,h)$
+    forming the following commutative diagram %in $\Dd$:
+    \begin{center}
+        \begin{tikzcd}
+            A \ar[r] \ar[d, "f"]
+            & B \ar[r] \ar[d, "g"]
+            & C \ar[r] \ar[d, "h"]
+            & T(A) \ar[d, "T(f)"] \\
+            A' \ar[r]
+            & B' \ar[r]
+            & C' \ar[r]
+            & T(A')\,.
+        \end{tikzcd}
+    \end{center}
+\end{df}
+
+\begin{notation}
+    When dealing with the automorphism $T$,
+    it will be convenient to write
+    $A[1] := T(A)$ for any object $A \in \Dd$;
+    with this idea, if we apply $T$ (or its quasi-inverse)
+    many times, we will write
+    \begin{equation*}
+        A[n] := T^{n}(A)\,, \quad n \in \Z\,.
+    \end{equation*}
+    Similarly, for any morphism $f \in \Hom_{\Dd}(A,B)$,
+    we put $f[n] := T^{n}(f)$.
+\end{notation}
+
+\begin{df}
+    Let $\Dd$ be an additive category.
+    The structure of a \textbf{triangulated category} on $\Dd$
+    is given by an additive equivalence 
+    $T : \Dd \longrightarrow \Dd$,
+    called \textbf{shift functor}, 
+    and a set of \textbf{distinguished triangles}
+    $(\alpha,\beta,\delta)$
+    which are subject to the following four axioms:
+    \begin{itemize}
+        \item[(\textbf{TR1})]\label{TR1}
+        it consists of three points.
+        \begin{rmnumerate}
+            \item For any $A \in \Dd$, the triangle $(\cat{1}_{A},0,0)$
+                %\begin{center}
+                %    \begin{tikzcd}
+                %        A \ar[rr,"\cat{1}_{A}"]
+                %        & & A \ar[dl, "0"] \\
+                %        & \cat{0} \ar[ul, "0"] &
+                %    \end{tikzcd}
+                %\end{center}
+                is distinguished.
+                
+            \item If $(\alpha,\beta,\delta)$ is a distinguished triangle
+            and $(\alpha',\beta',\delta')$ is isomorphic to it,
+            then $(\alpha',\beta',\delta')$ is distinguished too.
+            
+            \item Any morphism $\alpha : A \to B$ can be completed
+            to a distinguished triangle.
+        \end{rmnumerate}
+        
+        
+        \item[(\textbf{TR2})]\label{TR2}
+        \emph{\textbf{Rotation}} $-$ 
+        If $(\alpha,\beta,\delta)$ is a distinguished triangle on $(A,B,C)$,
+        then both its ``\emph{rotates}''
+        $(\beta,\delta,-\alpha[1])$ and $(-\delta[-1],\alpha,\beta)$
+        are distinguished triangles on $(B,C,A[1])$ and $(C[-1],A,B)$, respectively.
+        
+        \item[(\textbf{TR3})]\label{TR3}
+        \emph{\textbf{Morphisms}} $-$ 
+        Suppose there exists a commutative diagram of 
+        distinguished triangles with vertical arrows $f$ and $g$:
+        \begin{center}
+            \begin{tikzcd}
+                A \ar[r] \ar[d, "f"]
+                & B \ar[r] \ar[d, "g"]
+                & C \ar[r] \ar[d, "\exists \, h", dashed]
+                & A{[1]} \ar[d, "f{[1]}"] \\
+                A' \ar[r]
+                & B' \ar[r]
+                & C' \ar[r]
+                & A'{[1]}\,;
+            \end{tikzcd}
+        \end{center}
+        then there exists a (\textbf{not} necessarily unique) 
+        morphism $h:C \to C'$ which 
+        completes it to a morphism of triangles.
+        
+        \item[(\textbf{TR4})]\label{TR4}
+        \emph{\textbf{The octahedral axiom}} $-$ 
+        Given six objects $A,B,C,A',B',C' \in \Dd$
+        and three triangles
+        \begin{center}
+            \begin{tikzcd}[column sep=small]
+                A \ar[rr, "\alpha"] & & B \ar[dl, "i"]
+                & & 
+                B \ar[rr, "\beta"] & & C \ar[dl, "j"]
+                & & 
+                A \ar[rr, "\beta \alpha"]& & C \ar[dl, "l"] \\
+                & C' \ar[ul,"\de"] & \,, &
+                & & A' \ar[ul,"d"] & \,, & 
+                & & B' \ar[ul,"\delta"] & \,,
+            \end{tikzcd}
+        \end{center}
+        then there exists a fourth distinguished triangle
+        \begin{center}
+            \begin{tikzcd}
+                C' \ar[rr,"f"]
+                & & B' \ar[dl, "g"] \\
+                & A' \ar[ul, "i{[1]} \circ d"] &\,,
+            \end{tikzcd}
+        \end{center}
+        such that in the following octahedron 
+        \begin{equation}\label{octahedron}
+            \begin{tikzcd}[row sep=huge, column sep=huge]
+            & B \arrow[dr, squiggly, "\beta"] \arrow[ddl, squiggly, dashed, "i", pos=0.25] \arrow[from=ddr, crossing over, dashed, "\alpha", pos=0.75]  & \\
+            A' \arrow[ur, "d"] \arrow[d, "i{[1]} \circ d"'] 
+            & & C \arrow[ll, crossing over, "j"'] \\
+            C' \arrow[rr, dashed, "\de"] \arrow[dr, squiggly, "f"'] 
+            & & A \arrow[u, "\beta \alpha"']  \\
+             & B' \arrow[uul, crossing over, "g"', pos=0.6] 
+             \arrow[ur, "\delta"'] \arrow[from=uur, squiggly, crossing over, "l"', pos=0.4]  &
+            \end{tikzcd}
+        \end{equation}
+        we have:
+        \begin{rmnumerate}
+            \item the four distinguished triangles above forming four of the faces;
+            
+            \item the remaining four faces commute, that boils down to
+            \begin{equation*}
+                j = g \circ l\,, \quad \de = \delta \circ f\,;
+            \end{equation*}
+            
+            \item the most exterior paths connecting $B$ and $B'$ commute,
+            that is
+            \begin{equation*}
+                f \circ i = l \circ \beta \,, \quad d \circ g = \alpha \circ \delta\,.
+            \end{equation*}
+        \end{rmnumerate}
+    \end{itemize}
+\end{df}
+
+\begin{rmk}
+    Some comments on axiom 
+    \hyperref[TR4]{(\textbf{TR4})} are needed,
+    because it is with no doubt 
+    the most mysterious
+    and confusing one.
+    First, we may ``unpack'' the octahedron~\eqref{octahedron}
+    to give a nicer visualization:
+    notice that the triangle $(f,g,i{[1]}\circ d)$
+    completes the commutative plane diagram
+    \begin{center}
+        \begin{tikzcd}
+            A \ar[r, "\alpha"] \ar[d, equals]
+            & B \ar[r, "i"] \ar[d, "\beta"]
+            & C' \ar[r, "\de"] \ar[d, "\exists"',"f", dashed]
+            & A{[1]} \ar[d, equals] \\
+            A \ar[r]
+            & C \ar[r,"l"] \ar[d, "j"]
+            & B' \ar[r, "\delta"] \ar[d, "\exists"',"g", dashed] \ar[d, dashed]
+            & A{[1]} \ar[d, "\alpha{[1]}"]\\
+            & A' \ar[r, equals] \ar[d, "d"] 
+            & A' \ar[r, "d"] \ar[d, "\exists"', dashed]
+            & B{[1]} \\
+            & B{[1]} \ar[r]
+            & C'{[1]}
+            & \,.
+        \end{tikzcd}
+    \end{center}
+    
+    We may interpret the \hyperref[TR4]{\emph{\textbf{Octahedral Axiom}}}
+    as a generalization of the \textbf{Third Isomorphism Theorem} we
+    find in abelian categories: indeed, if we think of distinguished
+    triangles as an analogous of exact sequences in abelian categories, 
+    then the three triangles in \hyperref[TR4]{(\textbf{TR4})} 
+    tell us that
+    \begin{equation*}
+        C' \simeq \left. B \middle/ A \right. \,, \quad
+        B' \simeq \left. C \middle/ A \right. \,, \quad
+        A' \simeq \left. C \middle/ B \right. \,, 
+    \end{equation*}
+    thus the \hyperref[TR4]{\emph{\textbf{Octahedral Axiom}}}
+    states that $(C/A)/(B/A) \simeq C/B$.
+    We may visualize it in the following nice diagram:
+    the three lines passing through $A,B$ and $C$ completely
+    determine the sequence $C' \to B' \to A'$ on the right:
+    \begin{center}
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZAJgBoBmAXVJADcBDAGwFcYkQAhEAX1PU1z5CKACykR1Ok1bsAwjz4gM2PASIA2CpIYs2iTgHIF-FUKIAGUuu3S9IAILGlA1cOQAOKzd3t7R3iaCaqKk5t4y+rL+kjBQAObwRKAAZgBOEAC2SOQ0OBBIliCM9ABGMIwACi5m+owwyTggNDoRIAA6bUxoABb0TmmZBbn5iACszbbsWP3pWYg5IHlIAIwBIANzy8NIZFI+tTODiIVLiFt7rR1lOH1rGyvbiGIXdgBWTUWl5VWmwSCpWDi3Uad1mSHGixGuxadmShzmu1Ozxh7DiPEo3CAA
+\begin{tikzcd}[column sep=small, row sep=small]
+                                         &  &                                           &  & C' \arrow[rrdddd, "f", dashed]                   &  &                       &  &    \\
+                                         &&&&&&&&\\
+                                         &  &                                           &  &                                         &  &                       &  &    \\
+                                         &  &                                           &  &                                         &  &                       &  &    \\
+                                         &  & B \arrow[rruuuu, "i"] \arrow[rrd, "\beta"] &  &                                         &  & B' \arrow[rrddd, "g", dashed] &  &    \\
+                                         &  &                                           &  & C \arrow[rru, "l"] \arrow[rrrrdd, "j"'] &  &                       &  &    \\
+                                         &  &                                           &  &                                         &  &                       &  &    \\
+A \arrow[rruuu, "\alpha"] \arrow[rrrruu] &  &                                           &  &                                         &  &                       &  & A'\,.
+\end{tikzcd}
+    \end{center}
+\end{rmk}
+
+\begin{rmk}
+    The definition of triangulated category
+    may be modified by changing the forth axiom:
+    for instance, consider the statement
+    \begin{itemize}
+        \item[(\textbf{TR4'})]  given a commutative diagram
+        \begin{center}
+            \begin{tikzcd}
+                A \ar[r, "\alpha"] \ar[d, "f"]
+                & B \ar[r, "\beta"] \ar[d, "g"]
+                & C \ar[r, "\delta"] \ar[d, "\exists"',"h", dashed]
+                & A{[1]} \ar[d] \\
+                A' \ar[r, "\alpha'"]
+                & B' \ar[r, "\beta'"]
+                & C' \ar[r, "\delta'"]
+                & A'{[1]}
+            \end{tikzcd}
+        \end{center}
+        whose rows are distinguished triangles,
+        there exists a morphism $h:C \to C'$
+        that makes the diagram commutative and
+        makes the mappying cone a distinguished triangle:
+        \begin{center}
+            \begin{tikzcd}[ampersand replacement=\&, column sep=large]
+                B \oplus A' \ar[r, "{\begin{pmatrix}
+                    -\beta & 0 \\ g & \alpha'
+                \end{pmatrix}}"]
+                \& C \oplus B' \ar[r, "{\begin{pmatrix}
+                    -\delta & 0 \\ h & \beta'
+                \end{pmatrix}}"]
+                \& A{[1]} \oplus C' \ar[r, "{\begin{pmatrix}
+                    -\alpha{[1]} & 0 \\ f{[1]} & \delta'
+                \end{pmatrix}}"]
+                \& B{[1]} \oplus A'{[1]}\,.
+            \end{tikzcd}
+        \end{center}
+    \end{itemize}
+    Assuming (\textbf{TR1}), (\textbf{TR2}) and (\textbf{TR3}),
+    it turns out that (\textbf{TR4'}) is equivalent to (\textbf{TR4}).
+    Moreover, it is clear that (\textbf{TR4'}) implies (\textbf{TR3})
+    and its strength relies on the fact that it describes the way we can
+    complete a morphism of distinguished triangles.
+    There are many other different (but equivalent) axioms we can choose
+    to modify the \emph{\textbf{Octahedral Axiom}}: for details,
+    check \parencite[]{neeman}.
+\end{rmk}
+
+\begin{ex}
+    Recall that, given a category $\Cc$, its opposite category $\Cc^{op}$
+    has the same objects as $\Cc$, but arrows are ``reversed'', i.e.
+    $f^{op}: B \to A$ is an morphism in $\Cc^{op}$ if and only if
+    there exists $f:A \to B$ in $\Cc$. In fact, this shows that
+    we have a bijection
+    \begin{equation*}
+        (-)^{op} : \Hom_{\Cc}(A,B) \simeq \Hom_{\Cc^{op}}(B,A)\,.
+    \end{equation*}
+    If $\Dd$ is a triangulated category, the opposite category $\Dd^{op}$
+    is triangulated as well: if $T$ is the shift functor in $\Dd$,
+    set 
+    \begin{equation*}
+        t : \Dd^{op} \longrightarrow \Dd^{op}\,,
+        \quad
+        \left( B \xrightarrow[]{f^{op}} A \right)
+        \longmapsto
+        \left( T^{-1}B \xrightarrow[]{(T^{-1}f)^{op}} T^{-1}A \right)
+    \end{equation*}
+    to be the shift functor in $\Dd^{op}$ and say that a sequence
+    \begin{center}
+        \begin{tikzcd}
+            C \ar[r, "g^{op}"]
+            & B \ar[r, "f^{op}"]
+            & A \ar[r, "h^{op}"]
+            & tC
+        \end{tikzcd}
+    \end{center}
+    is a distinguished triangle in $\Dd^{op}$
+    if and only if 
+    \begin{center}
+        \begin{tikzcd}
+            C{[-1]} \ar[r, "h"]
+            & A \ar[r, "f"]
+            & B \ar[r, "g"]
+            & C
+        \end{tikzcd}
+    \end{center}
+    is a distinguished triangle in $\Dd$.
+    It is easy to check that these two notions define 
+    a triangulated structure on $\Dd^{op}$:
+    indeed, all the properties \hyperref[TR1]{(\textbf{TR1})-(\textbf{TR4})}
+    hold because they are true in $\Dd$, so
+    we can build ``opposite'' triangles easily;
+    strictly speaking, distinguished triangles
+    in $\Dd^{op}$ are the same of $\Dd$,
+    but with reversed indexing.
+\end{ex}
+
+\begin{ex}
+    For any category $\Cc$, let $\Cc^{\Z}$ be the
+    category of graded objects in $\Cc$, 
+    i.e. families $A_{*} = \Set{A_{n}}_{n \in \Z}$ indexed
+    on the integers, a morphism $f: A_* \to B_*$
+    being a family of morphisms $f_{n} : A_{n} \to B_{n}$,
+    for each $n \in \Z$. This category is naturally
+    endowed with a shift functor $T$ given by the
+    translation $TA_{*} := A[-1]_*$, that is
+    \begin{equation*}
+        TA_{n} := A[-1]_n = A_{n-1}\,,
+        \quad n \in \Z\,.
+    \end{equation*}
+
+    We now define distinguished triangles in $\Cc^{\Z}$
+    to be triplets $(\alpha,\beta,\delta)$ such
+    that, for every $n \in \Z$, the following
+    sequence is exact:
+    \begin{center}
+        \begin{tikzcd}
+            A_{n} \ar[r, "\alpha"]
+            & B_{n} \ar[r, "\beta"]
+            & C_{n} \ar[r, "\delta"]
+            & A_{n-1} \ar[r, "\alpha"]
+            & B_{n-1}\,.
+        \end{tikzcd}
+    \end{center}
+    
+    Consider now $\Cc = \Ab$. Then $\Ab^{\Z}$ is an abelian category
+    (it is essentially $C_{\bullet}(\Ab)$ with no boundary maps),
+    and it clearly satisfies both \hyperref[TR1]{(\textbf{TR1})(i)}
+    and \hyperref[TR1]{(\textbf{TR1})(ii)}. Note that
+    any morphism $\alpha:A_{*} \to B_{*}$ is embedded in a triangle
+    of the form
+    \begin{center}
+        \begin{tikzcd}
+            A_* \ar[rr, "\alpha"] 
+            & & B_* \ar[ld] \\
+            & \Coker(\alpha) \oplus \left(\ker(\alpha){[-1]} \right) \ar[ul] & \,,
+        \end{tikzcd}
+    \end{center}
+    which is given on the $n$-th level by
+    \begin{center}
+        \begin{tikzcd}
+            A_{n} \ar[r, "\alpha_{n}"]
+            & B_{n} \ar[r, "q_{n} \oplus 0"]
+            & \Coker(\alpha_{n}) \oplus \left(\ker(\alpha_{n-1}) \right) 
+            \ar[r, "0 + \iota_{n-1}"]
+            & A_{n-1} \ar[r, "\alpha_{n-1}"]
+            & B_{n-1}\,,
+        \end{tikzcd}
+    \end{center}
+    where $q$ is the quotient, while $\iota$ the inclusion. 
+    Thus, \hyperref[TR1]{(\textbf{TR1})(iii)} holds true.
+
+    If $(\alpha,\beta, \delta)$ is a distinguished triangle,
+    then the $n$-th level of
+    its rotation $(\beta, \delta, \alpha[-1])$ is given by
+    \begin{center}
+        \begin{tikzcd}
+            B_{n} \ar[r, "\beta"]
+            & C_{n} \ar[r, "\delta"]
+            & A_{n-1} \ar[r, "\alpha"]
+            & B_{n-1} \ar[r, "\beta"]
+            & C_{n-1} \,,
+        \end{tikzcd}
+    \end{center}
+    which is an exact sequence because both
+    \begin{center}
+        \begin{tikzcd}
+            A_{n} \ar[r, "\alpha"]
+            & B_{n} \ar[r, "\beta"]
+            & C_{n} \ar[r, "\delta"]
+            & A_{n-1} \ar[r, "\alpha"]
+            & B_{n-1}
+        \end{tikzcd}
+    \end{center}
+    and
+    \begin{center}
+        \begin{tikzcd}
+            A_{n-1} \ar[r, "\alpha"]
+            & B_{n-1} \ar[r, "\beta"]
+            & C_{n-1} \ar[r, "\delta"]
+            & A_{n-2} \ar[r, "\alpha"]
+            & B_{n-2}
+        \end{tikzcd}
+    \end{center}
+    are exact. The same holds true for the other rotation,
+    hence we have \hyperref[TR2]{(\textbf{TR2})}. 
+    
+    Nevertheless, the axiom \hyperref[TR3]{(\textbf{TR3})}
+    is not valid in $\Ab^{\Z}$: consider any abelian group $G$
+    to be a graded object concentrated in degree 0; then,
+    the diagram
+    \begin{center}
+        \begin{tikzcd}
+            \Z \ar[r, "\cdot 2"] \ar[d, "\cdot 2"]
+            & \Z \ar[r] \ar[d, "\Delta"]
+            & \Z/2\Z \ar[r]
+            & \cat{0} \ar[d, equals] \\
+            \Z \ar[r, "\Delta"]
+            & \Z^{2} \ar[r, "+"] 
+            & \Z \ar[r]
+            & \cat{0}\,,
+        \end{tikzcd}
+    \end{center}
+    commutes, but it cannot be completed to a morphism of triangles.
+    Thus, the category $\Ab^{\Z}$ is not triangulated.
+\end{ex}
+
+\begin{ex!}\label{Z-Vect}\todo{Check Octahedral Axiom.}
+    Let $k$ be an arbitrary field, and $\Cc = \Vect{k}$ be the category
+    of vector spaces over $k$. Then $\Vect{k}^{\Z}$ is triangulated:
+    indeed, axioms \hyperref[TR1]{(\textbf{TR1})} and
+    \hyperref[TR2]{(\textbf{TR2})} hold true for the same
+    reasons as in the previous example.
+
+    We now verify \hyperref[TR3]{(\textbf{TR3})}:
+    given a commutative diagram
+    \begin{center}
+        \begin{tikzcd}
+            A_{n} \ar[r, "\alpha"] \ar[d, "f_n"]
+            & B_{n} \ar[r, "\beta"] \ar[d, "g_n"]
+            & C_{n} \ar[r, "\delta"] 
+            & A_{n-1} \ar[d, "f_{n-1}"] \\
+            U_{n} \ar[r, "u"]
+            & V_{n} \ar[r, "v"]
+            & W_{n} \ar[r, "w"]
+            & U_{n-1}
+        \end{tikzcd}
+    \end{center}
+    we can complete it to a morphism of distinguished
+    triangles by taking a basis $\Lambda$ of $C_{n}$ 
+    and defining $h_{n}:C_{n} \to W_{n}$ via diagram chasing
+    as follows:
+    \begin{center}
+        \begin{tikzcd}
+            C_{n} \ar[r, "\delta"] \ar[d, "h_{n}", dashed]
+            & A_{n-1} \ar[d, "f_{n-1}"] \ar[r, "\alpha"]
+            & B_{n-1} \ar[d, "g_{n-1}"] 
+            & & c \in \Lambda \ar[r, mapsto] \ar[d, "h_{n}:="', dashed]
+            & \delta c \ar[r, mapsto] \ar[d, mapsto] 
+            & 0 \ar[d, mapsto] \\
+            W_{n} \ar[r, "w"]
+            & U_{n-1} \ar[r, "u"]
+            & V_{n-1} \,,
+            & & u & f_{n-1}\delta c \ar[r, mapsto] \ar[l, dashed]
+            & u\,f_{n-1}\delta c  = 0\,,
+        \end{tikzcd}
+    \end{center}
+    for any basis element $c \in \Lambda$, we note
+    that $f\delta c \in \ker u$ by the commutativity
+    of the right box; since the bottom row is exact,
+    we may lift $f\delta c$ to some $u \in U_{n-1}$,
+    so we finally define $h_{n}c := u$. 
+    The diagram commutes by construction.
+
+    Finally, we check the \emph{\textbf{Octahedral Axiom}}:
+    consider three distinguished triangles
+        \begin{center}
+            \begin{tikzcd}[column sep=small]
+                A_{*} \ar[rr, "\alpha"] & & B_{*} \ar[dl, "i"]
+                & & 
+                B_{*} \ar[rr, "\beta"] & & C_{*} \ar[dl, "j"]
+                & & 
+                A_{*} \ar[rr, "\beta \alpha"]& & C_{*} \ar[dl, "l"] \\
+                & W_{*} \ar[ul,"\de"] & \,, &
+                & & U_{*} \ar[ul,"d"] & \,, & 
+                & & V_{*} \ar[ul,"\delta"] & \,,
+            \end{tikzcd}
+        \end{center}
+    and build $f:W_{*} \to V_{*}$ as follows: at the $n$-th level,
+    choose a basis $\Lambda$ for $W_{n}$ and,
+    for every $c \in \Lambda$, set
+    \begin{equation*}
+        f_{n} : W_{n} \longrightarrow V_{n}\,, \quad
+        f_{n}(c) := 
+        \begin{cases}
+            v\,, \quad
+            &\text{if there exists } v \in \delta_{n}^{-1}(\de_{n}(c))\,; \\
+            0\,, \quad &\text{otherwise},
+        \end{cases}
+    \end{equation*}
+    and extend it by linearity; by construction,
+    this gives a morphism $f:W_{*} \to V_{*}$ such that
+    $\delta f = \de$. Similarly, one builds $g:V_{*} \to U_{*}$
+    such that $j=gl$.
+\end{ex!}
+
+\begin{exercise}
+    If $(\alpha,\beta,\delta)$ is an distinguished triangle,
+    show that the compositions $\beta\alpha, \delta\beta$ 
+    and $\alpha[1]\,\delta$ are zero in $\Dd$.
+    %This is the reason why we call the triangles exact.
+    \begin{proof}[Solution]
+        By \hyperref[TR1]{(\textbf{TR1})(i)}, 
+        the triangle $(\cat{1}_{A},0,0)$ is distinguished,
+        thus we may compare
+        \begin{center}
+            \begin{tikzcd}
+                A \ar[r, equals] \ar[d, equals]
+                & A \ar[r] \ar[d, "\alpha"]
+                & \cat{0} \ar[r] \ar[d]
+                & A{[1]} \ar[d, equals] \\
+                A \ar[r, "\alpha"]
+                & B \ar[r, "\beta"]
+                & C \ar[r, "\delta"]
+                & A{[1]}\,.
+            \end{tikzcd}
+        \end{center}
+        By the commutativity of the middle box, we deduce $\beta\alpha=0$.
+        Similarly, if we use the \emph{Rotation axiom}~\hyperref[TR2]{(\textbf{TR3})}
+        we find commutative diagrams
+        \begin{center}
+            \begin{tikzcd}
+                %B \ar[r, equals] \ar[d, equals] &
+                B \ar[r] \ar[d, "\beta"]
+                & \cat{0} \ar[r] \ar[d]
+                & B{[1]} \ar[d, equals] 
+                & & C \ar[r] \ar[d, "\delta"]
+                & \cat{0} \ar[r] \ar[d]
+                & C{[1]} \ar[d, equals]\\
+                %B \ar[r, "\beta"] &
+                C \ar[r, "\delta"]
+                & A{[1]} \ar[r, "\alpha{[1]}"]
+                & B{[1]}
+                & & A{[1]} \ar[r, "\alpha{[1]}"]
+                & B{[1]} \ar[r, "\beta{[1]}"] 
+                & C{[1]} \,,
+            \end{tikzcd}
+        \end{center}
+        from which we see that $\delta\beta = 0 = \alpha{[1]}\,\delta$.
+    \end{proof}
+\end{exercise}
+
+\begin{exercise!}[\textbf{The $5$-lemma}]\label{5lemma}
+    Let $(f,g,h)$ be a morphism of distinguished triangles. 
+    If two maps are isomorphisms, then the third is an isomorphism as well.
+    \begin{proof}[Solution]
+        Up to rotating triangles, we may assume
+        without loss of generality that both $f$ and $g$ are isomorphism.
+        We show that $h$ is an isomorphism too:
+        for any object $X \in \Dd$, we apply the functor 
+        $\Hom_{\Dd}(-,X)$ to the diagram
+        \begin{center}
+            \begin{tikzcd}
+                A \ar[r] \ar[d, "f", equals]
+                & B \ar[r] \ar[d, "g", equals]
+                & C \ar[r] \ar[d, "h"]
+                & A{[1]} \ar[d, "f{[1]}", equals] \\
+                A' \ar[r]
+                & B' \ar[r]
+                & C' \ar[r]
+                & A'{[1]}\,,
+            \end{tikzcd}
+        \end{center}
+        so that we obtain the following commutative diagram in $\Ab$:
+        \begin{center}
+            \begin{tikzcd}[column sep=small]
+                \Hom_{\Dd}(B'{[1]},X) \ar[r] \ar[d, equals]
+                & \Hom_{\Dd}(A'{[1]},X) \ar[r] \ar[d, equals]
+                & \Hom_{\Dd}(C',X) \ar[r] \ar[d, "- \circ h"]
+                & \Hom_{\Dd}(B',X) \ar[r] \ar[d, equals]
+                & \Hom_{\Dd}(A',X) \ar[d, equals] \\
+                \Hom_{\Dd}(B{[1]},X) \ar[r]
+                & \Hom_{\Dd}(A{[1]},X) \ar[r] 
+                & \Hom_{\Dd}(C,X) \ar[r] 
+                & \Hom_{\Dd}(B,X) \ar[r] 
+                & \Hom_{\Dd}(A,X) \,.
+            \end{tikzcd}
+        \end{center}
+        By the classic \textbf{$5$-lemma} for abelian groups,
+        we know the central arrow is an isomorphism;
+        thus, when $X = C$, we deduce there exists $k:C' \to C$
+        such that $kh = \cat{1}_{C}$. Moreover, if we plug $X=C'$,
+        we see that $(\cat{1}_{C'} - hk) \circ h = h - h(kh) = 0$,
+        so we conclude $\cat{1}_{C'} = hk$ because precomposition
+        is an isomorphism.
+    \end{proof}
+\end{exercise!}
+
+\begin{rmk}
+    As a consequence, we see that the completion 
+    of any $\alpha: A \to B$ to a triangle,
+    as declared in the axiom \hyperref[TR1]{(\textbf{TR1})(iii)},
+    is unique up to isomorphism: taken triangles
+    $(\alpha,\beta,\delta)$ on $(A,B,C)$ and
+    $(\alpha,\beta',\delta')$ on $(A,B,C')$,
+    then by \hyperref[TR3]{(\textbf{TR3})} one has
+    \begin{center}
+            \begin{tikzcd}
+                A \ar[r, "\alpha"] \ar[d, equals]
+                & B \ar[r, "\beta"] \ar[d, equals]
+                & C \ar[r, "\delta"] \ar[d, "\exists"', "h", dashed]
+                & A{[1]} \ar[d, equals] \\
+                A \ar[r, "\alpha"]
+                & B \ar[r, "\beta'"]
+                & C' \ar[r, "\delta'"]
+                & A{[1]}\,,
+            \end{tikzcd}
+        \end{center}
+    and the \hyperref[5lemma]{$5$-lemma~\ref*{5lemma}} tells us $h$ is an isomorphism.
+    This means that every distinguished triangle is determined,
+    up to isomorphism, by just one of its maps! In particular,
+    the data of the \hyperref[TR4]{\emph{\textbf{Octahedral Axiom}}}
+    are completely determined by $A \xrightarrow[]{\alpha} B \xrightarrow[]{\beta} C$.
+\end{rmk}
+
+\begin{exercise!}[The Split Lemma]\label{split-lemma}
+    Let $A \to B \to C \to A[1]$ be a distinguished triangle 
+    in a triangulated category $\Dd$. 
+    Suppose that $C \to A[1]$ is trivial. 
+    Show that then the triangle is split, 
+    i.e. is given by a direct sum 
+    decomposition $B \simeq A \oplus C$.
+    \begin{proof}[Solution]
+        Consider the commutative diagram
+        \begin{center}
+            \begin{tikzcd}
+            C\left[-1\right] \ar[r, "0"]  \ar[d, equals]
+            & A \ar[r] \ar[d, equals]
+            & B \ar[r] \ar[d, dashed, "\exists"', "h"]
+            & C \ar[d, equals] \\
+            %& A\left[ 1 \right] \ar[d, equals] \\
+            C\left[-1\right] \ar[r, "0"] 
+            & A \ar[r, "j_{A}"]
+            & A \oplus C \ar[r, "\pi_{C}"]
+            & C \,.
+            %& A\left[ 1 \right]\,.
+            \end{tikzcd}
+        \end{center}
+        By axiom \hyperref[TR3]{(\textbf{TR3})},
+        there exists an arrow $h$ which completes
+        the diagram to a morphism of triangles.
+        Then by the \hyperref[5lemma]{5-lemma}
+        we conclude $h$ must be an isomorphism.
+    \end{proof}
+\end{exercise!}
+
+\begin{prop}
+    Given an abelian category $\Aa$, the category $\cat{K}(\Aa)$ is triangulated.
+    \begin{proof}
+        We show that a triangulated structure on $\cat{K}(\Aa)$ is given 
+        by letting the shift functor $TA^{\bullet} := A^{\bullet}[1]$
+        to be the translation and the family of distinguished triangles
+        to be given by exact triangles.
+
+        It is easy to check that both axioms \hyperref[TR1]{(\textbf{TR1})}
+        and \hyperref[TR2]{(\textbf{TR2})} hold. Without loss of generality,
+        it is enough to check \hyperref[TR3]{(\textbf{TR3})} on
+        strict triangles: the diagram
+        \begin{center}
+            \begin{tikzcd}
+                A^{\bullet} \ar[r, "u"] \ar[d, "f"]
+                & B^{\bullet} \ar[r] \ar[d, "g"]
+                & \cat{C}(u) \ar[r] \ar[d, "\exists"', "h", dashed]
+                & A^{\bullet}{[1]} \ar[d, "f{[1]}"] \\
+                \tilde{A}^{\bullet} \ar[r, "w"]
+                & \tilde{B}^{\bullet} \ar[r]
+                & \cat{C}(w) \ar[r]
+                & \tilde{A}^{\bullet}{[1]}\,
+            \end{tikzcd}
+        \end{center}
+        can be completed by defining the cochain map
+        \begin{equation*}
+            h := (f[1],g) : \cat{C}(u) \longrightarrow \cat{C}(w)\,.
+        \end{equation*}
+        It remains to prove the \hyperref[TR4]{\textbf{\emph{Octahedral Axiom}~(\textbf{TR4})}}.
+        As before, we may assume the given triangles are strict:
+        \begin{center}
+            \begin{tikzcd}[column sep=small]
+                A^{\bullet} \ar[rr, "\alpha"] & & B^{\bullet} \ar[dl, "j_{B}"]
+                & & 
+                B^{\bullet} \ar[rr, "\beta"] & & C^{\bullet} \ar[dl, "j_{C}"]
+                & & 
+                A^{\bullet} \ar[rr, "\beta \alpha"]& & C^{\bullet} \ar[dl, "j_{C}"] \\
+                & \cat{C}(\alpha) \ar[ul,"\pi_{A{[1]}}"] & \,, &
+                & & \cat{C}(\beta) \ar[ul,"\pi_{B{[1]}}"] & \,, & 
+                & & \cat{C}(\beta\alpha) \ar[ul,"\pi_{A{[1]}}"] & \,,
+            \end{tikzcd}
+        \end{center}
+        thus we may define
+        \begin{center}
+            \begin{tikzcd}
+                \cat{C}(\alpha) \ar[rr, "{(\cat{1}_{A[1]},\beta)}"] 
+                & & \cat{C}(\beta\alpha) \ar[dl, "{(\alpha[1], \cat{1}_{C})}"]\\
+                & \cat{C}(\beta) \ar[ul, "j_{B[-1]}\pi_{B[1]}"] & \,.
+            \end{tikzcd}
+        \end{center}
+        By construction, the octahedron described in \hyperref[TR4]{(\textbf{TR4})}
+        commutes, so we conclude if we show that the above triangle is a distinguished triangle.
+        Set $f := (\cat{1}_{A[1]},\beta)$ and consider $\cat{C}(f)$;
+        on degree $n$ it is
+        \begin{equation*}
+            \cat{C}(f)^{n} = \cat{C}(\alpha)^{n+1} \oplus \cat{C}(\beta)^{n}
+            = (A^{n+2} \oplus B^{n+1}) \oplus (A^{n+1} \oplus C^{n})\,,
+        \end{equation*}
+        thus we can embed $\cat{C}(\beta)^{n}=B^{n+1} \oplus C^{n}$ in it.
+        This gives us a natural inclusion $\iota$ which fits in the commutative diagram
+        \begin{center}
+            \begin{tikzcd}
+                \cat{C}(\alpha) \ar[r, "f"] \ar[d, equals]
+                & \cat{C}(\beta\alpha) \ar[r] \ar[d, equals]
+                & \cat{C}(\beta) \ar[r] \ar[d, "\iota"]
+                & \cat{C}(\alpha){[1]} \ar[d, equals] \\
+                \cat{C}(\alpha) \ar[r, "f"]
+                & \cat{C}(\beta\alpha) \ar[r]
+                & \cat{C}(f) \ar[r]
+                & \cat{C}(\alpha){[1]}\,,
+            \end{tikzcd}
+        \end{center}
+        in which $\iota$ is a homotopy equivalence:
+        define 
+        \begin{equation*}
+            \phi^{\bullet}:\cat{C}(f) \longrightarrow \cat{C}(\beta)\,, \quad
+            \phi^{n}\big(a',b,a,c\big) = (\alpha^{n+1}(a) + b, c)\,,
+        \end{equation*}
+        and note that $\phi^{\bullet}\iota(b,c)=\phi(0,b,0,c) = (b,c)$, 
+        i.e. it holds $\phi^{\bullet}\iota = \cat{1}_{\cat{C}(\beta)}$.
+        On the other hand, the map
+        \begin{equation*}
+            s : \cat{C}(f)^{n} \longrightarrow \cat{C}(f)^{n-1}\,,
+            \quad s(a',b,a,c) = (a,0,0,0)
+        \end{equation*}
+        defines a homotopy between $\iota\phi^{\bullet}$ and $\cat{1}_{\cat{C}(f)}$:
+        the coboundary map of the mappying cone $\cat{C}(f)$ is
+        represented by the matrix
+        \begin{equation*}
+            d_{\cat{C}(f)} 
+            = \begin{pmatrix}
+                -d_{\cat{C}(\alpha)} & 0 \\ f^{\bullet} & d_{\cat{C}(\beta\alpha)}
+            \end{pmatrix}
+            = \begin{pmatrix}
+                d_{A} & 0 & 0 & 0 \\
+                \alpha & -d_{B} & 0 & 0 \\
+                \cat{1} & 0 & -d_{A} & 0 \\
+                0 & -\beta & \beta\alpha & d_{C}
+            \end{pmatrix}\,,
+        \end{equation*}
+        hence we compute
+        \begin{align*}
+            ds + sd 
+            = \begin{pmatrix}
+                d_{A} \\ \alpha \\ -\cat{1}_{A} \\ 0
+            \end{pmatrix} 
+            + \begin{pmatrix}
+                -d_{A} - \cat{1}_{A} \\ 0 \\ 0 \\ 0
+            \end{pmatrix}
+            = \begin{pmatrix}
+                -\cat{1}_{A} \\ \alpha \\ -\cat{1}_{A} \\ 0
+            \end{pmatrix} 
+            = \begin{pmatrix}
+                0 \\ \alpha + \cat{1}_{B} \\ 0 \\ \cat{1}_{C}
+            \end{pmatrix} 
+            - \begin{pmatrix}
+               \cat{1}_{A} \\ \cat{1}_{B} \\ \cat{1}_{A} \\ \cat{1}_{C}
+            \end{pmatrix}
+            = \iota\phi^{\bullet} - \cat{1}_{\cat{C}(f)}\,.
+        \end{align*}
+        We conclude that $\iota$ is an isomorphism in $\cat{K}(\Aa)$.
+    \end{proof}
+\end{prop}
+
+\begin{cor}
+    Let $\Cc \subset C^{\bullet}(\Aa)$ be a full subcategory
+    and $\cat{K}(\Cc)$ be its corresponding quotient category.
+    Suppose that $\Cc$ is an additive category and is closed
+    under translations and under contruction of mapping cones.
+    Then $\cat{K}(\Cc)$ is a triangulated category.
+    In particular, $\cat{K}^{\flat}(\Aa), \cat{K}^{-}(\Aa)$ and
+    $\cat{K}^{+}(\Aa)$ are triangulated.
+\end{cor}
+
+\begin{df}
+    An additive functor $F: \Cc \to \Dd$ 
+    between triangulated categories
+    with shift functors $T_{\Cc}$, and $T_{\Dd}$
+    respectively, is called \textbf{exact} 
+    (or \textbf{triangulated}) if it satisfies
+    the following:
+    \begin{itemize}
+        \item[(\textbf{EF1})]\label{EF1} 
+        there exists an isomorphism of functors
+        \begin{equation*}
+            F \circ T_{\Cc} \xrightarrow[]{\sim} T_{\Dd} \circ F\,;
+        \end{equation*}
+
+        \item[(\textbf{EF2})]\label{EF2} 
+        any distinguished triangle $A \to B \to C \to A[1]$
+        in $\Cc$ is mapped to a distinguished triangle
+        \begin{center}
+            \begin{tikzcd}
+                F(A) \ar[r]
+                & F(B) \ar[r]
+                & F(C) \ar[r]
+                & F(A){[1]}\,
+            \end{tikzcd}
+        \end{center}
+        in $\Dd$, where we use the isomorphism $F(A[1]) \simeq F(A)[1]$
+        given by \hyperref[EF1]{(\textbf{EF1})}.
+    \end{itemize}
+\end{df}
+
+\begin{rmk}
+    Once again, the notions of a triangulated category 
+    and of an exact functor have to be adjusted 
+    when one is interested in additive categories over a field $k$.
+    In this case, the shift functor should be $k$-linear 
+    and one usually considers only $k$-linear exact functors.
+\end{rmk}
+
+\begin{ex}
+    Recall that in \hyperref[Z-Vect]{Exercise~\ref*{Z-Vect}}
+    we proved that $\Vect{k}^{\Z}$ is a triangulated category.
+    The total cohomology $H^* : \cat{K}(\Vect{k}) \to \Vect{k}^{\Z}$
+    is a morphism of triangulated categories: indeed, 
+    $H^{*}$ is additive and for every $n \in \Z$
+    and every object $V^{\bullet}$ it holds
+    \begin{equation*}
+        (H^{*}TV^{\bullet})^{n}
+        = H^{n}(V^{\bullet}[1]) 
+        = H^{n-1}(V^{\bullet}) 
+        = \left(H^{*}(V^{\bullet})[1]\right)^{n}
+        = (TH^{*}V^{\bullet})^{n}\,,
+    \end{equation*}
+    so $H^{*}$ commutes with shifts; 
+    axiom \hyperref[EF2]{(\textbf{EF2})}
+    is the \hyperref[LHS]{Long Exact Sequence~\ref*{LHS}} induced in cohomology. 
+\end{ex}
+
+\begin{df}
+    Let $\Dd$ be a triangulated category and
+    $\Aa$ an abelian category.
+    An additive functor $F : \Dd \to \Aa$ is called
+    a \textbf{covariant cohomological functor}
+    if, whenever $(\alpha, \beta, \delta)$ is a
+    distinguished triangle on $(A,B,C)$,
+    the long sequence
+    \begin{center}
+        \begin{tikzcd}
+            \dots \ar[r]
+            & H(A{[n]}) \ar[r, "H\alpha"]
+            & H(B{[n]}) \ar[r, "H\beta"]
+            & H(C{[n]}) \ar[r, "H\delta"]
+            & H(A{[n+1]}) \ar[r]
+            & \dots
+        \end{tikzcd}
+    \end{center}
+    is exact in $\Aa$.
+    We often write $H^{n}(A) := H(A[n])$.
+
+    A \textbf{contravariant cohomological functor}
+    on $\Dd$ is a covariant cohomological functor
+    $F : \Dd^{op} \to \Aa$ (remember $\Dd^{op}$ is triangulated).
+\end{df}
+
+\begin{ex}
+    The \textbf{zero-th cohomology} $H^{0} : \cat{K}(\Aa) \to \Aa$
+    is a cohomological functor.
+\end{ex}
+
+\begin{ex}
+    Let $\Dd$ be a triangulated category. For any $X \in \Dd$,
+    the functor 
+    $$\Hom_{\Dd}(X,-) : \Dd \longrightarrow \Ab$$ 
+    is cohomological: indeed,
+    given a distinguished triangle $(\alpha, \beta, \delta)$ 
+    on $(A,B,C)$, the sequence
+    \begin{center}
+        \begin{tikzcd}
+            \Hom_{\Dd}(X,A) \ar[r, "\alpha_{*}"]
+            & \Hom_{\Dd}(X,B) \ar[r, "\beta_{*}"]
+            & \Hom_{\Dd}(X,C) 
+        \end{tikzcd}
+    \end{center}
+    is exact because $\beta\alpha=0$ implies $\im \alpha^{*} \subset \ker \beta^{*}$,
+    and conversely, whenever $g \in \Hom_{\Dd}(X,B)$ is such that
+    $\alpha_{*}g = \alpha \circ g = 0$, by \hyperref[TR3]{(\textbf{TR3})} applied
+    to the rotated triangle we have
+    \begin{center}
+        \begin{tikzcd}
+            X{[-1]}\ar[r] \ar[d]
+            & \cat{0} \ar[d] \ar[r] 
+            & X \ar[r, equals] \ar[d, "\exists"', "f", dashed]
+            & X \ar[r] \ar[d, "g"]
+            & \cat{0} \ar[d] \\
+            B{[-1]} \ar[r]
+            & C{[-1]} \ar[r]
+            & A \ar[r, "\alpha"]
+            & B \ar[r, "\beta"]
+            & C\,,
+        \end{tikzcd}
+    \end{center}
+    thus $g = \alpha_{*}f$ and we conclude that $\im \alpha^{*} = \ker \beta^{*}$.
+    Finally, by shifting the triangle thanks to \hyperref[TR2]{(\textbf{TR2})},
+    it follows that the sequence is exact everywhere else. 
+    In a similar fashion, one proves that $\Hom_{\Dd}(-,X)$
+    is a contravariant cohomological functor.
+
+    Moreover, if we additionally assume that $\Dd$ is $k$-linear, for some field $k$,
+    then for any $X \in \Dd$ yields a functor
+    $$\Hom_{\Dd}(X,-) : \Dd \longrightarrow \Vect{k}$$
+    which is cohomological and gives rise to a long exact sequence of
+    vector spaces over $k$. The same holds true for the
+    contravariant functor $\Hom_{\Dd}(-,X)$.
+\end{ex}
+
+\begin{rmk}
+    Once again, the notions of a triangulated category 
+    and of an exact functor have to be adjusted when 
+    one is interested in \emph{additive categories 
+    over a field} $k$. 
+    In this case, the shift functor should be $k$-linear 
+    and one usually considers only $k$-linear exact functors.
+%Also note that in this case the two 
+%long exact cohomology sequences  associated to a distinguished %triangle are long exact sequences of k-vector spaces.
+\end{rmk}
+
+% \input{Chapters/TriangulatedCategories/Verdier.tex}
+
+\begin{prop}\label{adj-exact}
+    Let $F:\Dd \to \Dd'$ be an exact functor 
+    between triangulated categories.
+    If $F \dashv H$, then $H: \Dd' \to \Dd$ is exact.
+    Similarly, if $G \dashv F$, then $G: \Dd' \to \Dd$.
+    \begin{proof}
+        Let $T$, respectively $T'$, denote the shift functor
+        of $\Dd$, resp. $\Dd'$. We first show that $H$
+        satisfies \hyperref[EF1]{(\textbf{EF1})}: 
+        by exactness of $F$, there is a natural isomorphism
+        $FT \simeq T'F$, which yields $(T')^{-1}F \simeq FT^{-1}$.
+        Hence, for every $A, B \in \Dd$
+        it holds
+        \begin{align*}
+            \Hom_{\Dd}(A,HT'(B))
+            &\simeq \Hom_{\Dd'}(F(A),T'(B)) \\
+            &\simeq \Hom_{\Dd'}((T')^{-1}F(A),B) \\
+            &\simeq \Hom_{\Dd'}(FT^{-1}(A),B) \\
+            &\simeq \Hom_{\Dd}(T^{-1}(A),H(B)) \\
+            &\simeq \Hom_{\Dd}(A,TH(B))\,,
+        \end{align*}
+        thus, the \hyperref[yoneda]{Yoneda's Lemma}
+        yields an isomorphism $HT' \simeq TH$.
+
+        Consider now a distinguished triangle
+        \begin{center}
+            \begin{tikzcd}
+                A \ar[r]
+                & B \ar[r]
+                & C \ar[r]
+                & A{[1]}
+            \end{tikzcd}
+        \end{center}
+        in $\Dd'$; we need to show that $H$ maps it
+        in a distinguished triangle in $\Dd$.
+        By (\textbf{EF1}) we know that $H(A[1]) \simeq H(A)[1]$,
+        hence by the axiom \hyperref[TR1]{(\textbf{TR1})(iii)} we can
+        complete $H(A) \to H(B)$ to a distinguished triangle
+        \begin{center}
+            \begin{tikzcd}
+                H(A) \ar[r]
+                & H(B) \ar[r]
+                & C_{0} \ar[r]
+                & H(A){[1]}\,.
+            \end{tikzcd}
+        \end{center}
+        Usign the counit $\epsilon : FH \to \cat{1}_{\Dd'}$
+        and the assumption that $F$ is exact, 
+        we get the following commutative diagram,
+        whose rows are distinguished triangles:
+        \begin{center}
+            \begin{tikzcd}
+                FH(A) \ar[r] \ar[d, "\epsilon_{A}"]
+                & FH(B) \ar[r] \ar[d, "\epsilon_{B}"]
+                & F(C_{0}) \ar[d, "h", dashed] \ar[r]
+                & FH(A){[1]} \ar[d, "\epsilon_{A}{[1]}"] \\
+                A \ar[r]
+                & B \ar[r]
+                & C \ar[r]
+                & A{[1]}\,,
+            \end{tikzcd}
+        \end{center}
+        thus, by \hyperref[TR3]{(\textbf{TR3})} it can be completed
+        to a morphism $(\epsilon_{A}, \epsilon_{B}, h)$ of distinguished triangles.
+        If we apply $H$ to this diagram, we can ``attach''
+        the first triangle to it by using the unit
+        $\eta : \cat{1}_{\Dd} \to HF$ in the following way:
+        \begin{center}
+            \begin{tikzcd}[column sep=large]
+                H(A) \ar[r] \ar[d, "\eta_{H(A)}"] \ar[dd, equals, bend right=75]
+                & H(B) \ar[r] \ar[d, "\eta_{H(B)}"]
+                & C_{0} \ar[r] \ar[d, "\eta_{C_{0}}"] 
+                & H(A){[1]} \ar[d] \ar[dd, equals, bend left=75]\\ %, "\eta_{H(A)}{[1]}"] \\
+                HFH(A) \ar[r] \ar[d, "\epsilon_{A}"]
+                & HFH(B) \ar[r] \ar[d, "\epsilon_{B}"]
+                & HF(C_{0}) \ar[d, "H(h)"] \ar[r]
+                & HFH(A){[1]} \ar[d] \\ %, "\epsilon_{A}{[1]}"] \\
+                H(A) \ar[r]
+                & H(B) \ar[r]  \ar[from=uu, equals, bend right=75, crossing over]
+                & H(C) \ar[r]
+                & H(A){[1]}\,,
+            \end{tikzcd}
+        \end{center}
+        where the compositions $\epsilon \circ \eta_{H(-)}$ are the identities
+        by \hyperref[unit-counit-identity]{Exercise~\ref*{unit-counit-identity}}.
+        Unfortunately, we cannot conclude by applying 
+        the \hyperref[5lemma]{\textbf{5-lemma}}
+        because the bottom triangle is not distinguished. Nevertheless,
+        remember that the functor $\Hom_{\Dd}(X,-)$ is cohomological,
+        for any $X \in \Dd$; thus, by using the adjunction
+        we obtain the diagram of abelian groups
+        \begin{center}
+            \begin{tikzcd}[column sep=small]
+                \Hom_{\Dd'}(F(X),A) \ar[r] \ar[d, equals]
+                & \Hom_{\Dd'}(F(X),B) \ar[r] \ar[d, equals]
+                & \Hom_{\Dd}(X,C_{0}) \ar[d] \ar[r]
+                & \Hom_{\Dd'}(F(X),A{[1]}) \ar[d,equals] \\
+                \Hom_{\Dd'}(F(X),A) \ar[r] 
+                & \Hom_{\Dd'}(F(X),B) \ar[r]
+                & \Hom_{\Dd}(X,H(C))  \ar[r]
+                & \Hom_{\Dd'}(F(X),A{[1]}) \,,
+            \end{tikzcd}
+        \end{center}
+        so by applying the classical 5 lemma for abelian groups
+        we deduce that $\Hom_{\Dd'}(X,C_{0}) \simeq \Hom_{\Dd'}(X,H(C))$,
+        thus from the \hyperref[yoneda]{Yoneda's Lemma} it follows
+        $C_{0}\simeq H(C)$. Finally, by \hyperref[TR1]{(\textbf{TR1})(ii)}
+        we see that $H(A) \to H(B) \to H(C) \to H(A){[1]}$ is distinguished,
+        so we conclude that $H$ satisfies \hyperref[EF2]{(\textbf{EF2})}.
+    \end{proof}
+\end{prop}
+
+\begin{df}
+    Given a triangulated category $\Dd$, a subcategory $\Dd' \subset \Dd$
+    is a \textbf{triangulated subcategory} if $\Dd'$ admits
+    a structure of triangulated category such that the inclusion is exact.
+\end{df}
+
+\begin{rmk}
+    \begin{rmnumerate}
+        \item Notice in particular that the family of distinguished triangles
+        of $\Dd'$ must be included in the distinguished triangles of $\Dd$.
+
+        \item If $\Dd' \subset \Dd$ is full, then it is a triangulated subcategory
+        if and only if $\Dd'$ is invariant under the shift functor and,
+        for every distinguished triangle $A \to B \to C \to A{[1]}$ in $\Dd$,
+        with $A,B \in \Dd'$, then $C$ is isomorphic to some object in $\Dd'$:
+        indeed, $A \to B$ is a morphism in $\Dd'$, thus it can be completed
+        to a distinguished triangle $A \to B \to C' \to A{[1]}$ in $\Dd'$,
+        hence  we have $C \simeq C'$ by the \hyperref[5lemma]{\textbf{5-lemma}}.
+    \end{rmnumerate}
+\end{rmk}
+
+\begin{df}
+    A triangulated subcategory $\Dd' \subset \Dd$ is called \textbf{admissible}
+    if the inclusion has a right adjoint $\pi: \Dd \to \Dd'$, that we will call
+    \textbf{orthogonal projection}. 
+    The (\textbf{right}) \textbf{orthogonal complement} of $\Dd'$
+    is the full subcategory $\Dd'^{\perp} \subset \Dd$ of those objects $C \in \Dd$
+    such that
+    \begin{equation*}
+        \Hom_{\Dd}(A,C) = 0\,, \quad \text{for all } A \in \Dd'\,.
+    \end{equation*}
+    Similarly, one can define ${}^{\perp}\Dd'$ as the full subcategory
+    of those objects $C \in \Dd$ such that
+    \begin{equation*}
+        \Hom_{\Dd}(C,A) = 0\,, \quad \text{for all } A \in \Dd'\,.
+    \end{equation*}
+\end{df}
+
+Note that the orthogonal projection $\pi$ is an exact functor 
+by \hyperref[adj-exact]{Proposition~\ref*{adj-exact}}.
+
+
+\begin{rmk}
+    The orthogonal complement of a triangulated subcategory $\Dd' \subset \Dd$
+    naturally inherits a triangulated structure from $\Dd$: 
+    indeed, we see that $T\vert_{\Dd'^{\perp}}$ has values in $\Dd'^{\perp}$
+    because, for every $A \in \Dd'$ and $n \in \Z$, it holds
+    \begin{equation*}
+        \Hom_{\Dd}(A,C[n]) \simeq \Hom_{\Dd}(A[-n],C) = 0\,;
+    \end{equation*}
+    moreover, given an exact triangle
+    \begin{equation*}
+        C \longrightarrow C' \longrightarrow B \longrightarrow C[1]
+    \end{equation*}
+    in $\Dd$, where $C,C' \in \Dd'^{\perp}$, then by applying $\Hom_{\Dd}(A,-)$
+    with $A \in \Dd'$ we obtain the exact sequence
+    \begin{equation*}
+        0 \longrightarrow \Hom_{\Dd}(A,B) \longrightarrow 0\,,
+    \end{equation*}
+    from which we deduce that $B \in \Dd'^{\perp}$.
+\end{rmk}
+
+The concept of orthogonality in triangulated category is inspired 
+by the familiar orthogonality on vector spaces that we know from linear algebra.
+We know that, is $W \subset V$ is a vector subspace, the the total
+space admits a decomposition $V = W \oplus W^{\perp}$.
+Similarly, whenever a full admissible subcategory $\Dd' \subset \Dd$ exists,
+every object in $\Dd$ fits in a sequence between a component in $\Dd'$
+and a component in its orthogonal complement
+\begin{lemma}[Semi-orthogonal decomposition]\label{admissible-dec}
+    A full triangulated subcategory $\Dd' \subset \Dd$
+    is admissible if and only if, for all $B \in \Dd$,
+    there exist a distinguished triangle
+    \begin{equation*}
+        A \longrightarrow B \longrightarrow C \longrightarrow A[1]\,,
+    \end{equation*}
+    with $A \in \Dd'$ and $C \in \Dd'^{\perp}$.
+    \begin{proof}
+        Assume $\Dd'$ is admissible: call $\pi$ its orthogonal projection
+        and set $A:=\pi(B) \in \Dd'$.
+        Using the adjunction, the identity $\cat{1}_{A}$ corresponds
+        to a map $A \to B$ in $\Dd$, which can be completed
+        to a distinguished triangle
+        \begin{equation*}
+            A \longrightarrow B \longrightarrow C \longrightarrow A[1]\;
+        \end{equation*}
+        note that for any $A' \in \Dd'$, there is an isomorphism
+        \begin{equation*}
+            \Hom_{\Dd}(A',A) 
+            = \Hom_{\Dd'}(A',A)
+            = \Hom_{\Dd'}(A',\pi(B)) 
+            \simeq \Hom_{\Dd}(A',B)\,,
+        \end{equation*}
+        hence, if we apply the functor $\Hom_{\Dd}(A',-)$ on the triangle,
+        then we get $\Hom_{\Dd}(A',C)=0$, so $C \in \Dd'^{\perp}$.
+
+        Conversely, for any $B \in \Dd$, 
+        define $\pi(B)$ to be an object in $\Dd'$
+        that fits in a distinguished triangle
+        \begin{equation*}
+            \pi(B) \longrightarrow B \longrightarrow C \longrightarrow \pi(B)[1]\,,
+        \end{equation*}
+        with $C \in \Dd'^{\perp}$. If $A' \to B \to C' \to A'[1]$
+        is another triangle of this form, 
+        then for every $X \in \Dd'$ we have
+        \begin{align*}
+            \Hom_{\Dd'}(X,\pi(B)) 
+            = \Hom_{\Dd}(X,\pi(B)) 
+            \simeq \Hom_{\Dd}(X,B)
+            \simeq \Hom_{\Dd}(X,A')
+            = \Hom_{\Dd}(X,A')\,,
+        \end{align*}
+        so by the \hyperref[yoneda]{Yoneda's Lemma} we deduce
+        that $A' \simeq \pi(B)$ in $\Dd'$. This shows that $\pi$
+        is defined on objects up to isomorphism.
+        Finally, we can define $\pi$ on morphisms too:
+        given $f:B \to B'$ in $\Dd$,
+        we define $\pi(f)$ to be the image of $f$ via the composition
+        \begin{equation*}
+            \Hom_{\Dd}(B,B') \longrightarrow
+            \Hom_{\Dd}(\pi(B),B') 
+            \simeq \Hom_{\Dd}(\pi(B),\pi(B'))
+            = \Hom_{\Dd'}(\pi(B),\pi(B'))\,,
+        \end{equation*}
+        where the isomorphism inbetween follows from the fact that
+        $\Hom_{\Dd}(\pi(B),C')=0$, for any $C' \in \Dd'^{\perp}$
+        in the decomposition of $B'$.
+        One can check that this defines a functor $\pi : \Dd \to \Dd'$
+        which is right adjoint to the inclusion $\Dd' \subset \Dd$,
+        by construction.
+    \end{proof}
+\end{lemma}
+
+As it turns out, Serre functors and triangulated structures 
+are always compatible. 
+In the geometric situation considered later, 
+this will be obvious, 
+for the Serre functors there will by construction be exact.
+
+\begin{thm}[Bondal, Kapranov]\label{BondalKapranov}
+    Any Serre functor on a $k$-linear triangulated category is exact.
+    \begin{proof}
+        See \parencite[Proposition~1.46]{huybrechts}.
+    \end{proof}
+\end{thm}

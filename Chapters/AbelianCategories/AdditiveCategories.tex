@@ -1,0 +1,319 @@
+\section{Additive categories}\label{AdditiveCategories}
+
+\begin{df}
+    A \textbf{preadditive category} is a category $\Aa$ 
+    in which each set  of morphisms $\Hom_{\Aa}(A,B)$ has an operation $+_{AB}$
+    that gives it an abelian group structure, 
+    in such a way that the composition maps
+    \begin{equation}\label{compatibility}
+    \begin{split}
+        \circ_{ABC} : \Hom_{\Aa}(B,C) \times \Hom_{\Aa}(A,B) \to \Hom_{\Aa}(A,C)\,, \\
+        \quad (g,f) \longmapsto  g \circ f := \circ_{ABC}(g,f)\,
+    \end{split}
+    \end{equation}
+    are group homomorphisms in each variable, that is
+    \begin{equation*}
+        g \circ (f +_{AB} f') = g \circ f +_{AC} g \circ f'\,,
+        \quad (g +_{BC} g') \circ f = g \circ f +_{AC} g \circ f'\,.
+    \end{equation*}
+\end{df}
+
+\begin{rmk}
+    If one is familiar with the concept of 
+    \textbf{enriched category},
+    then they can equivalently define 
+    a preadditive category $\Aa$ as an enriched 
+    $\cat{Ab}$-category, %with a zero object, 
+    where $\cat{Ab}$ is the category
+    of abelian groups with group homomorphisms;
+    notice that  $(\cat{Ab},\otimes_{\Z},\Z)$ 
+    is a monoidal category, 
+    so we may rewrite the composition morphism \eqref{compatibility}
+    as a homomorphism of abelian groups
+    \begin{equation*}
+        \Hom_{\Ab}(B,C) \otimes_{\Z} \Hom_{\Ab}(A,B) \to \Hom_{\Ab}(A,C)\,, 
+        \quad g \otimes f \longmapsto g \circ f\,;
+    \end{equation*}
+    indeed, the universal property the tensor products 
+    tells that it ``converts'' bilinear maps
+    into homomorphisms.
+\end{rmk}
+
+\begin{ex}
+    Let $\Aa = \cat{Ab}$. We already noticed that the category
+    of abelian groups has the zero element $\cat{0} = \set{0}$,
+    so for every pair of groups $G,H$, we have the zero morphism
+    $0_{GH}:G \to \cat{0} \to H$.
+    Then $\cat{Ab}$ is a \textbf{preadditive category}:
+    if $(G, +_{G})$ and $(H,+_{H})$ are abelian groups, then
+    \begin{align*}
+        +_{GH} : \Hom_{\Ab}(G,H) \times \Hom_{\Ab}(G,H) &\to \Hom_{\Ab}(G,H)\,,\\
+        (\phi,\psi) &\longmapsto [\phi +_{GH} \psi : g \mapsto \phi(g) +_{H} \psi(g)]
+    \end{align*}
+    defines an associative operation, whose neutral element is $0_{GH}$;
+    moreover, for every homomorphism $\phi:G \to H$, its inverse is 
+    given by the pointwise inverse $-\phi : g \longmapsto -\phi(g)$. 
+    Taken any $\phi,\phi' \in \Hom_{\Ab}(G,H)$
+    and $\psi, \psi' \in \Hom_{\Ab}(H,K)$, then for every $g \in G$ it holds
+    \begin{align*}
+        \psi \circ (\phi +_{GH} \phi')(g) &= \psi(\phi(g) +_{H} \phi'(g)) \\
+        &= \psi(\phi(g)) +_{K} \psi(\phi'(g)) \\
+        &= (\psi \circ \phi +_{GK} \psi \circ \phi')(g)\,,
+    \end{align*}
+    so we deduce that $\psi \circ (\phi +_{GH} \phi') = \psi \circ \phi +_{GK} \psi \circ \phi'$, and similarly $(\psi +_{HK} \psi') \circ \phi = (\psi \circ \phi) +_{GK} (\psi' \circ \phi)$, which means that the composition of
+    homomorphisms is a bilinear map.
+\end{ex}
+
+\begin{ex}
+    Let $R$ be a ring with unity. Then the category $\Aa = \Mod_{R}$ 
+    of left $R$-modules is preadditive, and the proof
+    of this is similar to one for $\cat{Ab}$.
+\end{ex}
+
+\begin{ex!}\label{ring-cat}
+    A ring $R$ with unit can be made into a preadditive
+    category $\cat{P}(R)$ in the following way:
+    let $\cat{P}(R)$ consist of just one object $\ast$,
+    whose arrows $\Hom_{\cat{P}(R)}(\ast, \ast) = R$
+    are the elements of the ring. Given $r,s \in R$,
+    define the composition $r \circ s := rs$ to be the product
+    in the ring. Then by the definition of ring we see
+    that $\cat{P}(R)$ has a group structure,
+    and the composition of morphisms distributes
+    over the sum.
+\end{ex!}
+
+\begin{ex}
+    Let $\Aa = \cat{Fld}$ be the category whose objects are fields and
+    whose morphisms are unital ring homomorphisms 
+    (i.e. $k \to K$ sends $1_{k} \mapsto 1_{K}$).
+    Then $\cat{Fld}$ is \textbf{not} preadditive because
+    $\Hom_{\cat{Fld}}(k,K) = \emptyset$ whenever 
+    $\operatorname{char}k \ne \operatorname{char} K$,
+    so it cannot have a group structure.
+\end{ex}
+
+\begin{prop}
+    In a preadditive category $\Aa$, the following are equivalent:
+    \begin{enumerate}
+        \item $\Aa$ has an initial object;
+        \item $\Aa$ has a terminal object;
+        \item $\Aa$ has a zero object.
+    \end{enumerate}
+    \begin{proof}
+        By definition of zero object, 
+        \emph{(3)} implies both \emph{(1)} and \emph{(2)}.
+        Now assume $\Aa$ has an initial object $\cat{0}$. 
+        We prove it is also final. 
+        Since $\cat{0}$ is initial, the set 
+        $\Hom_{\Aa}(\cat{0}, \cat{0}) = \set{1_{\cat{0}}}$ is the trivial
+        group; moreover, we know that for each object $C$,
+        the set $\Hom_{\Aa}(C,\cat{0})$ has at least one element 
+        $f : C \to \cat{0}$. By the computation
+        \begin{equation*}
+            f = f \circ 1_{\cat{0}} 
+            = f \circ (1_{\cat{0}} + 1_{\cat{0}})
+            = (f \circ 1_{\cat{0}}) + (f \circ 1_{\cat{0}})
+            = f + f
+        \end{equation*}
+        we deduce that $f = 0_{C\cat{0}}$ is the only element
+        of $\Hom_{\Aa}(C, \cat{0})$, hence \emph{(3)} follows.
+        Similarly one proves that \emph{(2)} implies \emph{(3)}.
+    \end{proof}
+\end{prop} 
+
+\begin{prop}\label{biproduct}
+    Given two objects $A,B$ in a preadditive category $\Aa$,
+    the following are equivalent:
+    \begin{enumerate}
+        \item the product $(P,\pi_{A}, \pi_{B})$ of $A,B$ exists;
+        \item the coproduct $(P,j_{A},j_{B})$ of $A,B$ exists;
+        \item there exists an object $P$ with morphisms
+        \begin{equation*}
+            \pi_{A} : P \to A\,, \quad \pi_{B} : P \to B\,,
+            \quad j_{A} : A \to P\,, \quad j_{B} : B \to P\,,
+        \end{equation*}
+        with the properties
+        \begin{align*}
+            \pi_{A} \circ j_{A} &= 1_{A}\,, \quad
+            \pi_{B} \circ j_{B} = 1_{B}\,, \\
+            \pi_{B} \circ j_{A} &= 0_{AB}\,, \quad
+            \pi_{A} \circ j_{B} = 0_{BA}\,, \\
+            (j_{A} \circ &\pi_{A}) +_{PP} (j_{B} \circ \pi_{B})
+            = 1_{P}\,.
+        \end{align*}
+    \end{enumerate}
+    \begin{proof}
+        By duality, it is enough to show that \emph{(1)} and \emph{(3)}
+        are equivalent.
+        
+        Assume \emph{(1)} holds. By the universal property of the
+        product, there exist a unique morphisms $j_{A}$ and $j_{B}$ that
+        make the diagrams commute:
+        \begin{equation*}
+            \begin{tikzcd}
+                    & A \ar[d,"j_{A}", dashed] \ar[dr, "0_{AB}", bend left] \ar[dl, "1_{A}"', bend right] & 
+                    & & B \ar[d,"j_{B}", dashed] \ar[dr, "1_{B}", bend left] \ar[dl,"0_{BA}"', bend right] &  \\
+                    A & P \ar[l, "\pi_{A}"] \ar[r, "\pi_{B}"'] & B 
+                    &  A & P \ar[l, "\pi_{A}"] \ar[r, "\pi_{B}"'] & B\,.
+            \end{tikzcd}
+        \end{equation*}
+        The computation
+        \begin{align*}
+            &\pi_{A} \circ (j_{A} \circ \pi_{A} + j_{B} \circ \pi_{B}) = \pi_{A} + 0_{BA} = \pi_{A}\,, \\
+            & \pi_{B} \circ (j_{A} \circ \pi_{A} + j_{B} \circ \pi_{B}) = 0_{AB} + \pi_{B} = \pi_{B}\,,
+        \end{align*}
+        shows that the diagram
+        \begin{equation*}
+            \begin{tikzcd}
+                    & &P \ar[d,"j_{A}\pi_{A} + j_{B}\pi_{B}", dashed] \ar[drr, "\pi_{B}", bend left] \ar[dll, "\pi_{A}"', bend right] & &\\
+                    A & & P \ar[ll, "\pi_{A}"] \ar[rr, "\pi_{B}"'] & &  B \,
+            \end{tikzcd}
+        \end{equation*}
+        commutes, hence $j_{A} \circ \pi_{A} + j_{B} \circ \pi_{B} = 1_{P}$.
+        
+        Conversely, if we have morphisms $f:C \to A$ and $g: C \to B$, 
+        then they factor through $h := j_{A} \circ f + j_{B} \circ g$, indeed
+        \begin{align*}
+            \pi_{A} \circ h 
+            = (\pi_{A} \circ j_{A}) \circ f + (\pi_{A} \circ j_{B}) \circ g
+            = 1_{A} \circ f + 0_{BA} \circ g = f\,,\\
+            \pi_{B} \circ h 
+            = (\pi_{B} \circ j_{A}) \circ f + (\pi_{B} \circ j_{B}) \circ g
+            = 0_{AB} \circ f + 1_{B} \circ g = g\,.\\
+        \end{align*}
+        Moreover, given $h':C \to P$ with the same property, then
+        \begin{align*}
+            h' = 1_{P} \circ h' &= (j_{A} \circ \pi_{A} + j_{B} \circ \pi_{B}) \circ h'\\
+            &= j_{A} \circ (\pi_{A} \circ h') + j_{B} \circ (\pi_{B} \circ h')\\
+            &= j_{A} \circ f + j_{B} \circ g = h\,,
+        \end{align*}
+        so we deduce that $(P,\pi_{A},\pi_{B})$ is the product of $A$ and $B$.
+    \end{proof}
+\end{prop}
+
+\begin{df}
+    Given two objects $A,B$ in a preadditive category, 
+    a quintuple 
+    $(P,\pi_{A}, \pi_{B}, j_{A}, j_{B})$ as in 
+    \hyperref[biproduct]{\textbf{Proposition~\ref*{biproduct}}~\emph{.3}}
+    is called a \textbf{biproduct}, or \textbf{direct sum},
+    and we write $A \oplus B$.
+\end{df}
+
+\begin{df}
+    An \textbf{additive category} is a preadditive category with
+    a zero object and binary biproducts.
+\end{df}
+
+\begin{ex}
+    The category $\Aa = \cat{Ab}$ of abelian groups is an additive
+    category. Given a ring $R$ with unit, the category $\Aa = {}_{R}\Mod$ 
+    of left $R$-modules is additive.
+\end{ex}
+
+\begin{ex}
+    Given a ring $R \ne 0$ with unit, the category
+    $\cat{P}(R)$ is \textbf{not} additive, 
+    for it has one object only and it is not a zero.
+\end{ex}
+
+\begin{ex}
+    The category $\Aa = \cat{Grp}$ of groups is \textbf{not} additive:
+    indeed, given two groups $A$ and $B$, their product is the
+    direct product $A \times B$, while their coproduct is the
+    free product $A \ast B$, and these two objects
+    are not isomorphic in general.
+\end{ex}
+
+\begin{ex}
+    The category $\Aa = \cat{CRing}$ 
+    of unital commutative rings
+    has both products and coproducts: 
+    given $A,B$ two rings,
+    then $A \prod B = A \times B$ is the direct product,
+    while $A \coprod B = A \otimes_{\Z} B$ is the tensor
+    product, and these two are \textbf{not} isomorphic in general.
+    Thus, $\cat{CRing}$ is \textbf{not} additive.
+    The same holds true for the category of unital rings,
+    but the construction of the coproduct for
+    the non-commutative case is a little bit trickier
+    (see \parencite{coprod-rings} for an idea).
+\end{ex}
+
+\begin{df}
+    Given two preadditive categories $\Aa$ and $\Bb$,
+    a functor $F: \Aa \to \Bb$ is called \textbf{additive} 
+    if, for every pair of objects $A,A' \in \Aa$,
+    the map
+    \begin{equation*}
+       F_{AA'} : \Hom_{\Aa}(A,A') \longrightarrow \Hom_{\Bb}(F(A),F(A'))\,,
+       \quad f \longmapsto F(f)\,,
+    \end{equation*}
+    is a group homomorphism. 
+    Additive functors from $\Aa$ to $\Bb$ and
+    natural transformations between them
+    form a category $\cat{Fun}_{+}(\Aa,\Bb)$.
+\end{df}
+
+\begin{ex}
+    Given a preadditive category $\Aa$ and an object $B$,
+    the functor
+    \begin{equation*}
+        \Hom_{\Aa(-,B)} : \Aa^{op} \longrightarrow \cat{Ab}\,,
+        \quad A \longmapsto \Hom_{\Aa}(A,B)
+    \end{equation*}
+    is additive. Indeed, given any two objects $A,A' \in \Aa$,
+    we verify that
+    \begin{equation*}
+        \Hom_{\Aa}(A,A') \longrightarrow 
+        \Hom_{\Ab}\big(\Hom_{\Aa}(A',B),\Hom_{\Aa}(A,B)\big)\,,
+        \quad
+        f \longmapsto [g \longmapsto g \circ f]
+    \end{equation*}
+    is a homomorphism: given any two $f,\tilde{f} : A \to A'$,
+    then for every $g : A' \to B$ it holds
+    \begin{equation*}
+        \Hom_{\Aa}(A,f+\tilde{f})(g) = g \circ (f+\tilde{f}) 
+        = g \circ f + g \circ \tilde{f}
+        = \Hom_{\Aa}(A,f)(g) + \Hom_{\Aa}(A,\tilde{f})(g)\,,
+    \end{equation*}
+    where $\circ$ distributes over the sum by definition
+    of a preadditive category.
+\end{ex}
+
+The previous example points out that
+a contravariant representable functor from a
+preadditive category is always additive.
+Hence, we get the following version
+for preadditive categories
+of the \hyperref[yoneda]{\textbf{Yoneda's Lemma}~\ref*{yoneda}}.
+
+\begin{thm}[\textbf{Additive Yoneda's Lemma}]\label{additive-yoneda}
+    If $\Aa$ is a preadditive category,
+    $A$ an object in $\Aa$ and $F : \Aa^{op} \to \cat{Ab}$
+    an additive functor,
+    then there exists an isomorphism of
+    abelian groups
+    \begin{equation*}
+        \cat{Fun}_{+}(\Aa^{op},\Ab)\big(\Hom_{\Aa}(-,A),F\big) \simeq F(A)
+    \end{equation*}
+    which is natural both in $A$ and in $F$.
+    \begin{proof}
+        The proof goes through as in the ``classic''
+        \textbf{Yoneda's Lemma}: on one side, one sends a
+        transformation $\alpha : \Hom_{\Aa}(-,A) \to F$
+        to the element $\alpha_{A}(1_{A}) \in F(A)$
+        and conversely, for any $x \in F(A)$,
+        one defines $\alpha^{x}$ to be the natural transformation
+        \begin{equation*}
+            \alpha_{B}^{x} : \Hom_{\Aa}(B,A) \longrightarrow F(B)\,,
+            \quad f \longmapsto F(f)(x)\,.
+        \end{equation*}
+        These two constructions are one the inverse of the other
+        and moreover they define group \emph{homomorphisms},
+        indeed $\alpha_{A}: \Hom_{\Aa}(A,A) \to F(A)$ 
+        is an arrow in $\cat{Ab}$
+        and $\alpha^{x}$ is a homomorphism by additivity of $F$.
+    \end{proof}
+\end{thm}

@@ -1,0 +1,284 @@
+
+\section{Adjunctions}
+
+\begin{df}
+    Given $F:\Aa \to \Bb$, a functor $H : \Bb \to \Aa$
+    is \textbf{right adjoint} to $F$, and one writes $F \dashv H$,
+    if for any objects $A \in \Aa, B \in \Bb$ there exist 
+    isomorphisms
+    \begin{equation}\label{adj-morphism}
+        \Hom_{\Bb}(F(A),B) \simeq \Hom_{\Aa}(A, H(B))\,,
+    \end{equation}
+    which are functorial both in $A$ and $B$.
+
+    Similarly, a functor $G : \Bb \to \Aa$ is \textbf{left adjoint}
+    to $F$ (witten $G \dashv F$) if there exist natural isomorphisms 
+    \begin{equation}\label{l-adj-morphism}
+        \Hom_{\Bb}(B, F(A)) \simeq \Hom_{\Aa}(G(B), A)\,,
+    \end{equation}
+    for any $A \in \Aa$ and $B \in \Bb$.
+\end{df}
+
+\begin{rmk}
+        Suppose $F \dashv H$. By adjunction, the identity
+        $\cat{1}_{F(A)}$ induces a morphism 
+        $\eta_{A} : A \to H(F(A))$.
+        Since in the definition of adjunction
+        the isomorphisms are natural,
+        it follows that all these morphisms define
+        a natural transformation $\eta : \cat{1}_{\Aa} \to H \circ F$
+        called the \textbf{unit} of the adjunction.
+        Similarly, changing roles of $F$ and $H$, we see there exists
+        a natural transformation $\epsilon : F \circ H \to \cat{1}_{\Bb}$ called 
+        the \textbf{counit} of the adjunction.
+\end{rmk}
+
+\begin{prop}
+    Let $F : \Aa \to \Bb$ be a functor. Whenever they exist,
+    right and left adjoint functors are unique up to isomorphism.
+    \begin{proof}
+        Suppose there exist $H, H':\Bb \to \Aa$ such that 
+        $F \dashv H$ and $F \dashv H'$.
+        Then for every $A \in \Aa$ and $B \in \Bb$ we have 
+        natural isomorphisms
+        \begin{equation*}
+            \Hom_{\Aa}(A,H(B)) \simeq 
+            \Hom_{\Bb}(F(A),B) \simeq 
+            \Hom_{\Aa}(A,H'(B))\,.
+        \end{equation*}
+        In particular, for any $B \in \Bb$, the functors
+        $\Hom_{\Aa}(-,H(B))$ and $\Hom_{\Aa}(-,H'(B))$
+        are isomorphic in $\cat{Fun}(\Aa^{op})$,
+        so by the \hyperref[yoneda]{Yoneda's Lemma~\ref*{yoneda}}
+        it follows that there exists a natural isomorphism
+        $H(B) \simeq H'(B)$.
+        As this holds for every $B$, these define
+        an isomorphism $H \simeq H'$.
+    \end{proof}
+\end{prop}
+
+\begin{exercise!}\label{unit-counit-identity}
+    Suppose $F \dashv H$. Show that, for the unit $\eta$ 
+    and the counit $\epsilon$ of the adjunction,
+    the composition
+    \begin{equation*}
+        H \xrightarrow[]{\eta_{H(-)}} H \circ F \circ H \xrightarrow[]{H(\epsilon)} H
+    \end{equation*}
+    is the identity.
+    \begin{proof}[Solution]
+        %Since the adjunction morphism~\eqref{adj-morphism}
+        %is natural in $B$, if we apply it to $B=F(A)$ and
+        %to the morphism $F\eta_{A} : F(A) \to FHF(A)$,
+        %then we get a commutative square
+        %\begin{center}
+        %    \begin{tikzcd}
+        %        \Hom_{\Bb}(FHF(A),F(A)) \ar[r, "\simeq"] \ar[d, "- \circ F\eta_{A}"']
+        %        & \Hom_{\Aa}(HF(A),HF(A)) \ar[d, "- \circ \eta_{A}"]
+        %        & & \epsilon_{F(A)}  \ar[d, mapsto] 
+        %        & \cat{1}_{HF(A)} \ar[d,mapsto] \ar[l, mapsto] \\
+        %        \Hom_{\Bb}(F(A),F(A)) \ar[r, "\simeq"] 
+        %        & \Hom_{\Aa}(A,HF(A))\,,
+        %        & & \cat{1}_{F(A)} 
+        %        & \eta_{A} \ar[l,mapsto]  \,,
+        %    \end{tikzcd}
+        %\end{center}
+        %which witnesses the equation $\cat{1}_{F(A)} = \epsilon_{F(A)} \circ %F\eta_{A}$.
+        
+        Since the adjunction morphism~\eqref{adj-morphism}
+        is natural in $A$, if we apply it to $A=H(B)$ and
+        to the morphism $H\epsilon_{B} : HFH(B) \to H(B)$,
+        then we get a commutative square
+        \begin{center}
+            \begin{tikzcd}[column sep=small]
+                \Hom_{\Bb}(FH(B),FH(B)) \ar[r, "\simeq"] \ar[d, "\epsilon_{B} \circ - "']
+                & \Hom_{\Aa}(H(B),HFH(B)) \ar[d, "H\epsilon_{B} \circ - "]
+                & & \cat{1}_{FH(B)}  \ar[d, mapsto] \ar[r, mapsto]
+                & \eta_{H(B)} \ar[d,mapsto]  \\
+                \Hom_{\Bb}(FH(B),B) \ar[r, "\simeq"] 
+                & \Hom_{\Aa}(H(B),H(B))\,,
+                & & \epsilon_{B} \ar[r,mapsto]
+                & \cat{1}_{H(B)}   \,,
+            \end{tikzcd}
+        \end{center}
+        which witnesses the equation $\cat{1}_{H(B)} = H\epsilon_{B} \circ \eta_{H(B)}$, for any $B \in \Bb$.
+
+        One can show the same holds true for the composition $\epsilon_{F(-)} \circ F\eta = F$ and, in fact, these triangle identities
+        give an equivalent definition of adjunction: one may say $F \dashv H$
+        whenever these two identities hold (see \parencite[Proposition 4.2.6]{riehl}).
+    \end{proof}
+\end{exercise!}
+
+\begin{exercise}
+    Suppose $F \dashv H$. Show that
+    \begin{equation*}
+        f \longmapsto \Big( A \xrightarrow[]{\eta_{A}} H(F(A))  \xrightarrow{H(f)} H(B) \Big)
+    \end{equation*}
+    describes the adjunction morphism 
+    $\Phi_{A,B} : \Hom_{\Bb}(F(A),B) \simeq \Hom_{\Aa}(A,H(B))$.
+    \begin{proof}[Solution]
+        First, notice that $\Psi_{A,F(A)}\left(\cat{1}_{F(A)}\right) = \eta_{A}$
+        gives the unit of the adjunction, which is a good sign. 
+        By following the construction of $\Phi$, 
+        one defines a map 
+        $\Psi_{A,B} : \Hom_{\Aa}(A,H(B)) \to \Hom_{\Bb}(F(A),B)$
+        by setting
+        \begin{equation*}
+        g \longmapsto \Big( F(A) \xrightarrow[]{F(g)} F(H(B))  \xrightarrow{\epsilon_{B}} B \Big)\,. 
+    \end{equation*}
+    We now show that $\Psi_{A,B}$ is the inverse of $\Phi_{A,B}$: 
+    given $f \in \Hom_{\Bb}(F(A),B)$, we have a commutative square
+    \begin{center}
+        \begin{tikzcd}[column sep=large]%, row sep=large]
+            FHF(A) \ar[r, "FH(f)"] \ar[d, "\epsilon_{F(A)}"']
+            & FH(B) \ar[d, "\epsilon_{B}"] \\
+            F(A) \ar[r, "f"] 
+            & B\,,
+        \end{tikzcd}
+    \end{center}
+    thus it holds
+    \begin{align*}
+        \Psi_{A,B} \circ \Phi_{A,B}(f) 
+        &= \Psi_{A,B} \left( H(f) \circ \eta_{A} \right) \\
+        &= \epsilon_{B} \circ F\left( H(f) \circ \eta_{A} \right) \\
+        &= f \circ \epsilon_{F(A)} \circ F\eta_{A} = f\,,
+    \end{align*}
+    where the last \textbf{Exercise} was applied to the last equality. 
+    Similarly, one shows that $\Phi_{A,B} \circ \Psi_{A,B}$ is the identity,
+    so we conclude these morphisms are, in fact, isomorphisms.
+
+    It remains to prove naturality:
+    given $a:A \to A'$ and $f':F(A') \to B$, 
+    we want the square
+    \begin{center}
+        \begin{tikzcd}
+            \Hom_{\Bb}(F(A'),B) \ar[r, "\Phi_{A',B}"] \ar[d, "- \circ Fa"']
+            & \Hom_{\Aa}(A',H(B)) \ar[d, "- \circ a"] \\
+            \Hom_{\Bb}(F(A),B) \ar[r, "\Phi_{A,B}"]
+            & \Hom_{\Aa}(A,H(B)) 
+        \end{tikzcd}
+    \end{center}
+    to be commutative; it follows from the commutativity 
+    of the diagram
+    \begin{center}
+        \begin{tikzcd}[row sep=small]
+            A \ar[dd, "a"', dashed] \ar[r, "\eta_{A}", dotted] 
+            & HF(A) \ar[dd, "HFa"'] \ar[rd, "H(f' \circ Fa)", dotted] 
+            & \\
+            & & H(B) \\
+            A' \ar[r, "\eta_{A'}",dashed] 
+            & HF(A') \ar[ur, "Hf'"',dashed] 
+            & \,,
+        \end{tikzcd}
+    \end{center}
+    where the dotted arrows witness the composition 
+    $\Phi_{A,B} \circ (-\circ Fa)$, 
+    while the dashed arrows
+    $(- \circ a) \circ \Phi_{A',B}$.
+    \end{proof}
+\end{exercise}
+
+As a consequence of the previous \textbf{Exercises},
+we get the following
+
+\begin{lemma}\label{adj-triangle}
+    Let $F:\Aa \to \Bb$ be a functor and $F \dashv H$.
+    For any $A, A' \in \Aa$, the unit $\eta:\cat{1}_{\Aa} \to H \circ F$ 
+    induces the commutative triangle
+    \begin{center}
+        \begin{tikzcd}
+            \Hom_{\Aa}(A,A') \ar[rr, "\eta_{A'} \circ - "] \ar[dr, "F"']
+            & & \Hom_{\Aa}(A,HF(A')) \ar[dl, "\simeq"', "\Psi_{A,F(A')}"] \\
+            & \Hom_{\Bb}(F(A),F(A')) & \,.
+        \end{tikzcd}
+    \end{center}
+    Similarly, for any $B,B' \in \Bb$,
+    the counit $\epsilon: FH \to \cat{1}_{\Bb}$
+    induces a commutative triangle
+    \begin{center}
+        \begin{tikzcd}
+            \Hom_{\Bb}(B,B') \ar[rr, "- \circ \eta_{B'}"] \ar[dr, "F"']
+            & & \Hom_{\Bb}(FH(B),B') \ar[dl, "\simeq"', "\Phi_{H(B),B'}"] \\
+            & \Hom_{\Aa}(H(B),H(B')) & \,.
+        \end{tikzcd}
+    \end{center}
+\end{lemma}
+
+\begin{cor}\label{ff-adj}
+    If a fully faithful functor $F:\Aa \to \Bb$ admits a right adjoint
+    $F \dashv H$, then the unit
+    \begin{equation*}
+        \eta : \cat{1}_{\Aa} \xrightarrow[]{\sim} H \circ F
+    \end{equation*}
+    is an isomorphism.
+    Similarly, if $F$ admits a left adjoint $G \dashv F$, then the
+    counit $\epsilon : F \circ G \simeq \cat{1}_{\Bb}$ is an isomorphism\,.
+    \begin{proof}
+        Assume $G \dashv F$.
+        By assumption, for every $B,B' \in \Bb$ we have
+        a bijection $G : \Hom_{\Bb}(B,B') \simeq \Hom_{\Aa}(G(B),G(B'))$,
+        hence by \hyperref[adj-triangle]{Lemma~\ref*{adj-triangle}}
+        there is a natural bijection
+        \begin{equation*}
+            \Hom_{\Bb}(B,B') \simeq \Hom_{\Bb}(F \circ G(B),B')\,.
+        \end{equation*}
+        By the \hyperref[yoneda]{Yoneda's Lemma~\ref*{yoneda}} we conclude
+        that $B \simeq FG(B)$ for any $B \in \Bb$, thus the functors $\cat{1}_{\Bb}$
+        and $F \circ G$ are isomorphic.
+
+        In the case $F \dashv H$, the proof must be modified
+        by applying the covariant version of the 
+        \hyperref[yoneda]{Yoneda's Lemma}.
+    \end{proof}
+\end{cor}
+
+\begin{exercise}
+    Let $F : \Aa \to \Bb$ be a fully faithful functor 
+    and assume $G \dashv F \dashv H$.
+    Construct a canonical homomorphism $H \to G$.
+    \begin{proof}[Solution]
+        Notice that, in fact, the two functors $G$ and $H$
+        turn out to be isomorphic: by the previous
+        \hyperref[ff-adj]{Corollary~\ref*{ff-adj}},
+        it holds
+        \begin{equation*}
+            H = H \circ \cat{1}_{\Bb} 
+            \simeq H \circ (F \circ G)
+            \simeq (H \circ F) \circ G
+            \simeq \cat{1}_{\Aa} \circ G = G\,.
+        \end{equation*}
+        To construct this homomorphism explicitly,
+        we use the fact that both unit and counit are isomorphisms;
+        thus, for any $B, B' \in \Bb$ we have
+        \begin{center}
+            \begin{tikzcd}[column sep=large]
+                \Hom_{\Bb}(B,B') \ar[r, "\epsilon_{B'}^{-1} \circ -"',"\sim"]
+                & \Hom_{\Bb}(B,FG(B')) \ar[d, "H"] & \\
+                & \Hom_{\Aa}\big(H(B),HF(G(B'))\big) 
+                \ar[r, "\eta_{G(B')}^{-1} \circ -"',"\sim"]
+                & \Hom_{\Aa}(H(B),G(B'))\,.
+            \end{tikzcd}
+        \end{center}
+        By plugging $B'=B$, the image of the identity $\cat{1}_{B}$ gives
+        a natural transformation $H \to G$ given %, for every $B \in \Bb$,
+        by %$\eta_{G(B)}^{-1} \circ H(\epsilon_{B}^{-1}) =
+        $ \left( \eta_{G(-)} \circ H(\epsilon) \right)^{-1}$.
+    \end{proof}
+\end{exercise}
+
+In many cases, adjoint functors exist. The case that interests us most is the case of equivalences. Here, the existence of left and right adjoints is granted by the following general result.
+
+\begin{prop}
+    Let $F:\Aa \to \Bb$ be an equivalence of categories.
+    Then $F$ admits a right adjoint and a left adjoint,
+    which are given by its quasi-inverse $F^{-1}$,
+    i.e. $F \dashv F^{-1} \dashv F$.
+    \begin{proof}
+        For any $A \in \Aa$ and $B \in \Bb$, we have functorial bijections
+        \begin{equation*}
+            \Hom_{\Bb}(F(A),B) 
+            \simeq \Hom_{\Aa}(F^{-1}(F(A)),F^{-1}(B))
+            \simeq \Hom_{\Aa}(A,F^{-1}(B))\,,
+        \end{equation*}
+        where we use $F^{-1}(F(A)) \simeq A$.
+    \end{proof}
+\end{prop}

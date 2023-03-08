@@ -1,0 +1,54 @@
+
+\section{Equalizers}
+
+\begin{df}
+    Let $\Aa$ be a category and $s,t : A \to B$ two morphisms.
+    The \textbf{equalizer} of $s$ and $t$ is a pair $(E,e)$
+    of an object $E$ together with a morphism $e : E \to A$ such that
+    $se=te$, which satisfies the following universal property:
+    for every morfism $f:T \to A$ such that $sf =tf$, there
+    exists a unique arrow $f':T \to E$ which makes 
+    the following triangle commute:
+    \begin{center} \begin{tikzcd}
+        T \ar[d, dotted,"f'"'] \ar[dr, "f"] & & \\
+        E \ar[r, "e"] & 
+        A \ar[r, "s", black!50, bend left] \ar[r, "t"', black!50, bend right] 
+        & \textcolor{black!50}{B} \,.
+    \end{tikzcd} \end{center}
+\end{df}
+
+Equivalently, one may define equalizers in $\Aa$ as limits of diagrams $\Ee \to \Aa$,
+where $\Ee$ is the small category with two objects and four arrows, depicted as
+\begin{center} \begin{tikzcd}
+    \bullet \ar[r, bend left] \ar[r, bend right] \ar[loop left] & \bullet \ar[loop right] &\,.
+\end{tikzcd} \end{center}
+Dually, one defines \textbf{coequalizers} in $\Aa$ as colimits of diagrams of shape $\Ee$.
+
+
+\begin{prop}
+    Equalizers are monomorphisms. Coequalizers are epimorphisms.
+    \begin{proof}
+        By duality, we only prove the statement for equalizers.
+        Consider the equalizer diagram
+        \begin{equation*}
+        \begin{tikzcd}
+        E \ar[r, "e"]
+        & A \ar[r, shift left=0.7ex, "s"] \ar[r, shift right=0.7ex, "t"']
+        & B\,
+        \end{tikzcd}
+        \end{equation*}
+        and let $\alpha, \beta: T \to E$ be two morphisms such that
+        $e\alpha = e \beta$. By the universal property of $(E,e)$, 
+        we then obtain a diagram
+        \begin{equation*}
+        \begin{tikzcd}
+        E \ar[r, "e"]
+        & A \ar[r, shift left=0.7ex, "s"] \ar[r, shift right=0.7ex, "t"']
+        & B \\
+        T \ar[ur, "e\alpha=e\beta"'] 
+        \ar[u, dashed, "\exists !"] & & \,,
+        \end{tikzcd}
+        \end{equation*}
+        from which we deduce that $\alpha = \beta$.
+    \end{proof}
+\end{prop}

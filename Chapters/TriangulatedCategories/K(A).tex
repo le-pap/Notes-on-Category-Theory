@@ -1,0 +1,529 @@
+
+\section{The homotopy category of complexes} %\texorpdfstring{$\cat{K}(\Aa)$}{K(A)}}
+
+There are many formal similarities between
+homological algebra and algebraic topology. 
+The Dold-Kan correspondence, for example, 
+provides a dictionary between 
+positive complexes and simplicial theory. 
+The algebraic notions of chain homotopy, mapping cones, 
+and mapping cylinders have their historical 
+origins in simplicial topology.
+
+Let $\Aa$ be an abelian category and consider the
+category $C^{\bullet}(\Aa)$ of cochain complexes in $\Aa$.
+We now define the \textbf{homotopy category} $\cat{K}(\Aa)$ of $C^{\bullet}(\Aa)$
+as follows: we take as objects the same of $C^{\bullet}(\Aa)$,
+i.e. cochain complexes, 
+and the morphisms of $\cat{K}(\Aa)$ to be
+\emph{chain homotopy equivalence classes of maps} in $C^{\bullet}(\Aa)$:
+for any two cochains $A^{\bullet}, B^{\bullet}$, it holds
+\begin{equation*}
+    \Hom_{\cat{K}(\Aa)}(A^{\bullet}, B^{\bullet}) :=
+    \left. \Hom_{C^{\bullet}(\Aa)}(A^{\bullet}, B^{\bullet}) \middle/ \sim \right. \,,
+\end{equation*}
+where the relation $\sim$ is given by homotopy equivalence.
+Notice that the quotient naturally inherits
+the sum: given $f^{\bullet} \sim \tilde{f}^{\bullet}$ 
+and $g^{\bullet} \sim \tilde{g}^{\bullet}$,
+if $s$ is a homotopy between $f^{\bullet}$ and $\tilde{f}^{\bullet}$
+and $t$ is a homotopy between $g^{\bullet}$ and $\tilde{g}^{\bullet}$,
+then $s+t$ is a homotopy between $f^{\bullet} + g^{\bullet}$ 
+and $\tilde{f}^{\bullet} + \tilde{g}^{\bullet}$, indeed
+\begin{align*}
+    (s+t)d_{A}^{\bullet} + d_{B}^{\bullet}(s+t)
+    &= (sd_{A}^{\bullet} + d_{B}^{\bullet}s)
+    + (td_{A}^{\bullet} + d_{B}^{\bullet}t) \\
+    &= (f^{\bullet} - \tilde{f}^{\bullet}) + (g^{\bullet} - \tilde{g}^{\bullet}) \\
+    &= (f^{\bullet} + g^{\bullet}) - (\tilde{f}^{\bullet} + \tilde{g}^{\bullet})\,, 
+\end{align*}
+thus $f^{\bullet} + g^{\bullet} \sim \tilde{f}^{\bullet} + \tilde{g}^{\bullet}$.
+It follows that $\cat{K}(\Aa)$ is an additive category and the quotient functor
+\begin{equation*}
+    C^{\bullet}(\Aa) \longrightarrow \cat{K}(\Aa)
+\end{equation*}
+is an additive functor. 
+
+Sometimes it is useful to consider 
+categories of complexes having special properties: 
+if $\Cc$ is any \emph{full} subcategory of $C^{\bullet}(\Aa)$, 
+let $\cat{K}(\Cc)$ denote the \emph{full} subcategory of $\cat{K}(\Aa)$
+whose objects are the cochain complexes in $\Cc$. 
+Then $\cat{K}(\Aa)$ is a quotient category of $\Cc$;
+moreover, if $\Cc$ contains the zero object and it is closed
+under direct sum $\oplus$, then both 
+$\Cc$ and $\cat{K}(\Cc)$ are additive categories
+and the quotient $\Cc \to \cat{K}(\Cc)$ is an additive functors.
+
+\begin{df}
+    We write $\cat{K}^{\flat}(\Aa), \cat{K}^{-}(\Aa)$ and $\cat{K}^{+}(\Aa)$ 
+    for the full subcategories of $\cat{K}(\Aa)$ 
+    corresponding to the full subcategories 
+    $C^{\flat}(\Aa), C^{-}(\Aa)$ and $C^{+}(\Aa)$ 
+    of bounded, bounded above, 
+    and bounded below cochain complexes respectively.
+\end{df}
+
+Having introduced the cast of categories, we turn to their properties.
+
+\begin{lemma}
+    For every $n \in \Z$, the $n$-th cohomology $H^{n}$
+    is a well defined functor on the quotient category:
+    \begin{equation*}
+        H^{n} : \cat{K}(\Aa) \longrightarrow \Aa\,.
+    \end{equation*}
+    \begin{proof}
+        We know that, if $f^{\bullet} \sim g^{\bullet}$,
+        then $H^{n}(f^{\bullet}) = H^{n}(f^{\bullet})$,
+        thus cohomology descends to the quotient.
+    \end{proof}
+\end{lemma}
+
+The homotopy category $\cat{K}(\Aa)$ is characterized by the following
+\begin{prop}[\textbf{Universal property}]
+    Let $\Dd$ be a category and $F : C^{\bullet}(\Aa) \to \Dd$
+    be any functor that sends chain homotopy equivalences
+    to isomorphisms. Then $F$ factors uniquely through $\cat{K}(\Aa)$,
+    that is
+    \begin{center}
+        \begin{tikzcd}
+            C^{\bullet}(\Aa) \ar[r] \ar[d, "F"'] 
+            & \cat{K}(\Aa) \ar[dl, dashed, "\exists !"]\\
+            \Dd\,.
+        \end{tikzcd}
+    \end{center}
+    \begin{proof}
+        Let $A^{\bullet}$ be any cochain complex in $\Aa$.
+        As we have seen in 
+        \hyperref[cyl-equivalence]{Exercise~\ref*{cyl-equivalence}},
+        the inclusion $\iota : A^{\bullet} \to \cat{cyl}(\cat{1}_{A^{\bullet}})$
+        is a homotopy equivalence, hence by assumption
+        $F\iota$ is an isomorphism with inverse $F\beta^{\bullet}$,
+        where $\beta(a,a',a'') =  a'$. Moreover, notice that also the map
+        \begin{equation*}
+            j: A^{\bullet} \longrightarrow \cat{cyl}(\cat{1}_{A^{\bullet}})\,,
+            \quad a \longmapsto (a,0,0)
+        \end{equation*}
+        is such that $\beta^{\bullet}j=\cat{1}_{B^{\bullet}}$,
+        so in particular it holds
+        \begin{equation*}
+            Fj = F(\iota\,\beta^{\bullet})Fj
+            = F\iota\,F(\beta^{\bullet}j) = F\iota\,.
+        \end{equation*}
+
+        Suppose now there is a cochain homotopy
+        $s$ between $f^{\bullet}, g^{\bullet} : A^{\bullet} \to B^{\bullet}$;
+        by \hyperref[cyl-criterion]{Exercise~\ref*{cyl-criterion}},
+        is extends to a map $\gamma^{\bullet}:\cat{cyl}(\cat{1}_{A^{\bullet}}) 
+        \to B^{\bullet}$ such that
+        \begin{equation*}
+            \gamma^{\bullet} j = f\,, \quad \gamma^{\bullet} \iota = g\,,
+        \end{equation*}
+        thus in $\Dd$ we have
+        \begin{equation*}
+            Ff = F\gamma^{\bullet}\,,Fj = F\gamma^{\bullet}\,,F\iota = Fg\,.
+        \end{equation*}
+        We conclude that $F$ factors through the quotient $\cat{K}(\Aa)$.
+    \end{proof}
+\end{prop}
+
+We introduce now a useful operation we can perform on (co)chain complexes:
+translating indices. This concept of ``shift'' functor will be 
+taken to define triangulated categories later.
+
+\begin{df}
+    Let $A^{\bullet} \in C^{\bullet}(\Aa)$ be a cochain complex. 
+    For any $p \in \Z$, we define the \textbf{$p^{\text{th}}$-translate}
+    $A^{\bullet}[p]$ of $A^{\bullet}$ to be the complex whose $n$-th level
+    objects and differentials are
+    \begin{equation*}
+        (A^{\bullet}[p])^{n} := A^{n+p}\,, \quad d_{[p]}^{n} = (-1)^{p}d^{n+p}\,.
+    \end{equation*}
+    Dually, if $A_{\bullet}$ is a chain complex,
+    we define its \textbf{$p^{\text{th}}$-translate} as
+    \begin{equation*}
+        (A_{\bullet}[p])_{n} := A_{n+p}\,, \quad d^{[p]}_{n} = (-1)^{p}d_{n+p}\,.
+    \end{equation*}
+\end{df}
+
+By shifting indices on (co)chain maps accordingly,
+the $p^{\text{th}}$-translation defines a functor
+\begin{equation*}
+    [p] : C^{\bullet}(\Aa) \longrightarrow C^{\bullet}(\Aa)
+\end{equation*}
+which is in fact an equivalence of categories
+(one checks that $[-p]$ is a quasi-inverse).
+Note that translations shift (co)homology: indeed
+\begin{equation}\label{shift-coh}
+    H^{n}(A^{\bullet}[p]) = H^{n+p}(A^{\bullet})\,,
+    \quad H_{n}(A_{\bullet}[p]) = H_{n-p}(A_{\bullet})\,.
+\end{equation}
+
+\begin{df}
+    Let $f^{\bullet} : A^{\bullet} \to B^{\bullet}$ be a cochain map.
+    The mapping cone of $f^{\bullet}$ fits into a
+    short exact sequence
+    \begin{center}
+        \begin{tikzcd}
+            \cat{0} \ar[r]
+            & B^{\bullet} \ar[r, "g^{\bullet}"]
+            & \cat{C}(f^{\bullet}) \ar[r, "\delta"]
+            & A[-1]^{\bullet} \ar[r]
+            & \cat{0}\,.
+        \end{tikzcd}
+    \end{center}
+    The \textbf{strict triangle} on $f^{\bullet}$
+    is the triple $(f^{\bullet}, g^{\bullet}, \delta)$
+    of maps in $\cat{K}(\Aa)$, displayed as
+    \begin{center}
+        \begin{tikzcd}
+            A^{\bullet} \ar[rr, "f^{\bullet}"]
+            & & B^{\bullet} \ar[dl, "g^{\bullet}"] \\
+            & \cat{C}(f^{\bullet}) \ar[ul, "\delta"] & \,.
+        \end{tikzcd}
+    \end{center}
+    
+    Given three cochain complexes $X^{\bullet}, Y^{\bullet}, Z^{\bullet}
+    \in \Aa$ and maps $$u^{\bullet} : X^{\bullet} \to Y^{\bullet}, \quad
+    v^{\bullet} : Y^{\bullet} \to Z^{\bullet}, \quad
+    w^{\bullet} : Z^{\bullet} \to X[-1]^{\bullet}$$ 
+    in $\cat{K}(\Aa)$,
+    the triple $(u,v,w)$ is an \textbf{exact triangle} 
+    on $(X^{\bullet},Y^{\bullet},Z^{\bullet})$
+    if it is ``isomorphic'' to a strict triangle of $f^{\bullet}$, 
+    for some $f^{\bullet} : A^{\bullet} \to B^{\bullet}$, 
+    in the sense that there exists a diagram
+    \begin{center}
+        \begin{tikzcd}
+            X^{\bullet} \ar[r, "u^{\bullet}"] \ar[d, "\alpha^{\bullet}"]
+            & Y^{\bullet} \ar[d, "\beta^{\bullet}"] \ar[r, "v^{\bullet}"]
+            & Z^{\bullet} \ar[d, "\gamma^{\bullet}"] \ar[r, "w^{\bullet}"]
+            & X{[-1]}^{\bullet} \ar[d, "\alpha{[-1]}^{\bullet}"] \\
+            A^{\bullet} \ar[r, "f^{\bullet}"]
+            & B^{\bullet} \ar[r]
+            & \cat{C}(f^{\bullet}) \ar[r]
+            & A{[-1]}^{\bullet}
+        \end{tikzcd}
+    \end{center}
+    which commutes in $\cat{K}(\Aa)$, where the vertical arrows
+    are isomorphisms (in $\cat{K}(\Aa)$).
+\end{df}
+
+\begin{lemma}[\textbf{LECS}]
+    Given an exact triangle $(u,v,w)$ on 
+    $(A^{\bullet}, B^{\bullet}, C^{\bullet})$,
+    the long cohomology sequence
+    \begin{center}
+        \begin{tikzcd}
+            \dots \ar[r]
+            & H^{i}(A^{\bullet}) \ar[r, "u^*"]
+            & H^{i}(B^{\bullet}) \ar[r, "v^*"]
+            & H^{i}(C^{\bullet}) \ar[r, "w^*"]
+            & H^{i+1}(A^{\bullet}) \ar[r]
+            & \dots
+        \end{tikzcd}
+    \end{center}
+    is exact, where we have identified
+    $H^{i}(A^{\bullet}[-1]) = H^{i+1}(A^{\bullet})$
+    as in \eqref{shift-coh}.
+    \begin{proof}
+        For a strict triangle, the result is
+        clear because $H^{i}$ is additive 
+        and the sequence is split.
+        For any other triangle, exactness
+        follows because $H^i$ is a functor on $\cat{K}(\Aa)$,
+        hence it preserves isomorphisms up to homotopy.
+    \end{proof}
+\end{lemma}
+
+The following two technical results will be crucial
+for the definition of morphisms in the derived category
+of $\Aa$.
+
+%\begin{prop}\label{double-cone}
+%    Let $f^{\bullet} : A^{\bullet} \to B^{\bullet}$
+%    be a cochain map and write 
+%    $\iota : B^{\bullet} \to \cat{C}(f)$ for the canonical inclusion
+%    and $\pi : \cat{C}(f) \to A^{\bullet}[1]$ for the projection.
+%    There exists a homotopy equivalence
+%    $g^{\bullet} :A^{\bullet}[1] \to \cat{C}(\iota)$ such that the following
+%    diagram
+%    \begin{equation*}
+%        \begin{tikzcd}
+%            B^{\bullet} \ar[r, "\iota"] \ar[d, equals]
+%            & \cat{C}(f) \ar[r, "\pi"] \ar[d, equals] 
+%            & A^{\bullet}{[1]} \ar[d, "g^{\bullet}", dashed] \ar[r, "-f^{\bullet}"]
+%            & B^{\bullet}{[1]} \ar[d, equals] \\
+%            B^{\bullet} \ar[r, "\iota"]
+%            & \cat{C}(f) \ar[r, "\iota_{\iota}"] 
+%            & \cat{C}(\iota) \ar[r, "\pi_{\iota}"]
+%            & B^{\bullet}{[1]} 
+%        \end{tikzcd}
+%    \end{equation*}
+%    commutes up to homotopy.
+%    \begin{proof}
+%        Set $g^{\bullet} = -f^{\bullet}[1] \oplus \cat{1}_{A^{\bullet}[1]} \oplus 0$
+%        and notice that it defines a map of complexes: for each $n \in \Z$,
+%        it holds
+%        \begin{align*}
+%            g^{n+1}d_{A}[1]^{n}
+%            &= \begin{pmatrix}
+%                (-f^{n+2}) (-d_{A}^{n+1}) \\ -d_{A}^{n+1} \\ 0
+%            \end{pmatrix}
+%            = \begin{pmatrix}
+%                f^{n+2} d_{A}^{n+1} \\ -d_{A}^{n+1} \\ 0
+%            \end{pmatrix}
+%            = \begin{pmatrix}
+%                d_{B}^{n+2} f^{n+1}\\ -d_{A}^{n+1} \\ 0
+%            \end{pmatrix} \\
+%            &= \begin{pmatrix}
+%                -d_{B}^{n+2} & & \\ & -d_{A}^{n+1} & \\ \cat{1}_{B^{n+2}} & f^{n+1} & d_{B}^{n+1}
+%            \end{pmatrix}
+%            \begin{pmatrix}
+%                -f^{n+1} \\ \cat{1}_{A^{n+1}} \\ 0
+%            \end{pmatrix}
+%            = d_{\iota}^{n+1} \, g^{n}\,.
+%        \end{align*}
+%        One can check that the canonical projection 
+%        morphism $q:\cat{C}(\iota) \to A^{\bullet}{[1]}$ defines
+%        a homotopy inverse to $g^{\bullet}$.
+%        
+%        Notice that the right-most square commutes in $C^{\bullet}(\Aa)$,
+%        i.e. $\pi_{\iota}g^{\bullet} = -f^{\bullet}$, but in general
+%        $g^{\bullet}\pi \ne \iota_{\iota}$; nevertheless,
+%        that box commutes up to homotopy: indeed, 
+%        from the identity $\pi=q\iota_{\iota}$,
+%        we deduce that
+%        \begin{equation*}
+%            g^{\bullet}\pi = g^{\bullet}q\iota_{\iota} \simeq \iota_{\iota}\,,
+%        \end{equation*}
+%        which translates to an equality in $\cat{K}(\Aa)$.
+%    \end{proof}
+%\end{prop}
+
+\begin{prop}[Rooves composition]\label{roof-comp}
+    Given two morphisms $f^{\bullet}:A^{\bullet} \to B^{\bullet}$
+    and $g^{\bullet}:C^{\bullet} \to B^{\bullet}$,
+    there exists a commutative diagram in $\cat{K}(\Aa)$
+    \begin{equation*}
+        \begin{tikzcd}
+            C_{0}^{\bullet} \ar[r, "\Tilde{f}^{\bullet}"] \ar[d, "\Tilde{g}^{\bullet}"']
+            & C^{\bullet} \ar[d, "g^{\bullet}"] \\
+            A^{\bullet} \ar[r, "f^{\bullet}"]
+            & B^{\bullet}\,,
+        \end{tikzcd}
+    \end{equation*}
+    such that:
+    \begin{itemize}
+        \item if $f^{\bullet}$ is a qis, then $\Tilde{f}^{\bullet}$ is a qis too;
+        \item if $g^{\bullet}$ is a qis, then $\Tilde{g}^{\bullet}$ is a qis too.
+    \end{itemize}
+    \begin{proof}
+        Consider the two following strict triangles:
+        \begin{equation*}
+            \begin{tikzcd}
+                A^{\bullet} \ar[rr, "f^{\bullet}"]
+                & & B^{\bullet} \ar[dl, "\iota"] 
+                &
+                & \cat{C}(\iota \circ g^{\bullet}) \ar[rr, "\varpi"]
+                & & C^{\bullet} \ar[dl, "\iota \circ g^{\bullet}"] \\
+                & \cat{C}(f^{\bullet}) \ar[ul, "\pi"] &
+                & \,, & &  \cat{C}(f^{\bullet}) \ar[ul, "j"] & \,,
+            \end{tikzcd}
+        \end{equation*}
+        and define $\gamma^{\bullet} : \cat{C}(\iota \circ g^{\bullet}) \to A^{\bullet}[1]$
+        on the $n$-th level as
+        \begin{equation*}
+            \gamma^{n} := \begin{pmatrix}
+                0 & \cat{1}_{A^{n+1}} & 0
+            \end{pmatrix}\,;
+        \end{equation*}
+        one can check that $\gamma^{\bullet}$ actually defines a cochain map
+        and, in fact, it makes the following diagram
+        \begin{equation*}
+            \begin{tikzcd}
+                \cat{C}(\iota \circ g^{\bullet}){[-1]} 
+                \ar[d, "\gamma^{\bullet}{[-1]}"', dashed] \ar[r, "\varpi"]
+                & C^{\bullet} \ar[r] \ar[d, "g^{\bullet}"]
+                & \cat{C}(f^{\bullet}) \ar[d, equals] \ar[r, "j"]
+                & \cat{C}(\iota \circ g^{\bullet}) \ar[d, "\gamma^{\bullet}"', dashed] \\
+                A^{\bullet} \ar[r, "f^{\bullet}"]
+                & B^{\bullet} \ar[r, "\iota"]
+                & \cat{C}(f^{\bullet}) \ar[r, "\pi"]
+                & A^{\bullet}{[1]}\,
+            \end{tikzcd}
+        \end{equation*}
+        commute in $\cat{K}(\Aa)$: in fact, 
+        the rightmost box commutes in $C^{\bullet}(\Aa)$ because
+        \begin{equation*}
+            \gamma^{\bullet} \circ j
+            = \begin{pmatrix}
+                0 & \cat{1}_{A^{\bullet}{[1]}} & 0
+            \end{pmatrix}
+            \begin{pmatrix}
+                0 & 0 \\ \cat{1}_{A^{\bullet}{[1]}} & 0 \\ 0 & \cat{1}_{B^{\bullet}}
+            \end{pmatrix}
+            = \begin{pmatrix}
+                \cat{1}_{A^{\bullet}{[1]}} & 0
+            \end{pmatrix}
+            = \pi\,,
+        \end{equation*}
+        while the map $h:\cat{C}(\iota \circ g^{\bullet}){[-1]} \to B^{\bullet}[-1]$
+        given by 
+        $h = \begin{pmatrix}
+            0 & 0 & \cat{1}_{B^{\bullet}{[-1]}}
+        \end{pmatrix}$ 
+        is a homotopy between $g^{\bullet} \circ \varpi$
+        and $f^{\bullet} \circ \gamma^{\bullet}[-1]$ because
+        \begin{align*}
+            hd_{-(\iota \circ g)} + d_{B^{\bullet}[-1]}h 
+            &= h
+            \begin{pmatrix}
+                -d_{C} & 0 \\ -(\iota \circ g^{\bullet}) & d_{f}
+            \end{pmatrix}
+            - d_{B} \begin{pmatrix}
+                0 & 0 & \cat{1}_{B^{\bullet}[-1]}
+            \end{pmatrix}   \\
+            &= \begin{pmatrix}
+                0 & 0 & \cat{1}_{B^{\bullet}[-1]}
+            \end{pmatrix}
+            \begin{pmatrix}
+                -d_{C} & 0 & 0 \\ 0 & -d_{A} & 0 \\ -g^{\bullet} & f^{\bullet} & d_{B}
+            \end{pmatrix}
+            +  \begin{pmatrix}
+                0 & 0 & -d_{B}
+            \end{pmatrix}   \\
+            &= \begin{pmatrix}
+                -g^{\bullet} & f^{\bullet} & 0
+            \end{pmatrix} 
+            = \begin{pmatrix}
+                0 & f^{\bullet} & 0
+            \end{pmatrix} 
+            - \begin{pmatrix}
+                g^{\bullet} & 0 & 0
+            \end{pmatrix}
+            = f^{\bullet} \circ \gamma^{\bullet}[-1] - g^{\bullet} \circ \varpi\,.
+        \end{align*}
+        This shows that the triple $(\gamma^{\bullet}[-1],g^{\bullet}, \cat{1})$
+        defines a morphism of triangles in $\cat{K}(\Aa)$.
+        Thus, by setting 
+        $$C_{0}^{\bullet} := \cat{C}(\iota \circ g^{\bullet})[-1]\,, \quad
+        \Tilde{f}^{\bullet} := \varpi \,, \quad  
+        \Tilde{g}^{\bullet} = \gamma^{\bullet}[-1]\,,$$
+        we get the desired commutative square in $\cat{K}(\Aa)$.
+        
+        Moreover, by applying the cohomology functor
+        we obtain the following commutative diagram in $\Aa$:
+            \begin{equation*}
+                \begin{tikzcd}
+                    \dots \ar[r]
+                    & H^{n-1}(\cat{C}(f^{\bullet})) \ar[r, "\Tilde{f}^*"] \ar[d, equals]
+                    & H^{n}(C^{\bullet}_{0}) \ar[r] \ar[d, "\Tilde{g}^*"]
+                    & H^{n}(C^{\bullet}) \ar[r] \ar[d, "g^*"]
+                    & H^{n}(\cat{C}(f^{\bullet})) \ar[r] \ar[d, equals]
+                    & \dots \\
+                    \dots \ar[r]
+                    & H^{n-1}(\cat{C}(f^{\bullet})) \ar[r]
+                    & H^{n}(A^{\bullet}) \ar[r, "f^*"]
+                    & H^{n}(B^{\bullet}) \ar[r]
+                    & H^{n}(\cat{C}(f^{\bullet})) \ar[r]
+                    & \dots
+                \end{tikzcd}
+            \end{equation*}
+        where the rows are long exact sequences.
+        Thus, we notice that if $f^{\bullet}$ is a qis,
+        then $\cat{C}(f^{\bullet})$
+        has trivial cohomology, which implies that 
+        $\Tilde{f}^* : H^{*}(C^{\bullet}_{0}) \simeq H^{*}(C^{\bullet})$,
+        so $\Tilde{f}^{\bullet}$ is a qis. On the other hand, 
+        if $g^{\bullet}$ is a qis, then by the
+        \hyperref[5-lemma]{Five Lemma} we deduce that
+        also $\Tilde{g}^{\bullet}$ is a qis.
+    \end{proof}
+\end{prop}
+
+\begin{exercise}
+    One might be tempted to define $C_{0}^{\bullet}$
+    in the above \hyperref[roof-comp]{Proposition~\ref*{roof-comp}}
+    as the fibered product
+    \begin{equation*}
+        C_{0}^{\bullet} := A^{\bullet} \times_{B^{\bullet}} C^{\bullet}\,.
+    \end{equation*}
+    Show that, in general, this choice does not work
+    and it does not guarantee the nice properties of the
+    $C_{0}^{\bullet}$ built above.
+    \begin{proof}[An example]
+        Let $B^{\bullet}$ be the complex
+        \begin{equation*}
+            \begin{tikzcd}
+                \cat{0} \ar[r]
+                & B^{0} \ar[r,"d", two heads] 
+                & B^{1} \ar[r]
+                & \cat{0}\,,
+            \end{tikzcd}
+        \end{equation*}
+        where $d$ is an epimorphism between non-trivial objets,
+        with non trivial kernel $A:=\ker d \ne \cat{0}$.
+        Denote by $A^{\bullet}$ the complex with $A$ 
+        concentrated in degree $0$: then, there is
+        a natural inclusion 
+        $\iota:A^{\bullet} \hookrightarrow B^{\bullet}$.
+        Set $C^{\bullet} := B^{\bullet}[1]$ and consider the
+        cochain map $\Delta:C^{\bullet} \to B^{\bullet}$
+        given by the diagram
+        \begin{equation*}
+            \begin{tikzcd}
+                \cat{0} \ar[r]
+                & \cat{0} \ar[r] \ar[d]
+                & B^{0} \ar[r, "d", two heads] \ar[d, "d", two heads]
+                & B^{1} \ar[r] \ar[d]
+                & \cat{0} \\
+                \cat{0} \ar[r] 
+                & B^{0} \ar[r, "d", two heads]
+                & B^{1} \ar[r]
+                & \cat{0} \ar[r]
+                & \cat{0}\,.
+            \end{tikzcd}
+        \end{equation*}
+        One can check that the fibered product $A^{\bullet} \times_{B^{\bullet}} C^{\bullet}$
+        is given by the complex
+        \begin{equation*}
+            \begin{tikzcd}
+                \cat{0} \ar[r]
+                & A \ar[r, hook]
+                & B^{0} \ar[r, "d", two heads]
+                & B^{1} \ar[r]
+                & \cat{0}\,,
+            \end{tikzcd}
+        \end{equation*}
+        with projection morphisms on $A^{\bullet}$ and $C^{\bullet}$
+        being the obvious ones.
+
+        Now consider the $0$-th cohomology of these complexes:
+        \begin{equation*}
+            H^{0}(B^{\bullet}) 
+            = \mathrm{coker}\left( \cat{0} \to A \right)
+            \simeq A = H^{0}(A^{\bullet})\,,
+        \end{equation*}
+        and $H^{0}(C^{\bullet}) \simeq H^{-1}(B^{\bullet}) = \cat{0}$.
+        Since the $0$-th cohomology object
+        of the fibered product is again $A$,
+        by applying the functor $H^{0}$ to the usual
+        cartesian square one gets
+        \begin{equation*}
+            \begin{tikzcd}
+                A \ar[r, equals] \ar[d] & A \ar[d, "\iota^*", equals] \\
+                \cat{0} \ar[r] & A\,,
+            \end{tikzcd}
+        \end{equation*}
+        which does not commute in $\Aa$. This means that
+        \begin{equation*}
+            \begin{tikzcd}
+                A^{\bullet} \times_{B^{\bullet}} C^{\bullet}
+                \ar[r] \ar[d] & A^{\bullet} \ar[d,"\iota"]\\
+                C^{\bullet} \ar[r] & B^{\bullet}
+            \end{tikzcd}
+        \end{equation*}
+        does not commute in $\cat{K}(\Aa)$.
+    \end{proof}
+\end{exercise}

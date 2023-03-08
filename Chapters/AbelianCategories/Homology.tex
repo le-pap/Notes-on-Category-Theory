@@ -1,0 +1,383 @@
+
+\section{Homology functors}
+
+As noted already, the study of an abstract abelian category is highly motivated by the
+category of $R$-modules. There, the reader has probably seen that we have functors 
+$H_{n}$ from chain complexes of $R$-modules back to $R$-modules. 
+These functors are useful in many ways,
+such as giving algebraic invariants like singular homology in algebraic topology. 
+
+
+Let $\Aa$ be an abelian category.
+
+\begin{df}
+    A sequence of objects and composable morphisms in $\Aa$ indexed on $\Z$
+    \begin{equation*}
+        \begin{tikzcd}
+            A_{\bullet} := \dots \ar[r]
+            & A_{n+1} \ar[r, "d_{n+1}"]
+            & A_{n} \ar[r, "d_{n}"]
+            & A_{n-1} \ar[r]
+            & \dots
+        \end{tikzcd}
+    \end{equation*}
+    is a \textbf{chain complex} if $d_{n}d_{n+1}=0$ for every $n \in \Z$,
+    and the $d_{n}$ are called \textbf{boundary maps}.
+    Dually, if the indexing increases
+    \begin{equation*}
+        \begin{tikzcd}
+            A^{\bullet} := \dots \ar[r]
+            & A^{n-1} \ar[r, "d^{n-1}"]
+            & A^{n} \ar[r, "d^{n}"]
+            & A^{n+1} \ar[r]
+            & \dots
+        \end{tikzcd}
+    \end{equation*}
+    and $d^{n}d^{n-1}=0$ for every $n \in \Z$,
+    we call $A^{\bullet}$ a \textbf{cochain complex},
+    and the morphisms are the \textbf{coboundary maps}.
+\end{df}
+
+\begin{df}
+    Given two chain complexes $A_{\bullet}, B_{\bullet}$ in $\Aa$,
+    a \textbf{chain map} $\phi_{\bullet} : A_{\bullet} \to B_{\bullet}$
+    is a sequence of morphisms $\phi_{n} \in \Aa(A_{n}, B_{n})$,
+    so that the following diagram commutes:
+    \begin{equation*}
+        \begin{tikzcd}
+            \dots \ar[r] 
+            & A_{n+1} \ar[d, "\phi_{n+1}"] \ar[r, "d_{n+1}^{A}"]
+            & A_{n} \ar[d, "\phi_{n}"] \ar[r, "d_{n}^{A}"]
+            & A_{n-1} \ar[d, "\phi_{n-1}"] \ar[r]
+            & \dots \\
+            \dots \ar[r] 
+            & B_{n+1} \ar[r, "d_{n+1}^{B}"']
+            & B_{n} \ar[r, "d_{n}^{B}"']
+            & B_{n-1} \ar[r]
+            & \dots
+        \end{tikzcd}
+    \end{equation*}
+    In a similar fashion one defines \textbf{cochain maps}.
+\end{df}
+
+The composition of two chain maps $\psi_{\bullet} \circ \phi_{\bullet}$
+is given by the sequence of compositions 
+$(\psi_{n} \circ \phi_{n})_{n \in \Z}$
+and it is easy to see that it is associative;
+moreover, each chain $A_{\bullet}$ has the identity morphism 
+$\cat{1}_{A_{\bullet}} = (\cat{1}_{A_{n}})_{n \in \Z}$,
+hence chain complexes and chain maps in $\Aa$ form a category
+which will be denoted by $C_{\bullet}(\Aa)$.
+Analogously, cochain complexes in $\Aa$ and cochain morphisms
+form a category we will denote by $C^{\bullet}(\Aa)$.
+
+\begin{prop}
+    Given any abelian category $\Aa$, then $C_{\bullet}(\Aa)$
+    is again abelian.
+    \begin{proof}
+        We just point out what are the objects
+        that satisfy axioms (\textbf{A1}) - (\textbf{A4}),
+        without checking the details.
+        If $\cat{0}$ be the zero object of $\Aa$, 
+        then the zero complex
+        \begin{equation*}
+            \cat{0}_{\bullet} := 
+            \dots \longrightarrow \cat{0} \longrightarrow \cat{0} \longrightarrow \cat{0} \longrightarrow \dots
+        \end{equation*}
+        is the zero object in $C_{\bullet}(\Aa)$.
+        For any two complexes $A_{\bullet}, B_{\bullet}$,
+        we know that for every $n \in \Z$ there exists the
+        biproduct $A_{n} \oplus B_{n}$ in $\Aa$,
+        so one easily checks that the complex
+        \begin{equation*}
+            \begin{tikzcd}[column sep=large]
+                \dots \ar[r] 
+                & A_{n+1} \oplus B_{n+1} \ar[r, "d^{A}_{n+1} \oplus d^{B}_{n+1}"]
+                & A_{n} \oplus B_{n} \ar[r, "d^{A}_{n} \oplus d^{B}_{n}"]
+                & A_{n-1} \oplus B_{n-1} \ar[r] & \dots
+            \end{tikzcd}
+        \end{equation*}
+        is exactly the biproduct $A_{\bullet} \oplus B_{\bullet}$.
+        Similarly, also kernels and cokernels are built layer by layer:
+        given a chain map $\phi_{\bullet} : A_{\bullet} \to B_{\bullet}$,
+        then $\ker \phi_{\bullet}$ is the chain whose objects are 
+        $(\ker \phi_{n})_{n \in \Z}$, and the boundary maps
+        are given by the universal property of the kernel
+        \begin{equation*}
+            \begin{tikzcd}
+                & \dots \ar[d] & \dots \ar[d] \\
+                \ker \phi_{n} \ar[r, hook] \ar[d, "\exists !"', dashed] \ar[dr, "h"]
+                & A_{n} \ar[r, "\phi_{n}"] \ar[d, "d_{n}^{A}"]
+                & B_{n} \ar[d, "d_{n}^{B}"] \\
+                \ker \phi_{n-1} \ar[r, hook] 
+                & A_{n-1} \ar[r, "\phi_{n-1}"] \ar[d]
+                & B_{n-1} \ar[d] \\
+                & \dots & \dots\,,
+            \end{tikzcd}
+        \end{equation*}
+        because it holds $\phi_{n-1}h = 0$ by the commutativity of the square.
+        Dually, one sees that $\Coker \phi_{\bullet}$ is given
+        by the sequence $(\Coker \phi_{n})_{n \in \Z}$ and boundary maps
+        obtained by the universal property. Finally, by abelianity of $\Aa$,
+        we have isomorphisms $\operatorname{coim} \phi_{n} \simeq \im \phi_{n}$
+        for every $n \in \Z$, and hence they induce an isomorphism
+        of complexes $\operatorname{coim} \phi_{\bullet} \simeq \im \phi_{\bullet}$,
+        thus we conclude that $C_{\bullet}(\Aa)$ is an abelian category.
+    \end{proof}
+\end{prop}
+
+\missingfigure{Define the inclusion of $\Aa$ into the category $C^{\bullet}(\Aa)$. }
+
+We now want to generalize the homology functors to an arbitrary abelian category.
+We wish to construct functors $H_n : C_{\bullet}(\Aa) \to \Aa$. 
+In the category of $R$-modules, 
+this is greatly simplified because we can conclude that 
+$\im d_{n+1} \subset \ker d_n$ using only set-theoretic notions, 
+but this becomes more complicated if $\Aa$ is a general abelian category.
+In the case of $R$-modules, the $n$-th homology of a chain complex $A_{\bullet}$
+is the quotient $\ker d_{n}/\im d_{n+1}$, which is exactly 
+$\Coker(\im d_{n+1} \subset \ker d_n)$. In a more general setting,
+set-theoretical inclusions may not have sense;
+nevertheless, we can always find a morphism $\im d_{n+1} \to \ker d_{n}$,
+and its cokernel always exists in $\Aa$! Consider the diagram
+\begin{equation*}
+\begin{tikzcd}
+    A_{n+1} \ar[r, "d_{n+1}"] \ar[d, two heads] 
+    & A_{n} \ar[r, "d_{n}"] & A_{n-1} \\
+    \im d_{n+1} \ar[ur, hook, "i"] \ar[r, dashed, "\exists !"] 
+    & \ker d_{n} \ar[u, hook] & \,.
+\end{tikzcd}
+\end{equation*}
+By the image factorization, we see that $d_{n}i=0$, 
+so $i$ must factor through $\ker d_{n}$;
+notice that $\im d_{n+1} \to \ker d_{n}$ is a monomorphism
+because their composition is a monomorphism.
+
+\begin{df}
+    Define the \textbf{$n$-th homology object} of $A_{\bullet}$ to be
+    \begin{equation*}
+        H_{n}(A_{\bullet}) := \Coker\left(\im d_{n+1} \to \ker d_{n} \right)\,.
+    \end{equation*}
+\end{df}
+
+\begin{rmk!}\label{homology-defs}
+    The homology object can be defined in three different ways:
+    a sequence $A \overset{f}{\to} B \overset{g}{\to} C$ such that
+    $gf=0$ gives raise to the following diagram
+    \begin{equation*}
+        \begin{tikzcd}
+            & \im f \ar[dr, hook] \ar[rr, dashed, "\phi"] & & \ker g \ar[dl, hook] \ar[dr, black!50, "0"] & \\
+            A \ar[dr, black!50, "0"'] \ar[rr, "f"] \ar[ur, two heads] & & B \ar[rr, "g"] \ar[dl, two heads] \ar[dr, two heads]
+            & & C \\
+            & \Coker f \ar[rr, dashed, "\psi"] & & \im g \ar[ur, hook] & \,.
+        \end{tikzcd}
+    \end{equation*}
+    One can show that, in any abelian category, the following three
+    objects are canonically isomorphic:
+    \begin{equation*}
+        \Coker \phi \simeq \ker \psi \simeq \im(\ker g \to \Coker f)\,.
+    \end{equation*}
+    To get an idea why this is true, check \parencite[]{hom-eq-def}.
+\end{rmk!}
+
+We would like the construction $H_{n}$ to be functorial,
+i.e. given a chain map $\phi_{\bullet} : A_{\bullet} \to B_{\bullet}$,
+we can define a map $H_{n}\phi_{\bullet} : H_{n}(A_{\bullet}) \to H_{n}(B_{\bullet})$.
+Consider the diagram
+\begin{equation*}
+    \begin{tikzcd}
+        \im d_{n+1}^{A} \ar[r, hook, "j"] 
+        & \ker d_{n}^{A} \ar[r] \ar[d, "i_{A}", hook] & H_{n}(A_{\bullet}) \\
+        A_{n+1} \ar[u, two heads] \ar[r, "d_{n+1}^{A}"] \ar[d, "\phi_{n+1}"]
+        & A_{n} \ar[r, "d_{n}^{A}"] \ar[d, "\phi_{n}"] & A_{n-1} \ar[d, "\phi_{n-1}"]\\
+        B_{n+1}  \ar[r, "d_{n+1}^{B}"] \ar[d, two heads]
+        & B_{n}  \ar[r, "d_{n}^{B}"] & B_{n-1} \\
+        \im d_{n+1}^{B} \ar[r, hook] 
+        & \ker d_{n}^{B} \ar[u, hook, "i_{B}"] \ar[r, "l"]
+        & H_{n}(B_{\bullet})\,.
+    \end{tikzcd}
+\end{equation*}
+Since $d_{n+1}^{B} \circ \phi_{n} \circ i_{A} = \phi_{n-1} \circ d^{A}_{n} \circ i_{A} = 0$,
+then there exists a map $k: \ker d^A_{n} \to \ker d^{B}_n$.
+If we denote by $q : B_{n} \to \Coker d_{n+1}^{B}$, 
+then by the fact that
+\begin{equation*}
+    0 = q \circ \phi_{n} \circ d_{n+1}^{A} = q \circ \phi_{n}\circ i_{A} \circ j\,,
+\end{equation*}
+we deduce there exists a unique map $\im d^{A}_{n+1} \to \im d^{B}_{n+1}$
+because $\im d^{B}_{n+1} = \ker q$. Thus, we end up with the commutative diagram
+\begin{equation*}
+    \begin{tikzcd}
+        \im d_{n+1}^{A} \ar[d] \ar[r, hook, "j"] 
+        & \ker d_{n}^{A} \ar[r] \ar[d, "k"] & H_{n}(A_{\bullet}) \\
+        \im d_{n+1}^{B} \ar[r, hook] 
+        & \ker d_{n}^{B} \ar[r, "l"]
+        & H_{n}(B_{\bullet})\,,
+    \end{tikzcd}
+\end{equation*}
+and we see that the composition $l \circ k \circ j = 0$, 
+so by the universal property of $\Coker j$ there exists a unique map
+$H_{n}\phi_{\bullet}$ that makes the following diagram commute:
+\begin{equation*}
+    \begin{tikzcd}
+        & & H_{n}(A_{\bullet}) \ar[d, dashed, "\exists !"', "H_{n}\phi_{\bullet}"]\\
+        \im d_{n+1}^{A} \ar[r, hook, "j", shift left=0.7ex] \ar[r, shift right=0.7ex, "0"']
+        & \ker d_{n}^{A} \ar[r, "l \circ k"] \ar[ur]
+        & H_{n}(B_{\bullet})\,.
+    \end{tikzcd}
+\end{equation*}
+This construction shows how the $n$-th homology acts on morphisms.
+
+\begin{prop}
+    The construction above defines an additive covariant functor
+    $H_{n} : C_{\bullet}(\Aa) \to \Aa$, called the
+    \textbf{$n$-th homology functor}.
+    \begin{proof}[Idea of proof]
+        One has to check that $H_{n}(\cat{1}_{A_{\bullet}}) 
+        = \cat{1}_{H_{n}(A_{\bullet})}$
+        and that $H_{n}$ is compatible both with the composition
+        and the sum of morphisms, essentially by exploiting
+        the universal properties of kernels and cokernels.
+        Everything works well because $\Aa$ has an additive structure,
+        but we will not go through the details here.
+    \end{proof}
+\end{prop}
+
+\begin{df}
+    A composable pair of morphisms in $\Aa$
+    \begin{equation*}
+        \begin{tikzcd}
+            A \ar[r, "f"] & B \ar[r, "g"] & C\,
+        \end{tikzcd}
+    \end{equation*}
+    is called an \textbf{exact sequence} if
+    the image of $f$ coincides with the kernel of $g$;
+    more precisely, if we consider the 
+    \emph{image factorization} of $f$
+    \begin{equation*}
+        \begin{tikzcd}
+            A \ar[rr, "f"] \ar[dr, two heads] 
+            & & B \ar[r, "g"] & C \\
+            & \im f \ar[ur, "i", hook] & & \,,
+        \end{tikzcd}
+    \end{equation*}
+    then $(\im f,i) \simeq \ker g$. A finite or infinite
+    sequence of morphisms
+    \begin{equation*}
+        \dots \longrightarrow A_{n-1} \overset{f_{n-1}}{\longrightarrow}
+        A_{n} \overset{f_{n}}{\longrightarrow} A_{n+1} \longrightarrow \dots
+    \end{equation*}
+    is \textbf{exact} if every pair of consecutive
+    arrows is an exact sequence as in the previous sense.
+    A \textbf{short exact sequence} is an exact sequence
+    in $\Aa$ of the form
+    \begin{equation*}
+        \begin{tikzcd}
+            \cat{0} \ar[r] & A \ar[r, "f"] & B \ar[r, "g"] & C \ar[r] & \cat{0}\,.
+        \end{tikzcd}
+    \end{equation*}
+\end{df}
+
+As promised, we now have all the tools we need
+to develop homological algebra, and thus 
+we can generalize many well-known results
+to any abelian category, for instance:
+\begin{thm}[\textbf{The Snake's Lemma}]\label{snake-lemma}
+    In an abelian category $\Aa$, 
+    any commutative diagram of the form
+    \begin{equation*}
+        \begin{tikzcd}
+            %\cat{0} \ar[r]  
+            & A \ar[r] \ar[d, "f"] & B \ar[r] \ar[d, "g"] & C \ar[r] \ar[d, "h"] & \cat{0}\\
+            \cat{0} \ar[r] & A' \ar[r] & B \ar[r] & C &
+            %\ar[r] & \cat{0}
+        \end{tikzcd}
+    \end{equation*}
+    with exact rows induces an exact sequence
+    \begin{equation*}
+    \begin{tikzcd}[column sep=small]
+        %\cat{0} \ar[r] 
+        & \ker f \ar[r] & \ker g \ar[r] & \ker h \ar[out=0, in=180, looseness=2, overlay]{dll} & \\
+        & \Coker f \ar[r] & \Coker g \ar[r] & \Coker h \ar[r] & \,.
+        %\cat{0}\,.
+    \end{tikzcd}
+    \end{equation*}
+\end{thm}
+
+A very important consequence of this theorem is
+the following result, which relates the homology
+of different chain complexes.
+
+\begin{thm}[\textbf{Long Homology Sequence}]\label{LHS}
+    Let $\Aa$ be an abelian category. 
+    Any short exact sequence in $C_{\bullet}(\Aa)$
+    \begin{equation*}
+        \begin{tikzcd}
+            \cat{0} \ar[r] & A_{\bullet} \ar[r] & B_{\bullet} \ar[r] & C_{\bullet} \ar[r] & \cat{0}
+        \end{tikzcd}
+    \end{equation*}
+    induces a long exact sequence in $\Aa$ of the form
+    \begin{equation*}
+    \begin{tikzcd}[column sep=small]
+        \dots \ar[r] & H_{n}(A_{\bullet}) \ar[r] & H_{n}(B_{\bullet}) \ar[r] & H_{n}(C_{\bullet}) \ar[out=0, in=180, looseness=2, overlay]{dll} & \\
+        & H_{n-1}(A_{\bullet}) \ar[r] & H_{n-1}(B_{\bullet}) \ar[r] & H_{n-1}(C_{\bullet}) \ar[r] & \dots\,.
+    \end{tikzcd}
+    \end{equation*}
+    \begin{proof}
+        For every $n \in \Z$, 
+        apply the \hyperref[snake-lemma]{\textbf{Snake's Lemma~\ref*{snake-lemma}}}
+        to every diagram
+        \begin{equation*}
+        \begin{tikzcd}
+            %\cat{0} \ar[r]  
+            & \Coker d_{n+1}^{A} \ar[r] \ar[d] & \Coker d_{n+1}^{B} \ar[r] \ar[d] & \Coker d_{n+1}^{C} \ar[r] \ar[d] & \cat{0}\\
+            \cat{0} \ar[r] & \ker d_{n-1}^{A} \ar[r] & \ker d^{B}_{n-1} \ar[r] & \ker d^{C}_{n-1} &
+            %\ar[r] & \cat{0}
+        \end{tikzcd}
+    \end{equation*}
+    and use \hyperref[homology-defs]{\emph{Remark~\ref*{homology-defs}}}. 
+    %where the vertical maps are
+    %obtained thanks to the universal property:
+    %\begin{equation*}
+    %    \begin{tikzcd}
+    %        A_{n} \ar[dr, "0"'] \ar[rr, "d^{A}_{n}"] &&  A_{n-1} \ar[dl, two heads] \ar[rr, "d^{A}_{n-1}"] && A_{n-2} \\
+    %        & \Coker d_{n}^{A} \ar[urrr, dashed, shorten=3ex] \ar[rr, dashed] & & \ker d_{n-1}^{A}  \ar[ul, hook] \ar[ur, "0"'] & \,.
+    %    \end{tikzcd}
+    %\end{equation*}
+    \end{proof}
+\end{thm}
+
+%As one can imagine, to prove these diagram lemmas in great generality
+%turns out to be a bit convoluted because one must keep track of
+%many big commutative diagrams, use extensively the
+%epi-mono factorizations and the universal properties of
+%kernels and cokernels. Those students who
+%followed some basic course in Algebraic Topology
+%may be familiar in the case of $\Aa = \cat{Ab}$
+%or $\Aa=\Mod_{R}$, for some commutative unital ring $R$:
+%the objects in these category are \emph{sets} with
+%an additional algebraic structure, so the proofs
+%of such lemmas may are based on \emph{chasing elements}
+%around the diagrams; that is the reason why many authors
+%refer to this technique as ``\textbf{diagram chasing}''.
+%In \parencite[1.9 Diagram chasing]{borceux},
+%the author makes sense of the ``\emph{set-theoretic notation}''
+%of the diagram chasing applied to an arbitrary abelian category, 
+%and this choice is actually justified a fortiori
+%by the following
+
+%\begin{thm}[]
+%    Every small abelian category $\Aa$ has a full, faithful
+%    and exact\footnote{An additive functor between abelian categories 
+%    is said to be \textbf{exact} if it sends 
+%    short exact sequences to short exact sequences.}
+%    embedding in a category $\Mod_{R}$ of modules over a ring $R$
+%    (not necessarily commutative).
+%\end{thm}
+
+%\begin{ex}
+%    We gave an explicit construction in \emph{Example~\ref{equiv-modr}},
+%    but the general case is way more difficult!
+%\end{ex}
+
+\missingfigure{Insert definition of exact functor, and left/right exact too. Add examples.}

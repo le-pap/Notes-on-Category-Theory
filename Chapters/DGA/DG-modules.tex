@@ -1,0 +1,156 @@
+
+\section{DG-modules}
+
+	\begin{df}
+		Let $\Aa = (A,d)$ be a DG-algebra.
+		A \textbf{left DG-module} $\Mm$ over $\Aa$, or simply \textbf{$\Aa$-DG-modules},
+		is a cochain complex $\Mm = (M^{\bullet},d_{M})$ in $C^{\bullet}(\cat{Mod}_{A})$
+		such that:
+		\begin{itemize}
+			\item the multiplication by an homogeneous element $a \in A^{k}$
+			is a group homomorphism of degree $k$, that is
+			\begin{equation*}
+				A^{k} \otimes_{\Aa} M^{h} \longrightarrow M^{k+h}\,,
+				a \otimes m \longmapsto am\,;
+			\end{equation*}
+			
+			\item the differential $d_{M}$ satisfies the following Liebniz rule:
+			\begin{equation}\label{graded-mod-liebniz}
+				d_{M}(am) = (da)m + (-1)^{\deg(a)}a(d_{M}m)\,,
+				\quad \text{for } a \in \Aa, m \in \Mm\,.
+			\end{equation}
+		\end{itemize}
+		A \textbf{morphism of $\Aa$-DG-modules} $f:\Mm \to \Nn$
+		is simply a cochain map $f:M^{\bullet} \to N^{\bullet}$
+		of complexes of $A$-modules.
+		
+		One defines a \textbf{right DG-module} $\Mm$
+		over $\Aa$ (in short a \textbf{DG-$\Aa$-module})
+		in an analogous way, but the Liebniz rule for the
+		right multiplication becomes
+		\begin{equation*}
+			d_{M}(ma) = (d_{M}m)a + (-1)^{\deg{m}}m(da)\,,
+			\quad \text{for } a \in \Aa, m \in \Mm\,.
+		\end{equation*}
+	\end{df}
+	
+	\begin{ex}
+		Left DG-modules over a fixed DG-algebra $\Aa$, together with maps of complexes,
+		form a category called ${}_{\Aa}\cat{DGMod}$. 
+		If $\Aa = A^{0}$, then there is no differential structure
+		on the ground ring, thus an $\Aa$-DG-modules is just a cochain complex of $A^{0}$-modules.
+		In particular, ${}_{\Z}\cat{DGMod} = C^{\bullet}(\Ab)$.
+	\end{ex}
+	
+	\begin{ex}
+		Given any $\Aa$-DG-module $\Mm$, its cohomology $H^{*}(\Mm)$ is naturally
+		a cochain complex (with trivial differential), which has a natural module structure
+		over %the DG-algebra 
+		$H^*(\Aa)$.
+	\end{ex}
+	
+	From now on we borrow all the terminology used for complexes of modules. 
+	For example, we say that a $\Aa$-DG-module $\Mm$ is \textbf{acyclic} 
+	if $H^{*}(\Mm) = \cat{0}$;
+	we say that a morphism $f:\Mm \to \Nn$ of $\Aa$-DG-modules 
+	is a \textbf{quasi-isomorphism} if it induces isomorphisms 
+	$f^*:H^{*}(\Mm) \simeq H^{*}(\Nn)$, and so on and so forth.
+	
+	\begin{df}
+		We define the \textbf{translation functor} 
+		$[1] : {}_{\Aa}\cat{DGMod} \to {}_{\Aa}\cat{DGMod}$
+		by sending any $\Aa$-DG-module $\Mm$ to the graded module
+		\begin{equation*}
+			\left( \Mm[1] \right)^{n} := M^{n+1}\,,
+			\quad d_{M[1]} := -d_{M}\,,
+		\end{equation*}
+		in which the $A$-module structure on $M[1]$ is \textbf{twisted},
+		i.e. we define the scalar multiplication as
+		\begin{equation*}
+			a \ast m := (-1)^{\deg(a)} am\,,
+		\end{equation*}
+		where $am$ is the multiplication in $M$.
+	\end{df}
+	
+	
+	At this point we have enough structure to talk about \emph{triangles}:
+	in fact, our next goal is to develop enough theory to be able
+	to state and prove that the homotopy category $\cat{K}({}_{\Aa}\cat{DGMod})$
+	is a triangulated category.
+	
+	
+	\begin{df}
+		Two morphisms $f,g: \Mm \to \Nn$ in ${}_{\Aa}\cat{DGMod}$
+		are \textbf{homotopic} if there exists a homotopy
+		$s:\Mm \to \Nn[-1]$ of $A$-modules (possibly \textbf{not} of $\Aa$-DG-modules)
+		such that $$f-g=sd_{m} + d_{N}s\,,$$
+		in which case we write $f \sim g$.\todo{The article by Seidel and Thomas uses the
+		derived category of a DG-algebra, stating that it is \textbf{not} the same thing
+		as the derived catgory of an abelian category (see \textbf{Warning} at p.40).
+		I don't understand the difference!}
+	\end{df}
+	
+	Since null-homotopic morphisms form a $2$-sided ideal in 
+	$\Hom_{{}_{\Aa}\cat{DGMod}}(\Mm,\Nn)$, we may quotient
+	by the equivalence relation $f \sim g$ given by homotopy
+	to obtain the \textbf{homotopy category} $\cat{K}({}_{\Aa}\cat{DGMod})$,
+	whose objects are $\Aa$-DG-modules and morphisms between them are
+	\begin{equation*}
+		\Hom_{\cat{K}({}_{\Aa}\cat{DGMod})}(\Mm,\Nn) := \Hom_{{}_{\Aa}\cat{DGMod}}(\Mm,\Nn)/\sim\,.
+	\end{equation*}
+	
+	Given a morphism $f:\Mm \to \Nn$ in ${}_{\Aa}\cat{DGMod}$,
+	we may build the \textbf{cone} of $f$ in the usual way, namely
+	$\cat{C}(f) := N \oplus M[1]$ with differential $(d_{N} + f, -d_{M})$;
+	this naturally inherits a structure of $\Aa$-DG-module,
+	thus we may define a \textbf{strict triangle}\todo{Is it distinguished? Stack Project uses a different class of distinguished triangles...}
+	\begin{equation*}
+		\begin{tikzcd}
+			\Mm \ar[r, "f"] & \Nn \ar[r] & \cat{C}(f) \ar[r] & \Mm{[1]}\,.
+		\end{tikzcd}
+	\end{equation*}
+	An \textbf{exact triangle} in $\cat{K}({}_{\Aa}\cat{DGMod})$
+	is a diagram $\Mm' \to \Nn' \to \Kk' \to \Mm'[1]$
+	which is isomorphic (in he homotopy category) to a strict
+	triangle as above: explicitly, there is a diagram
+	\begin{equation*}
+		\begin{tikzcd}
+			\Mm' \ar[r] \ar[d, "\sim"] & \Nn' \ar[r] \ar[d, "\sim"] & \Kk' \ar[r] \ar[d, "\sim"] & \Mm'{[1]} \ar[d, "\sim"] \\
+			\Mm \ar[r, "f"] & \Nn \ar[r] & \cat{C}(f) \ar[r] & \Mm{[1]}\,,
+		\end{tikzcd}
+	\end{equation*}
+	which commutes up to homotopy, in which vertical maps are homotopy equivalences.
+	
+	As it happens for the homotopy category $\cat{K}(\Aa)$ of an abelian category $\Aa$,
+	it turns out that $\cat{K}({}_{\Aa}\cat{DGMod})$ becomes a triangulated category 
+	if we equip it with
+	the translation functor $[1]$ and take the exact triangles as the family
+	of distinguished triangles. In this category, quasi-isomorphisms of $\Aa$-DG-modules
+	form a \emph{multiplicative system}, and hence we can 
+	build the \textbf{derived category} $\cat{D}({}_{\Aa}\cat{DGMod})$
+	by describing morphisms as \emph{roofs}; this category also inherits
+	a triangulated structure.
+	
+	\begin{thm}
+		If $\Phi:\Aa \to \Bb$ is a quasi-isomorphism of DG-algebras,
+		then the ``\emph{restriction of scalars}'' induces an exact equivalence
+		$\Phi^*: \cat{D}({}_{\Bb}\cat{DGMod}) \to \cat{D}({}_{\Aa}\cat{DGMod})$ 
+		of triangulated categories.
+	\end{thm}\todo{It is explained in Equivariant Sheaves.}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

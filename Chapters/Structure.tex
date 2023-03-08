@@ -1,0 +1,180 @@
+%%% Plan of the thesis
+
+The idea is to go through the article 
+\emph{Braid groups actions on derived categories of coherent sheaves},
+by Siedel and Thomas.
+
+The article starts with a sections containing 
+motivations on the theory: the authors give a survey on 
+the main fields where the derived category $\cat{D}^{b}(X)$
+appears. In particular, symplectic geometry
+and mirror symmetry are the main interest of the paper.
+
+Section 2 introduces braid group actions on a category.
+For a detailed description, check \textbf{Deligne}'s article
+``\emph{Action du group de tresses sur une catégorie}''.
+In Section 2.b spherical objects and twist functors are
+introduced in a pure functorial way, i.e. using only
+monoidal abelian categories.
+By introducing enough hypothesis on our category,
+we can study braid relations in a pure abstract way:
+Section 2.c is devoted to the contruction of braid relations
+between twist functors induced by spherical objects.
+Here, \textbf{Proposition 2.12} and \textbf{Proposition 2.13}
+show that there exists a braid group action an suitable
+category $\Kk$. The main result is stated in \textbf{Theorem 2.18}.
+
+\begin{thm**}
+	Suppose that $n \ge 2$. Then the homomorphism 
+	\begin{equation*}
+	 	\rho : B_{m+1} \longrightarrow \textrm{Autoeq}(\cat{D}^{b}(X))
+	 \end{equation*} 
+	is injective, and in fact the following stronger statement holds: 
+	if $g \in B_{m+1}$ is not the identity element, 
+	then $\rho(g)(E_{i}) \ne E_{i}$ for some $i \in \{1,...,m\}$.
+\end{thm**}
+
+The proof of the faithfulness of this action
+is the whole Section 4.
+The machinery involved is mainly based on
+the theory of \textbf{differential graded algebras} (dgas).
+A detailed survey of dgas can be found in
+\textbf{Bernstein} and \textbf{Lunts}'s
+``\emph{Equivariant sheaves and functors}''.
+
+In the context of the derived category of a dga,
+standard twist functors are introduced.
+These twists commute with equivalences induced 
+by qis of dgas.
+\textbf{Lemma 4.3} relates the standard twist functors $t$
+of dgas with the twist functors $T_{E}$ in our favorite triangulated category.
+
+We then try to study the twist functors $T_{E_{i}}$
+by analizing the dga $end(E)$. We will focus
+on a particular class of dgas, 
+namely \textbf{intrinsically formal} graded algebras:
+these objects are determined by their cohomology.
+This property can be studied in terms
+of the vanishing of some \textbf{Hochschild cohomology} modules,
+as stated in \textbf{Theorem 4.7}.
+A simple intoduction to this topic can be found
+in the ``Istituzioni di Algebra'' notes by \textbf{Tamas}.
+
+The proof of this fact is by no mean trivial.
+The authors develop a theory of \textbf{$A_{\infty}$-morphisms},
+because they induce morphisms of dgas.
+
+In Section 4.c the algebras $A_{m,n}$ are introduced
+as the path algebras of a suitable \textbf{quiver}.
+I should check for a little survey on this topic.
+This section aims to explain how to translate the
+problem on twist funtors with the language of 
+dgas, indeed $A_{m,n}$ are isomorphic
+to some $end(E)$.
+
+Standard twist functors $t_{i}:\cat{D}(A_{m,n}) \to \cat{D}(A_{m,n})$
+are exact equivalences (\textbf{Lemma 4.11}) that
+satisfy the braid relations.
+
+Finally, the faithfullness of the braid action
+is proved in Section 4.d 
+for the derived categories of the algebras $A_{m,n}$.
+To achieve this, one studies the twist functor
+associated to the generator of the center of $B_{m+1}$.
+
+\textbf{The authors conjecture that $(t_{1}t_{2} \dots t_{m})^{m+1}$
+is isomorphic to the translation $[2m-(m+1)n]$.}
+
+The proof of the faithfulness relies on topology:
+in particular, \textbf{mapping class groups} 
+of the punctured disc are involved. It is well known
+their link with the braid groups,
+and \textbf{Lemma 4.16} explains the link
+between some diffeomorphisms
+and the generator of the center of $B_{m+1}$.
+
+
+\textbf{Geometric intersection numbers}
+are defined; one can check
+``\emph{Quivers, Floer cohomology, and braid group actions}''
+by \textbf{Khovanov} and \textbf{Seidel}
+for an insight. 
+In fact, we can find braid group actions 
+already in this paper;
+Siedel and Thomas make a comparison
+with their definition $A_{m,n}$ .
+
+Strictly speaking, Section 4.d is a comparison
+with the article by Khovanov and Seidel,
+by the end of which the faithfulness
+is proved in the category of some dga.
+
+The final section is dedicated
+to the computation of Hochschild cohomology
+of $A_{m,n}$, so that its intrinsic formality is proved.
+This fact is essential in the proof of \textbf{Theorem 2.18},
+together with the faithfulness described above.
+
+
+\section{Study plan}
+
+	I'm new to the following topics:
+	\begin{itemize}
+		\item derived category of a scheme;
+		\item Fourier-Moukai Transforms;
+		\item group actions on a category;
+		\item DG-algebras;
+		\item Hochschild cohomology and its applications;
+		\item quivers and representations;
+		\item mapping class group.
+	\end{itemize}
+	Thus, I'll need some study!
+	
+\section{Structure idea}
+
+	Here I write a possible structure of the strategy:
+	\begin{itemize}
+		\item introduction, which will be written at the very end,
+		possibly with motivations;
+		
+		\item recollection of some properties of derived categories;
+		
+		\item a survey about DG-algebras;
+		
+		\item something about quivers and their path algebras;
+		
+		\item we start to set the main tools:
+		definition of spherical objects in a triangulated category,
+		and definition of twists;
+		
+		\item definition of group action over a category.
+		Braids acting on a category and faithfulness: discussion and proof,
+		assuming \textbf{Theorems 4.13} e \textbf{4.21}, whose proofs
+		are postponed;
+		
+		\item technicalities about dgas, intrinsic formality 
+		and geometric intersections;
+		
+		\item applications to the algebro-geometric context
+		(definition of FMT is needed) and examples;
+		recent develpments.
+	\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

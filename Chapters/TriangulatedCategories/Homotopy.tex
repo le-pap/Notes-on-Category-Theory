@@ -1,0 +1,121 @@
+
+\section{Chain homotopy}
+
+The ideas in this section and the next are motivated 
+by homotopy theory in topology. 
+
+Let $\Aa$ be an abelian category and consider 
+two cochain complexes $C^{\bullet}, D^{\bullet}$ in $\Aa$. 
+Consider a degree $-1$ map $s : C^{\bullet} \to D^{\bullet}$,
+that is a collection of morphisms
+\begin{equation*}
+    s^{n} : C^{n} \longrightarrow D^{n-1}\,,
+    \quad n \in \Z\,.
+\end{equation*}
+For every $n \in \Z$, set $f^{n} := d_{D}^{n-1}s^{n} + s^{n+1}d_{C}^{n}$
+to get a morphism $f^{n}:C^{n} \to D^{n}$:
+\begin{center}
+    \begin{tikzcd}
+        C^{n-1} \ar[r]
+        & C^{n} \ar[r, "d"] \ar[d, "f^{n}"] \ar[dl, "s"']
+        & C^{n+1} \ar[dl,"s"] \\
+        D^{n-1} \ar[r, "d"]
+        & D^{n} \ar[r]
+        & D^{n+1} \,.
+    \end{tikzcd}
+\end{center}
+
+Then the collection of $f^{n}$ defines
+a cochain map $f^{\bullet} : C^{\bullet} \to D^{\bullet}$;
+indeed, dropping the superscripts for clarity, we compute
+\begin{align*}
+    d f = d(ds + sd) = dsd = (ds + sd) d = fd\,.
+\end{align*}
+
+\begin{df}
+    A chain map $f^{\bullet}:C^{\bullet} \to D^{\bullet}$
+    is \textbf{null homotopic} if it is of the form
+    $f^{\bullet} = ds + sd$, for some map $s$ of degree $-1$.
+    We will call $s$ a \textbf{cochain contraction} of $f^{\bullet}$.
+\end{df}
+
+\begin{lemma}
+    If $f^{\bullet}:C^{\bullet} \to D^{\bullet}$
+    is \textbf{null homotopic}, then every induced map
+    in cohomology 
+    $f^{*}:H^{n}(C^{\bullet}) \to H^{n}(D^{\bullet})$
+    is zero.
+    \begin{proof}
+        If we focus on the $n$-th level, 
+        we have a commutative diagram
+        \begin{equation*}
+            \begin{tikzcd}
+                & \ker d^{n}_{C} \ar[d, hook] & \\
+                C^{n-1} \ar[r, "d^{n-1}_{C}"] \ar[d]
+                & C^{n} \ar[r, "d^{n}_{C}"] \ar[d, "f^{n}"'] \ar[dl, "s"']
+                & C^{n+1} \ar[d] \ar[dl, "s"'] \\
+                D^{n-1} \ar[r, "d^{n-1}_{D}"'] \ar[d, two heads]
+                & D^{n} \ar[r, "d^{n}_{D}"']
+                & D^{n+1} \\
+                \im d^{n-1}_{D} \ar[ru, hook] & &
+            \end{tikzcd}
+        \end{equation*}
+        which shows that $\ker d^{n}_{C} \hookrightarrow \im d^{n-1}_{D}$;
+        thus, by passing to the cokernel, 
+        the map $\ker d^{n}_{C} \to H^{n}(D^{\bullet})$ is zero.
+        Since this holds for every $n \in \Z$, we conclude that $f^{*} = 0$.
+    \end{proof}
+\end{lemma}
+
+Notice that this contraction construction gives
+us a way to ``proliferate'' cochain maps:
+indeed, given any morphism $g^{\bullet}: C^{\bullet} \to D^{\bullet}$,
+then $g^{\bullet} + (ds+sd)$ is again a cochain map.
+By the previous \textbf{Lemma}, 
+it turns out that $g^{\bullet} + (ds+sd)$ is in fact
+not very different from $g^{\bullet}$,
+because they induce the same maps in cohomology!
+
+\begin{df}
+    Two maps $f^{\bullet}, g^{\bullet}: C^{\bullet} \to D^{\bullet}$
+    are \textbf{cochain homotopic}, 
+    and write $f^{\bullet} \simeq g^{\bullet}$,
+    if their difference is null homotopic, that is
+    \begin{equation*}
+        f^{\bullet} - g^{\bullet} = ds + sd\,,
+    \end{equation*}
+    for some degree $-1$ map $s$. In this case,
+    we call $s$ a (\textbf{cochain}) \textbf{homotopy}
+    from $f^{\bullet}$ to $g^{\bullet}$.
+
+    Finally, $f^{\bullet}: C^{\bullet} \to D^{\bullet}$
+    is a (\textbf{cochain}) \textbf{homotopy equivalence}
+    if there exists $g^{\bullet} : D^{\bullet} \to C^{\bullet}$
+    such that
+    \begin{equation*}
+        g^{\bullet}f^{\bullet} \simeq \cat{1}_{C^{\bullet}}\,,
+        \quad f^{\bullet}g^{\bullet} \simeq \cat{1}_{D^{\bullet}}\,.
+    \end{equation*}
+\end{df}
+
+\begin{cor}
+    If $f^{\bullet}, g^{\bullet}: C^{\bullet} \to D^{\bullet}$
+    are \textbf{cochain homotopic}, then $f^* = g^*$.
+    In particular, if $f^{\bullet}$ is a homotopy equivalence,
+    then the two complexes have the same cohomology: 
+    $H^{n}(C^{\bullet}) = H^{n}(D^{\bullet})$.
+\end{cor}
+
+\begin{df}
+    A morphism of complexes
+    $f^{\bullet} : A^{\bullet} \to B^{\bullet}$
+    is a \textbf{quasi-isomorphism} (shortened \textbf{qis})
+    if, for all $n \in \NN$, the induced map
+    \begin{equation*}
+        H^{n}(f^{\bullet}) : H^{n}(A^{\bullet}) \xrightarrow[]{\sim} H^{n}(B^{\bullet})
+    \end{equation*}
+    is an isomorphism.
+\end{df}
+
+Thus, the previous corollary may be stated as 
+``\emph{homotopy equivalences are quasi-isomorphisms}''.

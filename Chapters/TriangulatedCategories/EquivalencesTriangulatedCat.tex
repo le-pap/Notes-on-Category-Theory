@@ -1,0 +1,322 @@
+
+\section{Equivalences of triangulated categories}
+
+In this section we discuss criteria that allow us to decide 
+whether a given exact functor is fully faithful or even an equivalence. 
+
+\begin{df}
+    Two triangulated categories $\Dd$ and $\Dd'$ are \textbf{equivalent}
+    if there exists an exact equivalence $T : \Dd \to \Dd'$,
+    i.e. an equivalence which is an exact functor, whose inverse is exact.
+    The set $\Aut(\Dd)$ of isomorphism classes of equivalences $F:\Dd \to \Dd$
+    is called \textbf{group of autoequivalences} of $\Dd$.
+\end{df}
+
+In many geometric situations, we will encounter the following notion:
+
+\begin{df}
+    Let $\Dd$ be a triangulated category.
+    A \textbf{spanning class} for $\Dd$ is a collection $\Omega$ 
+    of objects in $\Dd$ such that, for any $B \in \Dd$, 
+    the following two conditions hold:
+    \begin{rmnumerate}
+        \item if for every $n \in \Z$ and $A \in \Omega$ we have
+        $\Hom_{\Dd}(A,B[n]) = 0$, then $B \simeq \cat{0}$;
+        \item if for every $n \in \Z$ and $A \in \Omega$ we have
+        $\Hom_{\Dd}(B[n],A) = 0$, then $B \simeq \cat{0}$.
+    \end{rmnumerate}
+\end{df}
+
+\begin{rmk}
+    If $\Dd$ is also $k$-linear, endowed with a Serre functor $S$, 
+    then the two conditions in the definition are equivalent:
+    assume (i) to be true. 
+    If for every $n \in \Z$ and $A \in \Omega$ we have
+    \begin{equation*}
+        0 = \Hom_{\Dd}(B[n],A) \simeq \Hom_{\Dd}(A,S(B[n]))^*\,,
+    \end{equation*}
+    since by the \hyperref[BondalKapranov]{Bondal-Kapranov Theorem}
+    we have $S(B[n]) \simeq S(B)[n]$, from (i) we deduce that
+    $S(B) \simeq \cat{0}$, and hence $B \simeq \cat{0}$ because
+    $S$ is additive. Similarly one proves (ii) $\implies$ (i).
+\end{rmk}
+
+Spanning classes give a sufficient collections of objects
+on which we can check whether an exact functor is fully faithful or not.
+
+\begin{prop}\label{span-ff}
+    Let $F : \Dd \to \Dd'$ be an exact functor between triangulated categories
+    with both left and right adjoints: $G \dashv F \dashv H$.
+    Suppose $\Omega$ is a spanning class such that, for every $A,B \in \Omega$, 
+    the natural maps
+    \begin{equation*}
+        F : \Hom_{\Dd}(A,B[n]) \longrightarrow \Hom_{\Dd'}(F(A),F(B)[n])
+    \end{equation*}
+    are bijections for every $n \in \Z$. Then $F$ is fully faithful.
+    \begin{proof}
+        For any pair of objects $A, B \in \Dd$,
+        we have the commutative diagram
+        \begin{equation}\label{adj-square-prop}
+            \begin{tikzcd}
+                \Hom_{\Dd}(A,B) 
+                \ar[r, "\eta_{B} \circ -"] 
+                \ar[d, "- \circ \epsilon_{A}"'] 
+                \ar[dr, "F"]
+                & \Hom_{\Dd}(A,HF(B)) \ar[d, equals] \\
+                \Hom_{\Dd}(GF(A),B) \ar[r, equals]
+                & \Hom_{\Dd'}(F(A),F(B))\,.
+            \end{tikzcd}
+        \end{equation}
+        We show that 
+        the counit $\epsilon_{A}$ is an isomorphism,
+        for $A \in \Omega$:
+        complete it to a distinguished triangle
+        \begin{center}
+            \begin{tikzcd}
+                GF(A) \ar[r, "\epsilon_{A}"]
+                & A \ar[r]
+                & A' \ar[r]
+                & GF(A){[1]}\,,
+            \end{tikzcd}
+        \end{center}
+        where we have used that $GF(A[1]) \simeq GF(A)[1]$
+        by exactness of both $F$ and $G$ 
+        (see \hyperref[adj-exact]{Proposition~\ref*{adj-exact}}).
+        Apply $\Hom_{\Dd}(-,B[n])$ to it and get %for an arbitrary $B \in \Dd$
+        \begin{center}
+            \begin{tikzcd}
+                \Hom_{\Dd}(A',B{[n]}) \ar[r]
+                & \Hom_{\Dd}(A,B{[n]}) \ar[r, "-\circ \epsilon"] \ar[dr, "F"']
+                & \Hom_{\Dd}(GF(A),B{[n]}) \ar[d, equals] \\
+                & & \Hom_{\Dd'}(F(A),F(B){[n]})\,.
+            \end{tikzcd}
+        \end{center}
+        If we take $B \in \Omega$, then $F$ is bijective, 
+        so $-\circ \epsilon$ is an isomorphism, from which
+        we deduce that $\Hom_{\Dd}(A',B[n])=0$;
+        since this holds for every $B \in \Omega$ and $n \in \Z$,
+        then $A' \simeq \cat{0}$ because $\Omega$ spans $\Dd$,
+        so we conclude that $\epsilon_{A}:GF(A) \simeq A$.
+
+        It follows that $- \circ \epsilon_{A}$ is an isomorphism,
+        for $A \in \Omega$ and any $B \in \Dd$, and hence all the maps 
+        in the diagram~\eqref{adj-square-prop} are isomorphisms.
+        Now complete $\eta_{B}$ to a distinguished triangle
+        \begin{center}
+            \begin{tikzcd}
+                B \ar[r, "\eta_{B}"]
+                & HF(B) \ar[r]
+                & B' \ar[r]
+                & B{[1]}\,,
+            \end{tikzcd}
+        \end{center}
+        and apply $\Hom_{\Dd}(A,-) \circ [n]$, 
+        for all $n \in \Z$ and $A \in \Omega$
+        to see that $\Hom_{\Dd}(A,B') = 0$, and hence $B' \simeq \cat{0}$.
+        This means that $\eta_{B}:B \simeq HF(B)$, for any $B \in \Dd$. 
+        Thus, the arrows in \eqref{adj-square-prop} are isomorphisms
+        for all $A,B \in \Dd$, in particular
+        \begin{equation*}
+            F:\Hom_{\Dd}(A,B) \xrightarrow[]{\sim} \Hom_{\Dd'}(F(A),F(B))\,.
+        \end{equation*}
+    \end{proof}
+\end{prop}
+
+Suppose we already know that the functor is fully faithful. 
+What do we need to know in order to be able to decide whether 
+it is in fact an equivalence? 
+The following lemma provides a first criterion, 
+whose assumption however is difficult to check. 
+
+\begin{lemma}\label{lemma-equiv}
+    Let $F:\Dd \to \Dd'$ be a fully faithful exact functor
+    between triangulated categories and suppose that $F$
+    has a right adjoint $F \dashv H$.
+    Then $F$ is an equivalence if and only if,
+    for every $C \in \Dd'$, $H(C) \simeq \cat{0}$
+    implies $C \simeq \cat{0}$.
+
+    The same holds true if $F$ has a left adjoint $G \dashv F$
+    with the above property.
+    \begin{proof}
+        By \hyperref[ff-adj]{Corollary~\ref*{ff-adj}},
+        we know that $\eta_{A}:A \xrightarrow[]{\sim} HF(A)$ is an isomorphism,
+        for any $A \in \Dd$. We prove that also $\epsilon_{B}:FH(A) \to B$ is
+        an isomorphism, and hence $H$ is a quasi-inverse of $F$.
+
+        Given any $B \in \Dd'$, complete $\epsilon_{B}$
+        to a distinguished triangle
+        \begin{center}
+            \begin{tikzcd}
+                FH(B) \ar[r, "\epsilon_{B}"]
+                & B \ar[r]
+                & B' \ar[r]
+                & FH(B){[1]}\,;
+            \end{tikzcd}
+        \end{center}
+        since $H$ is exact by \hyperref[adj-exact]{Proposition~\ref*{adj-exact}},
+        it gives a distinguished triangle
+        \begin{center}
+            \begin{tikzcd}
+                HFH(B) \ar[r, "H\epsilon_{B}"]
+                & H(B) \ar[r]
+                & H(B') \ar[r]
+                & HFH(B){[1]}\,.
+            \end{tikzcd}
+        \end{center}
+        From \hyperref[unit-counit-identity]{Exercise~\ref*{unit-counit-identity}}
+        we know that $H\epsilon_{B}$ is an isomorphism, hence $H(B') \simeq \cat{0}$.
+        By assumption $B' \simeq \cat{0}$ and we get the thesis.
+    \end{proof}
+\end{lemma}
+
+\begin{df}
+    A triangulated category $\Dd$ is \textbf{decomposed into
+    triangulated subcategories} $\Dd_{1}, \Dd_{2} \subset \Dd$
+    if the following three conditions are satisfied:
+    \begin{rmnumerate}
+        \item both $\Dd_{1}$ and $\Dd_{2}$ contain objects non-isomorphic
+        to $\cat{0}$;
+
+        \item for all $A \in \Dd$, there exists a distinguished triangle
+        \begin{equation*}
+            A_{1} \longrightarrow A \longrightarrow A_{2} \longrightarrow A_{1}[1]\,,
+        \end{equation*}
+        with $A_{1} \in \Dd_{1}$ and $A_{2} \in \Dd_{2}$;
+
+        \item the two subcategories are ``disjoint'' in the sense that,
+        for every $X_{1} \in \Dd_{1}$ and $X_{2} \in \Dd_{2}$, it holds
+        \begin{equation*}
+            \Hom_{\Dd}(X_{1}, X_{2}) = \Hom_{\Dd}(X_{2}, X_{1}) = 0\,.
+        \end{equation*}
+    \end{rmnumerate}
+    A triangulated category which cannot be decomposed is called
+    \textbf{indecomposable}.
+\end{df}
+
+\begin{rmk}
+    Notice that, in the presence of (iii), the property (ii) states that
+    $A$ is a direct sum $A \simeq A_{1} \oplus A_{2}$ 
+    (see the \hyperref[split-lemma]{Split Lemma}).
+    Thus, condition (ii) is symmetric, despite the chosen order in the statement.
+\end{rmk}
+
+\begin{prop}\label{trivial-adj-equiv}
+    Let $F:\Dd \to \Dd'$ be a fully faithful exact functor
+    between triangulated categories. Suppose that $\Dd$ contains no
+    objects isomorphic to $\cat{0}$ and that $\Dd'$ is indecomposable.
+    Then $F$ is an equivalence if and only if it admits both right 
+    and left adjoints $G \dashv F \dashv H$ such that, for any $B \in \Dd$,
+    $H(B) \simeq \cat{0}$ implies $G(B) \simeq \cat{0}$.
+    \begin{proof}
+        The ``only if part is clear'' because $G \simeq H \simeq F^{-1}$.
+        So we need to prove the ``if'' implication: our goal is to show that
+        $H$ is a quasi-inverse of $F$.
+
+        First, we introduce two full triangulated subcategories
+        $\Dd'_{1}, \Dd'_{2} \subset \Dd'$ defined as follows:
+        let $\Dd'_{1}$ the full subcategory of objects $B \in \Dd'$
+        such that $B \simeq F(A)$, for some $A \in \Dd$; 
+        let $\Dd'_{2}$ be the full subcategory consisting of
+        all objects $C \in \Dd'$ such that $H(C) \simeq \cat{0}$.
+        One can easily check that both $\Dd'_{1}$ and $\Dd'_{2}$
+        are triangulated subcategories of $\Dd'$.
+
+        The proof of \hyperref[lemma-equiv]{Lemma~\ref*{lemma-equiv}}
+        shows that, for every $B \in \Dd'_{1}$, the counit $FH(B) \simeq B$
+        is an isomorphism and also that every $B \in \Dd'$
+        sits in a distinguished triangle of the form
+        \begin{equation*}
+            B_{1} \longrightarrow
+            B \longrightarrow
+            B_{2} \longrightarrow
+            B_{1}{[1]}\,,
+        \end{equation*}
+        with $B_{1} \in \Dd'_{1}$ and $B_{2} \in \Dd'_{2}$.
+        Since by assumption $H(B_{2}) \simeq \cat{0}$
+        implies $G(B_{2}) \simeq \cat{0}$,
+        then for all $B_{1} \in \Dd'_{1}$ and $B_{2} \in \Dd'_{2}$
+        it holds
+        \begin{align*}
+            \Hom_{\Dd'}(B_{1}, B_{2})
+            \simeq \Hom_{\Dd'}(FH(B_{1}),B_{2}) 
+            \simeq \Hom_{\Dd}(H(B_{1}),H(B_{2})) 
+            \simeq \Hom_{\Dd}(H(B_{1}),\cat{0}) = 0\,, \\
+            \Hom_{\Dd'}(B_{2}, B_{1})
+            \simeq \Hom_{\Dd'}(B_{2}, FH(B_{1})) 
+            \simeq \Hom_{\Dd}(G(B_{2}),H(B_{1})) 
+            \simeq \Hom_{\Dd}(\cat{0}, H(B_{1}))= 0\,,
+        \end{align*}
+        so $\Dd'_{1}$ and $\Dd'_{2}$ decompose $\Dd'$.
+        As $\Dd'$ is indecomposable, either $\Dd'_{1}$
+        or $\Dd'_{2}$ is trivial, i.e. contains only objects
+        isomorphic to $\cat{0}$.
+
+        Suppose $\Dd'_{1}$ is trivial. Then for every $A \in \Dd$,
+        the image $F(A)$ is trivial, and hence
+        $A \simeq HF(A) \simeq \cat{0}$ for $F$ is fully faithful:
+        this contradicts the non-triviality of $\Dd$.
+        Thus $\Dd'_{2}$ must be trivial, which implies
+        that $\Dd'_{1} \subset \Dd'$ is an equivalence, i.e.
+        for every $B \in \Dd'$, it holds $FH(B) \simeq B$,
+        and $H$ is a quasi-inverse of $F$.
+    \end{proof}
+\end{prop}
+
+The following proposition gives a criterion for equivalences
+of triangulated endowed with Serre functors.
+
+\begin{cor}
+    Let $\Dd$ and $\Dd'$ be triangulated categories,
+    endowed with Serre functors $S_{\Dd}$, resp. $S_{\Dd'}$. 
+    Let $F:\Dd \to \Dd'$ be an exact functor
+    which admits both right 
+    and left adjoints $G \dashv F \dashv H$. 
+    Assume there is $\Omega$
+    a spanning class of $\Dd$ satisfying the following three properties:
+    \begin{rmnumerate}
+        \item for all $A,B \in \Omega$, the natural morphisms
+        \begin{equation*}
+            \Hom_{\Dd}(A,B[n]) \longrightarrow \Hom_{\Dd'}(F(A),F(B)[i])
+        \end{equation*}
+        are bijective for all $n \in \Z$;
+        
+        \item Serre functors commute with $F$ on the spanning class,
+        that is
+        \begin{equation*}
+            F \circ S_{\Dd}(A) \simeq S_{\Dd'} \circ F(A)\,, 
+            \quad A \in \Omega \,;
+        \end{equation*}
+
+        \item the category $\Dd'$ is indecomposable and $\Dd$
+        is non-trivial.
+    \end{rmnumerate}
+    Then $F$ is an equivalence.
+    \begin{proof}
+        Condition (i) ensures that $F$ is fully faithful by
+        \hyperref[span-ff]{Proposition~\ref*{span-ff}}.
+        Now we want to prove $F$ is an equivalence by verifying
+        the conditions in \hyperref[trivial-adj-equiv]{Proposition~\ref*{trivial-adj-equiv}}.
+
+        Suppose $H(B) \simeq \cat{0}$, for $B \in \Dd'$.
+        For every $A \in \Omega$, using adjunction and condition (ii),
+        one finds
+        \begin{align*}
+            0 = \Hom_{\Dd}(A,H(B))
+            &\simeq \Hom_{\Dd'}(F(A),B)
+            \simeq \Hom_{\Dd'}(B,S_{\Dd'}F(A)))^* \\
+            & \simeq \Hom_{\Dd'}(B,FS_{\Dd}(A)))^*
+            \simeq \Hom_{\Dd}(G(B),S_{\Dd}(A)))^* \\
+            & \simeq \Hom_{\Dd}(A,G(B))\,,
+        \end{align*}
+        thus $G(B) \simeq \cat{0}$ because $\Omega$ spans $\Dd$;
+        more precisely, this argument shows that $G \simeq H$
+        by the \hyperref[yoneda]{Yoneda's Lemma}.
+    \end{proof}
+\end{cor}
+
+Recall that in a $k$-linear category endowed with a
+Serre functor, the existence of an adjoint functor 
+implies the existence of the other one; hence,
+the previous Corollary may be stated assuming the existence
+of $H$ only.

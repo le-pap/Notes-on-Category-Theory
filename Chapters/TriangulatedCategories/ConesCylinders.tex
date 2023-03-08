@@ -1,0 +1,244 @@
+
+\section{Mapping cones and cylinders}\todo{Check sign conventions and computations of the differentials.}
+
+Let $\Aa$ be an abelian category, 
+and consider the category $C^{\bullet}(\Aa)$
+of cochain complexes in $\Aa$.
+
+\begin{df}
+    Let $f^{\bullet} : A^{\bullet} \to B^{\bullet}$
+    be a map of cochain complexes.
+    The \textbf{mapping cone} of $f^{\bullet}$
+    is the cochain complex $\cat{C}(f^{\bullet})$
+    whose degree $n$ part is
+    \begin{equation*}
+        \cat{C}(f^{\bullet})^{n} := A^{n+1} \oplus B^{n}\,,
+    \end{equation*}
+    and the coboundary maps 
+    $d_{f}^{n} : \cat{C}(f^{\bullet})^{n} \longrightarrow \cat{C}(f^{\bullet})^{n+1}$
+    are given by the matrices
+    \begin{equation}\label{cone-coboundary}
+        % d^{n} : \cat{C}(f^{\bullet})^{n} \longrightarrow \cat{C}(f^{\bullet})^{n+1}\,,
+        %\quad 
+%        \begin{pmatrix} a \\ b\end{pmatrix}
+%        \longmapsto
+        d^{n}_{f} := \begin{pmatrix} -d^{n+1}_{A} & 0 \\ f^{n+1} & d^{n}_{B} \end{pmatrix}
+%        \begin{pmatrix} a \\ b\end{pmatrix}
+%        = \begin{pmatrix} -d^{n+1}_{A}(a) \\ d^{n}_{B}(b) + f^{n+1}(a) \end{pmatrix}
+    \end{equation}
+\end{df}
+
+\begin{df}
+    Let $f^{\bullet} : A^{\bullet} \to B^{\bullet}$
+    be a map of cochain complexes.
+    The \textbf{mapping cylinder} of $f^{\bullet}$
+    is the cochain complex $\cat{cyl}(f^{\bullet})$
+    whose degree $n$ part is
+    \begin{equation*}
+        \cat{cyl}(f^{\bullet})^{n}
+        := A^{n} \oplus A^{n+1} \oplus B^{n}.
+    \end{equation*}
+    The coboundary map $d_{\cat{cyl}} : \cat{cyl}(f^{\bullet}) 
+    \to \cat{cyl}(f^{\bullet})$ is given 
+    on the $n$-th level by the matrix
+    \begin{equation*}
+        d_{\cat{cyl}}^n :=
+        \begin{pmatrix}
+            d_{A}^{n} & \cat{1}_{A^{n+1}} & 0 \\
+            0 & -d_{A}^{n+1} & 0 \\
+            0 & -f^{n+1} & d^{n}_{B}
+        \end{pmatrix}\,.
+    \end{equation*}
+\end{df}
+
+\begin{exercise!}\label{cyl-criterion}
+    Show that two cochain maps 
+    $f^{\bullet}, g^{\bullet} : A^{\bullet} \to B^{\bullet}$
+    are cochain homotopic if and only if
+    they extend to a map $(f,s,g) : \cat{cyl}(\cat{1}_{A^{\bullet}}) \to B^{\bullet}$.
+    \begin{proof}[Solution]
+        Given a homotopy $s$ from $f^{\bullet}$ to $g^{\bullet}$,
+        we may define the map
+        \begin{equation*}
+            \Psi^{\bullet} : \cat{cyl}(\cat{1}_{A^{\bullet}}) \longrightarrow
+            B^{\bullet}\,, \quad
+            \Psi^{n}(a, a', a'') = f^{n}(a) + s^{n+1}(a') + g^{n}(a'')\,.
+        \end{equation*}
+        Then $\Psi^{\bullet}$ is a cochain map:
+        indeed, if we drop the indices for simplicity,
+        we compute
+        \begin{align*}
+            \Psi^{\bullet} d
+            = \Psi^{\bullet}
+            \begin{pmatrix}
+            d & \cat{1} & 0 \\
+            0 & -d & 0 \\
+            0 & -\cat{1} & d
+            \end{pmatrix}
+            &= \Psi^{\bullet}(d + \cat{1}, -d, -\cat{1}+d) \\
+            &= f^{\bullet}d + f^{\bullet} - sd - g^{\bullet} + g^{\bullet} d \\
+            &= f^{\bullet}d + ds + g^{\bullet} d \\
+            &= df^{\bullet} + ds + dg^{\bullet} 
+            =d \Psi^{\bullet}\,.
+        \end{align*}
+        The equations $\Psi^{n}(a, 0, 0) = f^{n}(a)$ and
+        $\Psi^{n}(0, 0, a'') = g^{n}(a'')$ show that $\Psi^{\bullet}$
+        extends both $f^{\bullet}$ and $g^{\bullet}$.
+
+        Conversely, suppose an extension $\Psi^{\bullet} : \cat{cyl}(\cat{1}_{A^{\bullet}}) \to B^{\bullet}$ is given and write
+        $$j_{2} = (0, \cat{1},0) : A^{\bullet+1} \to \cat{cyl}(\cat{1}_{A^{\bullet}})$$
+        for the inclusion. Then $s := \Psi j_{2}$ defines a homotopy
+        between $f^{\bullet}$ and $g^{\bullet}$, indeed
+        \begin{align*}
+            ds = d\Psi^{\bullet}j_{2} 
+            = \Psi^{\bullet} d j_{2}
+            = \Psi^{\bullet} 
+            \begin{pmatrix}
+            d & \cat{1} & 0 \\
+            0 & -d & 0 \\
+            0 & -\cat{1} & d
+            \end{pmatrix}
+            \begin{pmatrix}
+            0 \\ \cat{1} \\ 0 
+            \end{pmatrix}
+            = \Psi^{\bullet}(\cat{1}, -d, -\cat{1})
+            = f^{\bullet} - sd - g^{\bullet}\,.
+        \end{align*}
+    \end{proof}
+\end{exercise!}
+
+\begin{lemma}
+    The inclusion map 
+    $$\iota := 0 \oplus 0 \oplus \cat{1}_{B^{\bullet}} : B^{\bullet}
+    \to \cat{cyl}(f^{\bullet})$$
+    is a quasi-isomorphism.
+    \begin{proof}
+        The above inclusion fits in the following
+        short exact sequence:
+        \begin{center}
+            \begin{tikzcd}
+                \cat{0} \ar[r]
+                & B^{\bullet} \ar[r, "\iota"]
+                & \cat{cyl}(f^{\bullet}) \ar[r, "\pi"]
+                & \cat{C}(\cat{1}_{A^{\bullet}}) \ar[r]
+                & \cat{0}\,,
+            \end{tikzcd}
+        \end{center}
+        where $\pi$ is the projection on the first two components, switched:
+        indeed, the inclusion $\iota$ is clearly a cochain map,
+        and so is the projection because for every $n \in \Z$
+        it holds
+        \begin{align*}
+            \pi \circ d_{\cat{cyl}}^n (x)
+            &= 
+            \begin{pmatrix}
+                0 & 1 & 0 \\
+                1 & 0 & 0
+            \end{pmatrix}
+            \begin{pmatrix}
+            d_{A}^{n} & \cat{1}_{A^{n+1}} & 0 \\
+            0 & -d^{n+1}_{A} & 0 \\
+            0 & -f^{n+1} & d
+            \end{pmatrix}
+            x
+            \begin{pmatrix}
+                0 & 1 \\ 1 & 0 \\ 0 & 0
+            \end{pmatrix} \\
+            &= 
+            \begin{pmatrix}
+                -d_{A}^{n+1} & 0 \\ \cat{1}_{A^{n+1}} & d_{A}^{n}
+            \end{pmatrix}
+            \begin{pmatrix}
+                0 & 1 & 0 \\
+                1 & 0 & 0
+            \end{pmatrix}
+            x
+            \begin{pmatrix}
+                0 & 1 \\ 1 & 0 \\ 0 & 0
+            \end{pmatrix}
+            = d^{n}_{\cat{1}} \circ \pi(x)
+        \end{align*}
+        Thus, by the cohomological version of 
+        \hyperref[LHS]{Theorem~\ref*{LHS}} we get 
+        the long exact sequence
+        \begin{center}
+            \begin{tikzcd}[column sep=small]
+                \dots \ar[r] 
+                & H^{n-1}\big(\cat{C}(\cat{1}_{A^{\bullet}})\big) \ar[r]
+                & H^{n}(A^{\bullet}) \ar[r]
+                & H^{n}\big(\cat{cyl}(f^{\bullet})\big) \ar[r]
+                & H^{n}\big(\cat{C}(\cat{1}_{A^{\bullet}})\big) \ar[r]
+                & \dots
+            \end{tikzcd}
+        \end{center}
+        If we show that the cone has trivial cohomology,
+        then it follows that $H^{*}(B^{\bullet}) \simeq  
+        H^{*}\big(\cat{cyl}(f^{\bullet})\big)$.
+        By the definition of the coboundary maps~\eqref{cone-coboundary},
+        % the cocycles $Z^{\bullet}$ and the coboundaries $B^{\bullet}$ 
+        % for the cone complex are
+        % \begin{equation*}
+        %    Z^{n}\big(\cat{C}(-\cat{1}_{A^{\bullet}})\big)
+        %    = B^{n+1}(A^{\bullet}) \oplus A^{n}\,,
+        % \end{equation*}
+        any $n$-cocycle is of the form $(-d_{A}a,a)$, for some $a \in A^{n}$,
+        and in fact it is also a coboundary:
+        \begin{equation*}
+            \begin{pmatrix}
+                -d^{n}_{A}(a) \\ a
+            \end{pmatrix}
+            =
+            \begin{pmatrix}
+                -d^{n}_{A} & 0 \\ \cat{1}_{A^n} & d^{n-1}_{A}
+            \end{pmatrix}
+            \begin{pmatrix}
+                a \\ 0
+            \end{pmatrix}
+            = d^{n} \begin{pmatrix}
+                a \\ 0
+            \end{pmatrix}\,,
+        \end{equation*}
+        hence we conclude $H^{*}\big(\cat{C}(\cat{1}_{A^{\bullet}})\big) \simeq 0$.
+    \end{proof}
+\end{lemma}
+
+\begin{exercise!}\label{cyl-equivalence}
+    Show that the map $\beta^{\bullet} : \cat{cyl}(f^{\bullet}) \to B^{\bullet}$,
+    defined at the $n$-th level by
+    \begin{equation*}
+        \beta^{n}(a,a',b) = f^{n}(a) + b\,,
+    \end{equation*}
+    defines a cochain map such that $\beta^{\bullet} \iota = \cat{1}_{B^{\bullet}}$.
+    Then show that the formula
+    \begin{equation*}
+        s(a,a',b) = (0,a,0)
+    \end{equation*}
+    defines a cochain homotopy from the identity of $\cat{cyl}(f^{\bullet})$
+    to $\iota \beta^{\bullet}$.
+    Conclude that $\iota$ is in fact a cochain homotopy equivalence.
+    \begin{proof}
+        It is clear that $\beta^{\bullet}\iota = \cat{1}_{B^{\bullet}}$;
+        we show it is a map of complexes:
+        \begin{equation*}
+            \beta^{\bullet} d_{\cat{cyl}} 
+            = \beta^{\bullet} 
+            \begin{pmatrix}
+                d_{A} & \cat{1}_{A^{\bullet + 1}} & 0 \\
+                0 & -d_{A} & 0 \\
+                0 & -f^{\bullet} & d_{B}
+            \end{pmatrix}
+            =f^{\bullet}d_{A} + f^{\bullet} - f^{\bullet} + d_{B}
+            = d_{B}(f^{\bullet} + \cat{1})
+            = d_{B} \beta^{\bullet}\,.
+        \end{equation*}
+        To conclude $\iota$ is a homotopy equivalence,
+        we show $\cat{1}_{\cat{cyl}} \simeq \iota\beta^{\bullet}$:
+        \begin{align*}
+            sd + ds
+            &= (0, d_{A} + \cat{1}_{A^{\bullet+1}}, 0)
+            + (\cat{1}_{A}, -d_{A}, -f^{\bullet})\\
+            &= \left(\cat{1}_{A}, \cat{1}_{A^{\bullet+1}}, \cat{1}_{B} -(f^{\bullet}+\cat{1}_{B})\right)
+            = \cat{1}_{\cat{cyl}} - \iota\beta^{\bullet}\,.
+        \end{align*}
+    \end{proof}
+\end{exercise!}

@@ -1,0 +1,611 @@
+
+\section{The derived category of an abelian category}
+
+We begin by stating the existence of the derived category 
+as a theorem, and explain the technical features, 
+necessary for any calculation, later on.
+In the sequel, we will mostly be interested in 
+the derived category of the abelian category of 
+(coherent) sheaves or of modules over a ring. 
+
+Let $\Aa$ be an abelian category.
+Recall that in the chapter 
+of \hyperref[AbelianCategories]{Abelian Categories},
+we have defined the category $C^{\bullet}(\Aa)$
+of cochain complexes and cohomology functors $H^{n}$
+over it.
+
+\begin{df}
+    A morphism of complexes
+    $f^{\bullet} : A^{\bullet} \to B^{\bullet}$
+    is a \textbf{quasi-isomorphism} (shortened \textbf{qis})
+    if, for all $n \in \NN$, the induced map
+    \begin{equation*}
+        H^{n}(f^{\bullet}) : H^{n}(A^{\bullet}) \xrightarrow[]{\sim} H^{n}(B^{\bullet})
+    \end{equation*}
+    is an isomorphism.
+\end{df}
+
+The central idea for the definition of the derived category is this: 
+quasi-isomorphic complexes should become isomorphic objects 
+in the derived category. 
+We shall begin our discussion with the following existence theorem.
+
+\begin{thmdef}
+    Given an abelian category $\Aa$,
+    there exists a category $\cat{D}(\Aa)$,
+    called the \textbf{derived category} of $\Aa$,
+    and a functor
+    \begin{equation*}
+        Q : C^{\bullet}(\Aa) \longrightarrow \cat{D}(\Aa)
+    \end{equation*}
+    that satisfy the following two conditions:
+    \begin{rmnumerate}
+        \item if $f^{\bullet}$ is a qis, 
+        then $Q(f^{\bullet})$ is an isomorphism;
+
+        \item \textbf{universal property}:
+        if a functor $F:C^{\bullet}(\Aa) \to \Dd$
+        satisfies \emph{(i)}, then it factorizes uniquely through $Q$,
+        i.e. there exists a unique (up to isomorphism) functor 
+        $G:\cat{D}(\Aa) \to \Dd$ such that $F \simeq GQ$:
+        \begin{equation*}
+            \begin{tikzcd}
+                C^{\bullet}(\Aa) \ar[rr, "Q"] \ar[dr, "F"']
+                && \cat{D}(\Aa) \ar[dl, "G", "\exists !"',dashed]\\
+                &\Dd & \,.
+            \end{tikzcd}
+        \end{equation*}
+    \end{rmnumerate}
+    \begin{proof}[Construction]       
+In order to be able to work with the derived category, 
+we have to understand which objects become isomorphic under 
+$Q : C^{\bullet}(A) \to \cat{D}(A)$ and, more complicated, 
+how to represent morphisms in the derived category. 
+Explaining this, will at the same time 
+provide a proof the theorem. 
+Recall that $\cat{K}(\Aa)$ denotes the homotopy category of complexes.
+
+        First, we set the objects of the derived category to be
+        cochain complexes, so
+            \begin{equation*}
+                \textrm{Obj}(\cat{D}(\Aa)) := \textrm{Obj}(\cat{K}(\Aa)) 
+                = \textrm{Obj}(C^{\bullet}(\Aa))\,.
+            \end{equation*}
+
+        Now we describe how morphisms should behave.
+        Since the derived category is built in such
+        a way that quasi-isomorphisms become isomorphisms,
+        if $C^{\bullet} \to A^{\bullet}$ is an isomorphism,
+        then any morphism of complexes $C^{\bullet} \to B^{\bullet}$
+        will have to count as a morphism $A^{\bullet} \to B^{\bullet}$
+        in $\cat{D}(\Aa)$. Thus, given two complexes $A^{\bullet}, B^{\bullet}$,
+        a representative of a morphism 
+        $A^{\bullet} \to B^{\bullet}$ in $\cat{D}(\Aa)$
+        is given by a diagram
+        \begin{equation*}
+            \begin{tikzcd}
+                & C^{\bullet} \ar[dl, "\textrm{qis}"] \ar[dr] & \\
+                A^{\bullet} & & B^{\bullet}\,,
+            \end{tikzcd}
+        \end{equation*}
+        where $C^{\bullet} \to A^{\bullet}$ is a quasi-isomorphism;
+        we will call such a diagram a \textbf{roof} 
+        over $A^{\bullet}$ and $B^{\bullet}$.
+        Two roofs over $A^{\bullet}$ and $B^{\bullet}$ are
+        said to be \textbf{equivalent} if they are 
+        dominated by a third roof in $\cat{K}(\Aa)$, 
+        i.e. there is a diagram
+        \begin{equation*}
+            \begin{tikzcd}
+                & & C^{\bullet} \arrow[ld, "\textrm{qis}"'] \arrow[rd] 
+                \arrow[lldd, "\textrm{qis}"', dashed, bend right=50, shift right] 
+                & & \\
+                & C_1^{\bullet} \arrow[ld, "\textrm{qis}"'] \arrow[rrrd] 
+                & & C_2^{\bullet} \arrow[llld, "\textrm{qis}", crossing over] \arrow[rd] 
+                & \\
+                A^{\bullet} 
+                &  &  &  & B^{\bullet}
+            \end{tikzcd}
+        \end{equation*}
+        which commutes in $\cat{K}(\Aa)$, i.e. compositions are homotopy equivalent.
+        This property defines, in fact, an \emph{equivalence relation} on roofs:
+        \begin{itemize}
+            \item \textbf{reflextivity}: a roof is equivalent to itself because
+            we have the diagram
+            \begin{equation*}
+            \begin{tikzcd}
+                & & C^{\bullet} \arrow[ld, equals] \arrow[rd, equals] 
+                & & \\
+                & C^{\bullet} \arrow[ld, "\textrm{qis}"'] \arrow[rrrd] 
+                & & C^{\bullet} \arrow[llld, "\textrm{qis}", crossing over] \arrow[rd] 
+                & \\
+                A^{\bullet} 
+                &  &  &  & B^{\bullet}\,;
+            \end{tikzcd}
+            \end{equation*}
+
+            \item \textbf{symmetry}: given an equivalence of roofs
+            \begin{equation*}
+            \begin{tikzcd}
+                & & C^{\bullet} \arrow[ld, "\textrm{qis}"'] \arrow[rd] 
+                \arrow[lldd, "\textrm{qis}"', dashed, bend right=50, shift right] 
+                & & \\
+                & C_1^{\bullet} \arrow[ld, "\textrm{qis}"'] \arrow[rrrd] 
+                & & C_2^{\bullet} \arrow[llld, "\textrm{qis}", crossing over] \arrow[rd] 
+                & \\
+                A^{\bullet} 
+                &  &  &  & B^{\bullet}\,,
+            \end{tikzcd}
+            \end{equation*}
+            we notice that the map $C^{\bullet} \to C^{\bullet}_{2}$ is, in fact, a qis:
+            indeed, by passing to cohomology objects, in $\Aa$ we have
+            a commutative diagram
+            \begin{equation*}
+                \begin{tikzcd}
+                    H^*(C^{\bullet}) \ar[rr, "\simeq"] \ar[dr] 
+                    & & H^*(A^{\bullet}) \\
+                    & H^*(C_{2}^{\bullet}) \ar[ur, "\simeq"] & \,,
+                \end{tikzcd}
+            \end{equation*}
+            implying that $H^*(C^{\bullet}) \simeq H^*(C_{2}^{\bullet})$.
+            Thus, the ``equivalence'' diagram is symmetric;
+
+            \item \textbf{transitivity}: given two diagrams
+            \begin{equation*}
+            \begin{tikzcd}[column sep=small]
+                & & C^{\bullet} \arrow[ld, "\textrm{qis}"'] \arrow[rd] 
+                & & &
+                & & D^{\bullet} \arrow[ld, "\textrm{qis}"'] \arrow[rd] 
+                & &\\
+                & C_1^{\bullet} \arrow[ld, "\textrm{qis}"'] \arrow[rrrd] 
+                & & C_2^{\bullet} \arrow[llld, "\textrm{qis}", crossing over] \arrow[rd] 
+                & &
+                & C_2^{\bullet} \arrow[ld, "\textrm{qis}"'] \arrow[rrrd] 
+                & & C_3^{\bullet} \arrow[llld, "\textrm{qis}", crossing over] \arrow[rd] 
+                &\\
+                A^{\bullet} 
+                &  &  &  & B^{\bullet} \,, &
+                A^{\bullet} 
+                &  &  &  & B^{\bullet}\,,
+            \end{tikzcd}
+            \end{equation*}
+            by \hyperref[roof-comp]{Proposition~\ref*{roof-comp}}
+            we can build a diagram
+            \begin{equation*}
+            \begin{tikzcd}
+                && C_{0}^{\bullet} \ar[dl, "\textrm{qis}"'] \ar[dr] && \\
+                & C^{\bullet} \ar[dl, "\textrm{qis}"'] \ar[dr]
+                && D^{\bullet} \ar[dl, "\textrm{qis}"'] \ar[dr] & \\
+                C_{1}^{\bullet} & & C_{2}^{\bullet} & & C_{3}^{\bullet}
+            \end{tikzcd}
+            \end{equation*}
+            which commutes up to homotopy; thus, we obtain the diagram
+            \begin{equation*}
+            \begin{tikzcd}
+                & & C_{0}^{\bullet} \arrow[ld, "\textrm{qis}"'] \arrow[rd]  
+                & & \\
+                & C_1^{\bullet} \arrow[ld, "\textrm{qis}"'] \arrow[rrrd] 
+                & & C_3^{\bullet} \arrow[llld, "\textrm{qis}", crossing over] \arrow[rd] 
+                & \\
+                A^{\bullet} 
+                &  &  &  & B^{\bullet}\,,
+            \end{tikzcd}
+            \end{equation*}
+            which shows that the roof dominated by $C_{1}^{\bullet}$
+            is equivalent to the roof dominated by $C^{\bullet}_{3}$.
+        \end{itemize}
+
+        Finally, we can define $\Hom_{\cat{D}(\Aa)}(A^{\bullet}, B^{\bullet})$:
+        a morphism $A^{\bullet} \to B^{\bullet}$ in the derived category
+        is the equivalence class of a roof 
+        over $A^{\bullet}$ and $B^{\bullet}$. Given two morphisms
+        $A^{\bullet} \to B^{\bullet}$ 
+        and $B^{\bullet} \to C^{\bullet}$ in $\cat{D}(\Aa)$,
+        we describe the composition in the derived category:
+        taken two representatives
+        \begin{equation*}
+            \begin{tikzcd}
+                & C_{1}^{\bullet} \ar[dl, "\textrm{qis}"'] \ar[dr]
+                && C_{2}^{\bullet} \ar[dl, "\textrm{qis}"'] \ar[dr] & \\
+                A^{\bullet} & & B^{\bullet} & & C^{\bullet}\,,
+            \end{tikzcd}
+        \end{equation*}
+        the composition $A^{\bullet} \to B^{\bullet} \to C^{\bullet}$
+        is the equivalence class of a roof on top of the other two,
+        in such a way that the following
+        \begin{equation*}
+            \begin{tikzcd}
+                && C_{0}^{\bullet} \ar[dl, "\textrm{qis}"'] \ar[dr] && \\
+                & C_{1}^{\bullet} \ar[dl, "\textrm{qis}"'] \ar[dr]
+                && C_{2}^{\bullet} \ar[dl, "\textrm{qis}"'] \ar[dr] & \\
+                A^{\bullet} & & B^{\bullet} & & C^{\bullet}
+            \end{tikzcd}
+        \end{equation*}
+        is a commutative diagram in $\cat{K}(\Aa)$: 
+        \hyperref[roof-comp]{Proposition~\ref*{roof-comp}}
+        ensures that such a diagram always exists; 
+        moreover, the equivalence class of the
+        appearing roof is unique: indeed, 
+        for two choices $C_{0}^{\bullet}$
+        and $D_{0}^{\bullet}$ on the top of the above diagram,
+        one can use \hyperref[roof-comp]{Proposition~\ref*{roof-comp}}
+        again to show that the two choices are equivalent.
+        Thus, the composition of two morphisms in $\cat{D}(\Aa)$
+        is well defined and one can show it is associative,
+        so that $\cat{D}(\Aa)$ defines a category.
+
+        Notice that, for any given qis
+        $f^{\bullet}:A^{\bullet} \to B^{\bullet}$,
+        its image $Q(f^{\bullet})$ is an isomorphism
+        in the category $\cat{D}(\Aa)$ just described:
+        indeed, it can be represented by the roof
+        $A^{\bullet} = A^{\bullet} \to B^{\bullet}$,
+        whose inverse is the equivalence class of
+        \begin{equation*}
+            \begin{tikzcd}
+                & A^{\bullet} \ar[dr, equals] \ar[dl, "f^{\bullet}"'] & \\
+                B^{\bullet} & & A^{\bullet}\,,
+            \end{tikzcd}
+        \end{equation*}
+        as we can see from the diagrams:
+        \begin{equation*}
+            \begin{tikzcd}[column sep=small]
+                && A^{\bullet} \ar[dl, equals] \ar[dr, equals] && &
+                && A^{\bullet} \ar[dl, equals] \ar[dr, equals] && \\
+                & A^{\bullet} \ar[dl, equals] \ar[dr, "f^{\bullet}"]
+                && A^{\bullet} \ar[dr, equals] \ar[dl, "f^{\bullet}"'] & &
+                & A^{\bullet} \ar[dr, equals] \ar[dl, "f^{\bullet}"']
+                && A^{\bullet} \ar[dl, equals] \ar[dr, "f^{\bullet}"] &\\
+                A^{\bullet} & & B^{\bullet} & & A^{\bullet} \,, &
+                B^{\bullet} & & A^{\bullet} & & B^{\bullet}\,,
+            \end{tikzcd}
+        \end{equation*}
+        where the second composition is indeed in the equivalence class of the
+        identity of $B^{\bullet}$ because
+        \begin{equation*}
+            \begin{tikzcd}
+                & & A^{\bullet} \arrow[ld, equals] \arrow[rd, "f^{\bullet}"]  
+                & & \\
+                & A^{\bullet} \arrow[ld, "f^{\bullet}"'] \arrow[rrrd, "f^{\bullet}"'] 
+                & & B^{\bullet} \arrow[llld, equals, crossing over] \arrow[rd, equals] 
+                & \\
+                B^{\bullet} 
+                &  &  &  & B^{\bullet}\,.
+            \end{tikzcd}
+        \end{equation*}
+        Hence, one can easily verify the \emph{\textbf{universal property}}
+        holds by setting $G(f:A^{\bullet} \to B^{\bullet}) 
+        := \left(F(f^{\bullet}):F(A^{\bullet}) \to F(B^{\bullet}) \right)$,
+        for any representative $f^{\bullet}$ of the morphism $f$.
+    \end{proof}
+\end{thmdef}
+
+\begin{rmk}
+    Under the functor $Q$, we identify objects 
+    in $\cat{D}(\Aa)$ with objects in $C^{\bullet}(\Aa)$:
+    hence, we may speak of complexes 
+    $A^{\bullet}, B^{\bullet}, ... \in \cat{D}(\Aa)$.
+    As a consequence, the cohomology objects $H^{n}(A^{\bullet})$
+    of $A^{\bullet}\in \cat{D}(\Aa)$ are well-defined
+    objects of the abelian category $\Aa$ because
+    of the universal property of the derived category.
+    Moreover, given two homotopic maps
+    $f^{\bullet}, g^{\bullet}:A^{\bullet} \to B^{\bullet}$,
+    the diagram
+    \begin{equation*}
+            \begin{tikzcd}
+                & & A^{\bullet} \arrow[ld, equals] \arrow[rd, equals]  
+                & & \\
+                & A^{\bullet} \arrow[ld, equals] \arrow[rrrd, "f^{\bullet}"'] 
+                & & A^{\bullet} \arrow[llld, equals, crossing over] \arrow[rd, "g^{\bullet}"] 
+                & \\
+                A^{\bullet} 
+                &  &  &  & B^{\bullet}\,.
+            \end{tikzcd}
+    \end{equation*}
+    commutes in $\cat{K}(\Aa)$, so we deduce that 
+    $Q(f^{\bullet}) = Q(g^{\bullet})$.
+    By the \textbf{universal property of the homotopy category},
+    it follows that there exists a unique factorization
+    \begin{equation*}
+        \begin{tikzcd}
+            C^{\bullet}(\Aa) \ar[rr] \ar[dr, "Q"'] 
+            & & \cat{K}(\Aa) \ar[dl] \\
+            & \cat{D}(\Aa) & \,.
+        \end{tikzcd}
+    \end{equation*}
+    This means that, for every $n \in \Z$, 
+    the $n$-th cohomology $H^{n}$ is a well-defined functor
+    on the derived category.
+\end{rmk}
+
+\begin{rmk}
+    Viewing any object $A \in \Aa$ as a complex 
+    concentrated in degree zero yields an equivalence 
+    between $\Aa$ and the full subcategory of $\cat{D}(A)$
+    that consists of all complexes $B^{\bullet}$ 
+    with $H^{n}(B^{\bullet}) = \cat{0}$, for $n \ne 0$.
+\end{rmk}
+
+\begin{thm}
+    The inclusion $\Aa \hookrightarrow \cat{D}(\Aa)$
+    which sends an object $A$ to the complex
+    concentrated in degree zero $A{[0]}$ 
+    yields an equivalence with the full subcategory 
+    $\cat{D}^{0}(\Aa)$ of $\cat{D}(\Aa)$ formed by
+    complexes $B^{\bullet}$ such that 
+    $H^{n}(B^{\bullet}) \simeq \cat{0}$,
+    for $n \ne 0$.
+    \begin{proof}
+        \textcolor{red}{Guarda Manin - III.5.Prop2}.
+    \end{proof}
+\end{thm}
+
+\begin{exercise!}\label{derived-trivial}
+    Show that $A^{\bullet}$ is isomorphic to $\cat{0}$
+    in $\cat{D}(\Aa)$ if and only if 
+    $H^{n}(A^{\bullet}) \simeq \cat{0}$ in $\Aa$, 
+    for every $n \in \Z$.
+    On the other hand, find an example of a complex morphism
+    $f^{\bullet} : A^{\bullet} \to B^{\bullet}$ which is
+    trivial in cohomology, but $Q(f^{\bullet}) \ne 0$.
+    \begin{proof}[Solution]
+        We have already noticed that cohomology
+        is a well defined functor on the derived category,
+        so if $A^{\bullet} \simeq \cat{0}$ 
+        in $\cat{D}(\Aa)$, then $H^*(A^{\bullet})$
+        is trivial. 
+        Conversely, assume $A^{\bullet}$ has trivial cohomology:
+        then the zero morphism $A^{\bullet} \to \cat{0}$
+        is a qis, hence an isomorphism in $\cat{D}(\Aa)$.
+
+        As an example of a non-trivial morphism,
+        with trivial cohomology, consider the following
+        commutative diagram in $\Aa = \Mod_{\Z}$:
+        \begin{equation*}
+            \begin{tikzcd}
+                A^{\bullet}\,: \ar[d, "f^{\bullet}"']
+                & \cat{0} \ar[r] 
+                & \Z/4\Z \ar[r, "\cdot 2"] \ar[d]
+                & \Z/4\Z \ar[r, "\cdot 2"] \ar[d, "q"]
+                & \Z/4\Z \ar[r] \ar[d]
+                & \cat{0} \\
+                B^{\bullet} \,:
+                & \cat{0} \ar[r]
+                & \cat{0} \ar[r]
+                & \Z/2\Z \ar[r]
+                & \cat{0} \ar[r]
+                & \cat{0} 
+            \end{tikzcd}\,;
+        \end{equation*}
+        since $H^0(A^{\bullet}) \simeq \cat{0}$,
+        then it is clear that $f^*=0$.
+        Nevertheless, $f^{\bullet}$ in not null-homotopic:
+        indeed, if there existed a homotopy $h$, 
+        then for each $x \in \Z/4\Z$ we would have
+        \begin{equation*}
+            q(x) = h(2x) = 2h(x) = 0\,,
+        \end{equation*}
+        which is a contradiction. In particular,
+        this means that in $\cat{K}(\Mod_{\Z})$
+        there is no commutative diagram of the
+        form
+        \begin{equation*}
+            \begin{tikzcd}
+                & & C_{0}^{\bullet} \arrow[ld, "\mathrm{qis}"'] \arrow[rd]  
+                & & \\
+                & A^{\bullet} \arrow[ld, equals] \arrow[rrrd, "f^{\bullet}"'] 
+                & & C^{\bullet} \arrow[llld, "\mathrm{qis}", crossing over] \arrow[rd, "0"] 
+                & \\
+                A^{\bullet} 
+                &  &  &  & B^{\bullet}\,,
+            \end{tikzcd}
+        \end{equation*}
+        so $Q(f^{\bullet}) \ne 0$. \textcolor{red}{Why? Guarda esercizi Danilo.}
+    \end{proof}
+\end{exercise!}
+
+\begin{exercise}
+    \textcolor{red}{Check that the derived category $\cat{D}(\Aa)$
+    is additive.}
+\end{exercise}
+
+Thus, if $\Aa$ is an abelian category, 
+its derived category $\cat{D}(\Aa)$ is additive, 
+but in general not abelian;
+nevertheless, it is triangulated.
+
+\begin{prop}
+    The category $\cat{D}(\Aa)$ is triangulated and the canonical functor
+    \begin{equation*}
+        \cat{K}(\Aa) \longrightarrow \cat{D}(\Aa)
+    \end{equation*}
+    is an exact functor of triangulated categories.
+    \begin{proof}
+        \textcolor{red}{Check Gelfand-Manin IV.2}
+    \end{proof}
+\end{prop}
+
+\begin{exercise!}\label{SES-TRI}
+    Suppose
+    \begin{center}
+        \begin{tikzcd}
+            0 \ar[r]
+            & A \ar[r, "f"]
+            & B \ar[r, "g"]
+            & C \ar[r]
+            & 0
+        \end{tikzcd}
+    \end{center}
+        is a short exact sequence in an abelian category $\Aa$.
+        Show that under the full embedding into the
+        homotopy category $\Aa \hookrightarrow \cat{K}(\Aa)$
+        (or the one in the derived category $\Aa \hookrightarrow \cat{D}(\Aa)$),
+        this becomes a distinguished triangle 
+    \begin{center}
+        \begin{tikzcd}
+            A \ar[r]
+            & B \ar[r]
+            & C \ar[r, "\delta"]
+            & A{[1]}\,,
+        \end{tikzcd}
+    \end{center}
+        where $\delta$ is the composition of the inverse
+        of the qis $\cat{C}(f) \to C$ with the projection $\cat{C}(f) \to A[1]$.
+        
+        Conversely, if $A,B, C \in \Aa$ form a distinguished triangle 
+        \begin{center}
+        \begin{tikzcd}
+            A \ar[r]
+            & B \ar[r]
+            & C \ar[r]
+            & A{[1]}\,,
+        \end{tikzcd}
+        \end{center}
+        then $0 \to A \to B \to C \to 0$ is a short exact sequence in $\Aa$.
+    \begin{proof}[Solution]
+        Notice that the cone $\cat{C}(f)$ is given by the complex
+        \begin{equation*}
+            \begin{tikzcd}
+                0 \ar[r] & A \ar[r, "f"] & B \ar[r] & 0\,,
+            \end{tikzcd}
+        \end{equation*}
+        thus $H^{-1}\left(\cat{C}(f)\right) = \ker f$ 
+        and $H^{0}\left(\cat{C}(f)\right) = \Coker f$.
+        Since the short sequence is exact, it follows that
+        \begin{equation*}
+            H^{-1}\left(\cat{C}(f)\right) = 0\,, \quad
+            H^{0}\left(\cat{C}(f)\right) \simeq C\,,
+        \end{equation*}
+        hence the diagram
+        \begin{equation*}
+            \begin{tikzcd}
+                0 \ar[r] & A \ar[r, "f"] \ar[d] & B \ar[r] \ar[d, "g"] & 0 \\
+                0 \ar[r] & 0 \ar[r] & C \ar[r] & 0
+            \end{tikzcd}
+        \end{equation*}
+        defines a qis $\cat{C}(f) \to C$. 
+        Then, by passing in $\cat{K}(\Aa)$ (or equivalently in $\cat{D}(\Aa)$),
+        we end up with the commutative diagram
+        \begin{equation*}
+            \begin{tikzcd}
+                A \ar[r, "f"] \ar[d, equals] 
+                & B \ar[r] \ar[d, equals] 
+                & C \ar[r] \ar[d]
+                & A{[1]} \ar[d, equals] \\
+                A \ar[r, "f"]
+                & B \ar[r]
+                & \cat{C}(f) \ar[r] 
+                & A{[1]}\,,
+            \end{tikzcd}
+        \end{equation*}
+        which is an isomorphism of triangles by the 
+        \hyperref[5lemma]{5-lemma~\ref*{5lemma}}.
+
+        Conversely, if three objects $A,B,C \in \Aa$ form
+        a distinguished triangle $A \to B \to C \to A{[1]}$,
+        then the induced \hyperref[LECS]{LECS~\ref*{LECS}}
+        is a short exact sequence in $\Aa$.
+    \end{proof}
+\end{exercise!}
+
+\begin{exercise!}\label{derived-LECS}
+    Suppose $A^{\bullet} \to B^{\bullet} \to C^{\bullet} \to A^{\bullet}[1]$
+    is a distinguished triangle in the derived category $\cat{D}(\Aa)$.
+    Show that it naturally induces a long exact sequence
+    \begin{center}
+        \begin{tikzcd}
+            \dots \ar[r]
+            & H^{i}(A^{\bullet}) \ar[r]
+            & H^{i}(B^{\bullet}) \ar[r]
+            & H^{i}(C^{\bullet}) \ar[r]
+            & H^{i+1}(A^{\bullet}) \ar[r]
+            & \dots
+        \end{tikzcd}
+    \end{center}
+    \begin{proof}[Solution]
+        \textcolor{red}{LALALA.}
+    \end{proof}
+\end{exercise!}
+
+
+By definition, complexes in the categories 
+$\cat{K}(A)$ and $\cat{D}(A)$ are unbounded, 
+but often it is more convenient to work with bounded ones,
+especially in the algebro-geometric context.
+
+\begin{df}
+    Given an abelian category $\Aa$,
+    let $C^{*}(\Aa)$, with $* \in \Set{+,-,b}$, 
+    be the category of complexes $A^{\bullet}$
+    with $A^{n} = 0$ for $n << 0, n >> 0$,
+    respectively $|n| >> 0$.
+\end{df}
+
+By dividing out first by homotopy equivalence 
+and then by qis one obtains
+the categories $\cat{K}^{*}(\Aa)$ and $\cat{D}^{*}(\Aa)$,
+with $* \in \Set{+,-,b}$. 
+Let us consider the natural functors 
+$\cat{D}^{*}(A) \to \cat{D}(A)$ 
+given by just forgetting the boundedness condition.
+
+\begin{prop}
+    The natural functor $\cat{D}^+(\Aa) \hookrightarrow \cat{D}(\Aa)$,
+    defines an equivalence of $\cat{D}^{+}(\Aa)$ with
+    the full triangulated subcategory of all 
+    complexes $A^{\bullet} \in \cat{D}(\Aa)$ with
+    $A^{n}=0$ for $n << 0$.
+    Analogous statements hold true for $\cat{D}^{-}(\Aa)$
+    and $\cat{D}^{b}(\Aa)$.
+    \begin{proof}
+        \textcolor{red}{KASHIWARA SHAPIRA.}
+    \end{proof}
+\end{prop}
+
+\begin{exercise!}\label{null-terms}
+    Let $A^{\bullet}$ be a complex with $H^{n}(A^{\bullet}) = 0$, for $n > m$.
+    Show that $A^{\bullet}$ is quasi-isomorphic 
+    (and hence isomorphic as an object in $\cat{D}(\Aa)$)
+    to a complex $B^{\bullet}$, with $B^{n}=0$ for $n > m$.
+    \begin{proof}[Solution]
+        \textcolor{red}{AAAAAAAH}
+    \end{proof}
+\end{exercise!}
+
+\begin{exercise}
+    Let $A^{\bullet}$ be a complex with 
+    $m := \Set{n \in \Z| H^{n}(A^{\bullet}) \ne 0} < \infty$.
+    Show there exists a morphism
+    \begin{equation*}
+        \phi : A^{\bullet} \longrightarrow H^{m}(A^{\bullet})[-m]
+    \end{equation*}
+    in $\cat{D}(\Aa)$ such that 
+    $H^{m}(\phi) : H^{m}(A^{\bullet}) \to H^{m}(A^{\bullet})$
+    is the identity.
+    \begin{proof}[Solution]
+        \textcolor{red}{AAAAAAAAAA}
+    \end{proof}
+\end{exercise}
+
+\begin{exercise}
+    Suppose $H^{n}(A^{\bullet}) = 0$ for $n < n_{0}$.
+    Show there exists a distinguished triangle
+    \begin{equation*}
+        \begin{tikzcd}
+            H^{n_{0}}(A^{\bullet}){[-n_{0}]} \ar[r]
+            & A^{\bullet} \ar[r, "\phi"]
+            & B^{\bullet} \ar[r]
+            & H^{n_{0}}(A^{\bullet}){[1-n_{0}]}
+        \end{tikzcd}
+    \end{equation*}
+    in $\cat{D}(\Aa)$ with $H^{n}(B^{\bullet})=0$ 
+    for $n \le n_{0}$ and $\phi$ inducing isomorphisms
+    $H^{n}(A^{\bullet}) \simeq H^{n}(B^{\bullet})$ for $n > n_{0}$.
+    \begin{proof}[Solution]
+        \textcolor{red}{AAAAAAAAA.}
+    \end{proof}
+\end{exercise}
+
+\textcolor{red}{Splitting and derived categories in Gelfand Manin.}

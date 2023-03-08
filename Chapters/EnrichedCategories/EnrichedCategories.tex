@@ -1,0 +1,292 @@
+
+\section{Enriched categories}
+
+When a symmetric monoidal category $(\Vv, \otimes)$ is fixed, 
+we show how to enrich over it the notions of category, 
+functor and natural transformation.
+
+\begin{df}
+    A \textbf{$\Vv$-enriched category} $\Cc$
+    (or simply \textbf{$\Vv$-category})
+    is given by the following data:
+    \begin{itemize}
+        \item a class $\Cc$ of \textbf{objects};
+
+        \item for any pair $A,B \in \Cc$ of objects,
+        there exists an \textbf{arrows} object $\Cc(A,B) \in \Vv$;
+
+        \item for any triple $A,B,C \in \Cc$,
+        there exists a \textbf{composition morphism} in $\Vv$:
+            \begin{equation*}
+                \cat{c}_{ABC} : \Cc(A,B) \otimes \Cc(B,C) \longrightarrow \Cc(A,C)\,;
+            \end{equation*}
+
+        \item any object $A \in \Cc$ has a \textbf{unit morphism}
+        in $\Vv$, that is
+            \begin{equation*}
+                \cat{u}_{A} : e \longrightarrow \Cc(A,A)\,,
+            \end{equation*}
+        where $e$ is the unit object of $\Vv$.
+    \end{itemize}
+    Moreover, the previous data satisfy the following
+    ``coherence'' axioms:
+    \begin{itemize}
+        \item[(\textbf{E1})]\label{E1} \textbf{associativity}:
+        the composition is associative, i.e. 
+        for any five objects $A,B,C,D,E$ in $\Cc$,
+        the following diagram commutes:
+        \begin{center}
+            \begin{tikzcd}[column sep=tiny, row sep=large]
+             & \left( \Cc(A,B) \otimes \Cc(B,C) \right) \otimes \Cc(C,D) 
+             \ar[rd, "\cat{c}_{ABC} \otimes \cat{u}_{\Cc(C,D)}"] 
+             \ar[dl, "\alpha"'] &  \\
+            \Cc(A,B) \otimes \left( \Cc(B,C) \otimes \Cc(C,D) \right)\ar[d, "\cat{u}_{\Cc(A,B)} \otimes \cat{c}_{BCD}"']
+            && \Cc(A,C) \otimes \Cc(C,D) \ar[d, "\cat{c}_{ACD}"] \\
+              \Cc(A,B) \otimes \Cc(B,D) \ar[rr, "\cat{c}_{ABD}"]
+            & & \Cc(A,D)  
+            \end{tikzcd}
+        \end{center}
+
+        \item[(\textbf{E2})]\label{E2} \textbf{unital}:
+        the unit morphism is the neutral element for the composition,
+        i.e. for any pair $A,B \in \Cc$ we have a commutative diagram
+            \begin{equation*}
+                \begin{tikzcd}
+                    e \otimes \Cc(A,B) 
+                    \ar[r, "l_{\Cc(A,B)}"] \ar[d, "\cat{u}_{A} \otimes \cat{1}_{\Cc(A,B)}"]
+                    & \Cc(A,B) \ar[d, equals] 
+                    & \Cc(A,B) \otimes e 
+                    \ar[l, "r_{\Cc(A,B)}"'] \ar[d, "\cat{1}_{\Cc(A,B)} \otimes \cat{u}_{B}"] \\
+                    \Cc(A,A) \otimes \Cc(A,B) \ar[r, "\cat{c}_{AAB}"']
+                    & \Cc(A,B)
+                    & \Cc(A,B) \otimes \Cc(B,B) \,. \ar[l, "\cat{c}_{ABB}"]
+                \end{tikzcd}
+            \end{equation*}
+    \end{itemize}
+\end{df}
+
+\begin{ex}
+    A preadditive category is $\Ab$-enriched.
+\end{ex}
+
+\begin{ex!}\label{one-obj-ab}
+    A one object $\Ab$-category $R$ is a unitary ring: indeed, 
+    it consists of an object $\ast$ and an abelian group
+    \begin{equation*}
+        R := R(\ast,\ast) \in \Ab\,,
+    \end{equation*}
+    with a multiplication
+    \begin{equation*}
+        \cdot := \cat{c}_{\ast \ast \ast} : R \otimes_{\Z} R \longrightarrow R
+    \end{equation*}
+    given by the composition in $R$,
+    which is associative by \hyperref[E1]{(\textbf{E1})}.
+    Moreover, the unit morphism
+    \begin{equation*}
+        \cat{u} : \Z \longrightarrow R\,,
+        \quad 1 \longmapsto u
+    \end{equation*}
+    detects the neutral element for the multiplication,
+    for
+    \begin{equation*}
+        u \cdot x = \cat{c}(\cat{u}(1) \otimes x) 
+        = x 
+        = \cat{c}(x \otimes \cat{u}(1)) = x \cdot u\,,
+    \end{equation*}
+    by \hyperref[E2]{(\textbf{E2})}.
+\end{ex!}
+
+\begin{ex}
+    Any locally small category $\Aa$ is enriched over $\Vv=\cat{Set}$:
+    indeed, morphisms between two objects form sets and, for each $A \in \Aa$,
+    the unit morphism is simply
+    \begin{equation*}
+        \cat{u}_{A}: \Set{\ast} \longrightarrow \Hom_{\Aa}(A,A)\,,
+        \quad \ast \longmapsto \cat{1}_{A}\,.
+    \end{equation*}
+\end{ex}
+
+\begin{ex!}\label{smcc-enriched}
+    A symmetric monoidal closed category $\Vv$ is enriched over itself:
+    for every pair $A,B \in \Vv$, one sets
+    \begin{equation*}
+        \Vv(A,B) := [A,B] \in \Vv\,,
+    \end{equation*}
+    and takes units and compositions as defined in 
+    \hyperref[v-morphisms]{Remark~\ref*{v-morphisms}}.
+    One can check that both (\textbf{E1}) and (\textbf{E2}) hold.
+\end{ex!}
+
+\begin{ex}[Dual category]
+    If the monoidal category $\Vv$ is symmetric,
+    a $\Vv$-category $\Cc$ gives rise to a 
+    \textbf{dual} $\Vv$-category $\Cc^{*}$,
+    whose objects are the same as $\Cc$,
+    and for each pair $A,B \in \Cc^{*}$
+    one sets
+    \begin{equation*}
+        \Cc^*(A,B) := \Cc(B,A)\,.
+    \end{equation*}
+    Compositions are then defined by
+    \begin{equation*}
+        \cat{c}^*_{ABC} : \Cc^*(A,B) \otimes \Cc^*(B,C)
+        \xrightarrow[]{\tau} \Cc(C,B) \otimes \Cc(B,A)
+        \xrightarrow[]{\cat{c}_{CBA}} \Cc(C,A) = \Cc^*(A,C)\,,
+    \end{equation*}
+    thus the unit is $\cat{u}_{A}^* = \cat{u}_{A}$, for every $A \in \Cc^*$;
+    one checks that $\Cc^*$ is indeed a $\Vv$-category.
+    
+\end{ex}
+
+Now we adapt the notion of a functor between enriched categories.
+
+\begin{df}
+    Let $(\Vv, \otimes)$ be a monoidal category 
+    and $\Aa,\Bb$ two $\Vv$-categories.
+    A \textbf{$\Vv$-functor} $F:\Aa \to \Bb$ 
+    is defined by the following data:
+    \begin{itemize}
+        \item an object $F(A) \in \Bb$, for each $A \in \Aa$;
+        \item for every pair of objects $A,A' \in \Aa$,
+        there exists a morphism
+        \begin{equation*}
+            F_{AA'} : \Aa(A,A') \longrightarrow \Bb(F(A),F(A'))\,
+        \end{equation*}
+        in $\Vv$ such that the following axioms are satisfied:
+        \begin{rmnumerate}
+            \item \textbf{composition:} 
+            for every three objects $A,A',A'' \in \Aa$,
+            the following diagram commutes
+            \begin{equation*}
+                \begin{tikzcd}[column sep=huge]
+                    \Aa(A,A') \otimes \Aa(A',A'') 
+                    \ar[r, "\cat{c}_{AA'A''}"] \ar[d, "F_{AA'} \otimes F_{A'A''}"']
+                    & \Aa(A,A'') \ar[d, "F_{AA''}"] \\
+                    \Bb(F(A),F(A')) \otimes \Bb(F(A'),F(A''))
+                    \ar[r, "\cat{c}_{F(A)F(A')F(A'')}"]
+                    & \Bb(F(A),F(A''))\,;
+                \end{tikzcd}
+            \end{equation*}
+
+            \item \textbf{unit to unit:}
+            for each object $A \in \Aa$, 
+            there is a commutative diagram
+            \begin{equation*}
+                \begin{tikzcd}
+                     e \ar[r, "\cat{u}_{A}"] \ar[dr, "\cat{u}_{F(A)}"']
+                     & \Aa(A,A) \ar[d, "F_{AA}"] \\
+                     & \Bb(F(A),F(A))\,.
+                \end{tikzcd}
+            \end{equation*}
+        \end{rmnumerate}
+    \end{itemize}
+\end{df}
+
+\begin{ex!}\label{left-R-mod}
+    Consider a one object $\Ab$-category $R$. 
+    A covariant $\Ab$-functor
+    \begin{equation*}
+        M : R \longrightarrow \Ab\,,
+        \quad \left( \ast \xrightarrow[]{r} \ast \right)
+        \longmapsto \left( M(\ast) \xrightarrow[]{r \times -} M(\ast) \right)
+    \end{equation*}
+    describes a left $R$-module: indeed,
+    we have seen in \hyperref[one-obj-ab]{Example~\ref*{one-obj-ab}}
+    that $R$ is a unitary ring, 
+    so $M(\ast)$ is an abelian group
+    endowed with the external multiplication
+    \begin{equation*}
+        r \times m := M(r)(m)\,, \quad \text{for every } m \in M(\ast)\,.
+    \end{equation*}
+\end{ex!}
+
+Finally, we get to the notion of natural transformation,
+which is a bit more involved to state.
+
+\begin{df}
+    Let $F,G : \Aa \to \Bb$ be two $\Vv$-functors between two $\Vv$-categories.
+    A \textbf{$\Vv$-natural transformation} $\phi:F \implies G$
+    consists in giving, for every object $A \in \Aa$,
+    a morphism 
+    \begin{equation*}
+        \phi_{A} : e \longrightarrow \Bb(F(A),G(A))
+    \end{equation*}
+    in $\Vv$ such that the following diagram commutes,
+    for each pair $A,A''$:
+    \begin{equation*}
+        \begin{tikzcd}[column sep=small]
+            & \Aa(A,A') 
+            \ar[dr, "r_{A}^{-1}"] \ar[dl, "l_{A}^{-1}"'] & \\
+            e \otimes \Aa(A,A') \ar[d, "\phi_{A} \otimes G_{AA'}"]
+            && \Aa(A,A') \otimes e \ar[d, "F_{AA} \otimes \phi_{A'}"] \\
+            \Bb(F(A),G(A)) \otimes \Bb(G(A),G(A'))
+            \ar[dr, "\cat{c}_{F(A)G(A)G(A')}"']
+            && \Bb(F(A),F(A')) \otimes \Bb(F(A'),G(A'))
+            \ar[dl, "\cat{c}_{F(A)F(A')G(A')}"] \\
+            & \Bb(F(A),G(A')) & \,.
+        \end{tikzcd}
+    \end{equation*}
+\end{df}
+
+\begin{ex}
+    Consider a one object $\Ab$-category $R$, 
+    as in \hyperref[one-obj-ab]{Example~\ref*{one-obj-ab}},
+    and two $\Ab$-functors $M,N : R \to \Ab$,
+    that is two left $R$-modules by 
+    \hyperref[left-R-mod]{Example~\ref*{left-R-mod}}.
+    Then an $\Ab$-natural transformation $f : M \implies N$
+    is a group homomorphism $f : M(\ast) \to M(\ast)$
+    such that, for every $r \in R$, the following square
+    \begin{equation*}
+        \begin{tikzcd}
+            M(\ast) \ar[r, "f"] \ar[d, "r \times -"']
+            & N(\ast) \ar[d, "r\times -"] \\
+            M(\ast) \ar[r, "f"] & N(\ast)
+        \end{tikzcd}
+    \end{equation*}
+    commutes, that is
+    \begin{equation*}
+        r \times f(m) = f(r \times m)\,, \quad m \in M(\ast).
+    \end{equation*}
+    Thus, $f$ is nothing but a left $R$-module homomorphism!
+    In fact, one can notice that the category 
+    of $\Ab$-functors from $R$ to $\Ab$,
+    with $\Ab$-natural transformations, is
+    \begin{equation*}
+        \cat{Fun}_{\Ab}(R,\Ab) \simeq \Mod_{R}\,.
+    \end{equation*}
+\end{ex}
+
+In the section on \hyperref[AdditiveCategories]{Additive categories}
+in the previous chapter,
+we came across to the 
+\hyperref[additive-yoneda]{Additive Yoneda's Lemma},
+which is an adaptation of the classical
+\hyperref[yoneda]{Yoneda's Lemma} to the setting
+of (pre)additive categories.
+In fact, it is nothing but a special case 
+of an \textbf{enriched} version of this result;
+by skipping some more technical details,
+we are now ready to state it 
+in its full generality:
+
+\begin{thm}[\textbf{Enriched Yoneda's Lemma}]\label{enriched-yoneda}
+    Let $\Vv$ be a symmetric monoidal closed category
+    and $\Aa$ a small\footnote{A $\Vv$-category $\Aa$ is \textbf{small} if objects form a set $|\Aa|$.}
+    $\Vv$-category.
+    For every object $A \in \Aa$ and 
+    every $\Vv$-functor $F:\Aa^* \to \Vv$,
+    the $\Vv$-natural transformations 
+    from $\Aa(-,A)$ to $F$ form an object
+    \begin{equation*}
+        \Vv-\cat{Nat}(\Aa(-,A),F) \in \Vv \,;
+        \footnote{In fact, one can prove that $\Vv$-functors between $\Vv$-categories
+        $\Cc$ and $\Dd$, endowed with $\Vv$-natural transformations,
+        give rise to a $\Vv$-category $\cat{Fun}_{\Vv}(\Cc,\Dd)$.}
+    \end{equation*}
+    moreover, there exists an isomorphism
+        \begin{equation*}
+            \Vv-\cat{Nat}(\Aa(-,A),F) \xrightarrow[]{\sim} F(A)
+        \end{equation*}
+    in $\Vv$, which is $\Vv$-natural in both $A$ and $F$.
+\end{thm}

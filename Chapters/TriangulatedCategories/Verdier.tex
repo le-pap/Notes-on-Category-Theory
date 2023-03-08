@@ -1,0 +1,175 @@
+
+\begin{ex}[Verdier]
+    Let $\Dd$ be a triangulated category.
+    Show that every commutative square
+    \begin{center}
+        \begin{tikzcd}
+            A \ar[r,"i"] \ar[d, "u"]
+            & B \ar[d] \\
+            A' \ar[r] & B'
+        \end{tikzcd}
+    \end{center}
+    in $\Dd$ can be completed to a diagram
+    \begin{center}
+        \begin{tikzcd}
+            A \ar[r,"i"] \ar[d, "u"]
+            & B \ar[r, "j"] \ar[d] 
+            & C \ar[r, "k"] \ar[d] 
+            & A{[1]} \ar[d, "u{[1]}"]\\
+            A' \ar[r] \ar[d, "v"]
+            & B' \ar[r] \ar[d] 
+            & C' \ar[r] \ar[d] 
+            & A'{[1]} \ar[d, "v{[1]}"] \\
+            A'' \ar[r] \ar[d, "w"]
+            & B'' \ar[r] \ar[d] 
+            & C'' \ar[r, squiggly] \ar[d, squiggly] 
+            & A''{[1]} \ar[d, "w{[1]}", squiggly] \\
+            A{[1]} \ar[r, "i{[1]}"]
+            & B{[1]}\ar[r, "j{[1]}"]
+            & C{[1]} \ar[r, "k{[1]}", squiggly]
+            & A{[2]}\,, \\
+        \end{tikzcd}
+    \end{center}
+    in which all the rows and columns are exact
+    and all the squares commute,
+    except the squigglyd box on the bottom right,
+    which is anticommutative.
+    \begin{proof}
+        Thanks to axiom~\hyperref[TR1]{(\textbf{TR1})(iii)},
+        we may embed every map of the box in some distinguished
+        triangle, thus we get a commutative diagram
+        \begin{center}
+        \begin{tikzcd}
+            A \ar[r,"i"] \ar[d, "u"]
+            & B \ar[r, "j"] \ar[d] 
+            & C \ar[r, "k"]
+            & A{[1]} \ar[d, "u{[1]}"]\\
+            A' \ar[r] \ar[d, "v"]
+            & B' \ar[r] \ar[d] 
+            & C' \ar[r] 
+            & A'{[1]} \ar[d, "v{[1]}"] \\
+            A'' \ar[d, "w"]
+            & B'' \ar[d] 
+            & 
+            & A''{[1]} \ar[d, "w{[1]}", squiggly] \\
+            A{[1]} \ar[r, "i{[1]}"]
+            & B{[1]}\ar[r, "j{[1]}"]
+            & C{[1]} \ar[r, "k{[1]}", squiggly]
+            & A{[2]}\,; \\
+        \end{tikzcd}
+        \end{center}
+        since there exists $A'' \to B''$ which completes 
+        the left rectangle to
+        a morphism of triangles, by appying 
+        axiom~\hyperref[TR1]{(\textbf{TR1})(iii)}
+        once again we obtain
+        \begin{equation}\label{verdier-diag}
+        \begin{tikzcd}
+            A \ar[r,"i"] \ar[d, "u"]
+            & B \ar[r, "j"] \ar[d] 
+            & C \ar[r, "k"]
+            & A{[1]} \ar[d, "u{[1]}"]\\
+            A' \ar[r] \ar[d, "v"]
+            & B' \ar[r] \ar[d] 
+            & C' \ar[r] 
+            & A'{[1]} \ar[d, "v{[1]}"] \\
+            A'' \ar[r] \ar[d, "w"]
+            & B'' \ar[d] \ar[r]
+            & C'' \ar[r]
+            & A''{[1]} \ar[d, "w{[1]}", squiggly] \\
+            A{[1]} \ar[r, "i{[1]}"]
+            & B{[1]}\ar[r, "j{[1]}"]
+            & C{[1]} \ar[r, "k{[1]}", squiggly]
+            & A{[2]}\,. \\
+        \end{tikzcd}
+        \end{equation}
+        As a first intuition, one would be tempted
+        to complete the third column by exploiting
+        \hyperref[TR3]{(\textbf{TR3})}: even though
+        we would end up with a commutative diagram,
+        the problem is that the column obtained this way
+        needs not be a distinguished triangle.
+        Thus, the key is to build a triangle
+        on $(C'',C,C')$ thanks to the first part
+        of the \hyperref[TR4]{octahedral axiom~(\textbf{TR4})}.
+
+        First, embed the composition $A \to B'$ into 
+        a triangle on $(A,B',D)$, for some $D \in \Dd$,
+        to get
+        \begin{center}
+        \begin{tikzcd}
+            A \ar[r,"i"]  \ar[dr] %\ar[d, "u"]
+            & B \ar[r, "j"] \ar[d] 
+            & C \ar[r, "k"] \ar[dd, dashed, "\exists"']
+            & A{[1]} \\
+            %A' \ar[r] \ar[d, "v"]
+            & B' \ar[dr] \ar[d] 
+            & 
+            & \\
+            %A'' \ar[d, "w"]
+            & B'' \ar[d] \ar[dr, equals]
+            & D \ar[dr] \ar[d, dashed, "\exists"']
+            &\\
+            %A{[1]} \ar[r, "i{[1]}"]
+            & B{[1]}
+            & B'' \ar[d, dashed, "\exists"']
+            & A{[1]} \\
+            & & C{[1]} & \,,
+        \end{tikzcd}
+        \end{center}
+    thus \hyperref[TR4]{(\textbf{TR4})} ensures
+    there is a distinguished triangle on $(C,D,B'')$.
+    From the diagram
+    \begin{center}
+        \begin{tikzcd}
+            A \ar[d, "u"] \ar[dr]
+            & 
+            & 
+            & 
+            & \\
+            A' \ar[r] \ar[d, "v"]
+            & B' \ar[r] \ar[dr] 
+            & C' \ar[r] \ar[dr, equals]
+            & A'{[1]} 
+            & \\
+            A'' \ar[d, "w"]  \ar[rr, dashed, "\exists"]
+            & 
+            & D \ar[dr]  \ar[r, dashed, "\exists"]
+            & C' \ar[r, dashed, "\exists"]
+            & A''{[1]}\\
+            A{[1]} 
+            & 
+            & 
+            & A{[1]}
+            & \, \\
+        \end{tikzcd}
+        \end{center}
+        we obtain a distinguished triangle on $(A'',D,C')$.
+        Finally, we see from
+        \begin{center}
+        \begin{tikzcd}
+            A'' \ar[r]  \ar[dr] %\ar[d, "u"]
+            & D \ar[r] \ar[d] 
+            & C' \ar[r] \ar[dd, "\exists"', dashed]
+            & A{[1]} \\
+            %A' \ar[r] \ar[d, "v"]
+            & B'' \ar[dr] \ar[d] 
+            & 
+            & \\
+            %A'' \ar[d, "w"]
+            & C{[1]} \ar[d] \ar[dr, equals]
+            & C'' \ar[dr] \ar[d, dashed, "\exists"']
+            &\\
+            %A{[1]} \ar[r, "i{[1]}"]
+            & D{[1]}
+            & C{[1]} \ar[d, dashed, "\exists"']
+            & A{[1]} \\
+            & & C'{[1]} & \,,
+        \end{tikzcd}
+        \end{center}
+        we find a distinguished triangle on $(C',C'',C)$,
+        and by rotating it, we get the desired triangle
+        on $(C,C',C'')$ which fits in the diagram~\eqref{verdier-diag}
+        by construction.
+    \end{proof}
+\end{ex}

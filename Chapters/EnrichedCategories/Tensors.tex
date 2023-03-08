@@ -1,0 +1,127 @@
+
+\section{Tensors}
+
+\begin{df}
+    Let $\Vv$ be a symmetric monoidal \emph{closed} category,
+    $\Aa$ a $\Vv$-category and consider two objects
+    $A \in \Aa$ and $V \in \Vv$.
+    The \textbf{tensor} of $V$ and $A$ (\emph{if it exists})
+    is an object $V \otimes_{\Aa} A \in \Aa$, 
+    together with isomorphisms
+    \begin{equation*}
+        \Aa(V \otimes_{\Aa} A,B) \simeq [V,\Aa(A,B)]
+    \end{equation*}
+    in $\Vv$, for every $B \in \Aa$, which are $\Vv$-natural in $B$.
+    We say that $\Aa$ is \textbf{tensored} when 
+    the tensor $V \otimes_{\Aa} A$ exists, 
+    for every $V \in \Vv$ and $A \in \Aa$.
+\end{df}
+
+\begin{ex}
+    We have seen that $\Vv = \cat{Set}$ is a 
+    symmetric monoidal closed category.
+    Any locally small category $\Aa$ with products
+    is a tensored $\cat{Set}$-category: once a set $X$ is fixed,
+    for any pair $A,B \in \Aa$ one sees that
+    \begin{equation*}
+        \left( \Hom_{\Aa}(A,B) \right)^{X} 
+        \simeq \prod_{\ast \in X} \Hom_{\Aa}(A,B)^{\Set{\ast}}
+        \simeq \prod_{\ast \in X} \Hom_{\Aa}(A,B)
+        \simeq \Hom_{\Aa}\left(\prod_{\ast \in X}A,B\right)\,,
+    \end{equation*}
+    where $\prod_{\ast \in X}A$ is the product of many copies of $A$,
+    indexed over $X$: in other words, it is the limit over 
+    the diagram given by the
+    discrete category consisting of points of $X$.
+    Thus, $\Aa$ is tensored with
+    \begin{equation*}
+        X \otimes_{\Aa} A := \prod_{\ast \in X}A\,.
+    \end{equation*}
+\end{ex}
+
+\begin{ex}
+    As we have seen in \hyperref[smcc-enriched]{Example~\ref*{smcc-enriched}},
+    every symmetric monoidal closed category $(\Vv,\otimes)$ is a tensored category:
+    indeed, for every $V,A \in \Vv$ one has
+    \begin{equation*}
+        V \otimes_{\Vv} A = V \otimes A\,.
+    \end{equation*}
+    To check this,
+    for any three $A,B,V,X \in \Vv$
+    one has natural isomorphisms
+    \begin{align*}
+        \Hom_{\Vv}(X,[V \otimes A,B])
+        &\simeq \Hom_{\Vv}(X \otimes V \otimes A,B) \\
+        &\simeq \Hom_{\Vv}(X \otimes V, [A,B]) %\\
+        \simeq \Hom_{\Vv}(X, [V,[A,B]])\,,
+    \end{align*}
+    thus we conclude that
+    \begin{equation*}
+        [V \otimes A,B] \simeq [V,[A,B]]
+    \end{equation*}
+    by the \hyperref[yoneda]{Yoneda's Lemma}.
+\end{ex}
+
+\begin{rmk}
+    Let $\Aa$ be a tensored $\Vv$-category.
+    For any $X,Y \in \Vv$ and $A,B \in \Aa$ it holds
+    \begin{align*}
+        \Aa\big( Y \otimes_{\Aa} ( X \otimes_{\Aa} A) , B \big)
+        &\simeq [Y,\Aa(X \otimes_{\Aa} A, B)] \\
+        &\simeq [Y,[X,\Aa(A,B)]] \\
+        &\simeq [Y \otimes X, \Aa(A,B)] \\
+        &\simeq \Aa\big((Y \otimes X) \otimes_{\Aa} A, B\big)\,,
+    \end{align*}
+    hence, to resume we have
+    \begin{equation*}
+        \Aa\big( Y \otimes_{\Aa} ( X \otimes_{\Aa} A) , B \big)
+        \simeq \Aa\big((Y \otimes X) \otimes_{\Aa} A, B\big)\,.
+    \end{equation*}
+\end{rmk}
+
+\begin{prop}
+    Let $\Vv$ be a symmetric monoidal closed category and fix $V \in \Vv$. 
+    If $\Aa$ is a tensored $\Vv$-category, the correspondence
+    \begin{equation*}
+        V \otimes_{\Aa} - : \Aa \longrightarrow \Aa\,,
+        \quad A \longmapsto V \otimes_{\Aa} A
+    \end{equation*}
+    induces a $\Vv$-functor.
+    \begin{proof}
+        For $A,B \in \Aa$, by the definition of tensor in $\Aa$
+        we get an ``\textbf{evaluation morphism}'' in $\Vv$ as
+        \begin{equation*}
+            \begin{tikzcd}
+                e \ar[r, "\cat{u}_{\Aa(A,B)}"]
+                & {[\Aa(A,B), \Aa(A,B)]} \ar[r, "\simeq"]
+                & \Aa(\Aa(A,B) \otimes_{\Vv} A,B)\,.
+            \end{tikzcd}
+        \end{equation*}
+        Then, consider the composite
+        \begin{equation*}
+            \begin{tikzcd}
+                e \ar[d, "\cat{u}_{V \otimes_{\Aa} B}"] \\%, "\cat{u}_{V \otimes_{\Aa} B}"] \\
+                \Aa(V \otimes_{\Aa} B, V \otimes_{\Aa} B) 
+                \ar[d, "f"] \\
+                \Aa\big(V \otimes_{\Aa} (\Aa(A,B) \otimes_{\Aa} A), V \otimes_{\Aa} B \big) 
+                \ar[d, "\simeq"] \\
+                \Aa\big(\Aa(A,B) \otimes_{\Aa} ( V \otimes_{\Aa} A), V \otimes_{\Aa} B \big) 
+                \ar[d, "\simeq"] \\
+                {[\Aa(A,B), \Aa(V \otimes_{\Aa} A, V \otimes_{\Aa} B)]}\,,
+            \end{tikzcd}
+        \end{equation*}
+        where $f$ is the image of $\cat{1}_{V} \otimes_{\Aa} \cat{ev}_{AB}$
+        under the functor $\Aa(-,V\otimes_{A}B)$. 
+        Thus, by using the adjunction
+        \begin{align*}
+            \Hom_{\Vv}\big(e,{[\Aa(A,B), \Aa(V \otimes_{\Aa} A, V \otimes_{\Aa} B)]}\big)
+            &\simeq \Hom_{\Vv}\big(e \otimes \Aa(A,B), \Aa(V \otimes_{\Aa} A, V \otimes_{\Aa} B)\big)\\
+            &\simeq \Hom_{\Vv}\big(\Aa(A,B), \Aa(V \otimes_{\Aa} A, V \otimes_{\Aa} B)\big)\,,
+        \end{align*}
+        we obtain a map
+        \begin{equation*}
+            \Aa(A,B) \longrightarrow \Aa(V \otimes_{\Aa} A, V \otimes_{\Aa} B)
+        \end{equation*}
+        in $\Vv$ which is $\Vv$-functorial by construction.
+    \end{proof}
+\end{prop}

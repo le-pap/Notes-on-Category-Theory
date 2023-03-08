@@ -1,0 +1,232 @@
+
+\section{Abelian categories}
+
+\begin{df!}\label{df-abel}
+    A category $\Aa$ is \textbf{abelian}
+    when it satisfies the following properties:
+    \begin{itemize}
+        \item[(\textbf{A1})] $\Aa$ has a \textbf{zero object} $\cat{0}$;
+        \item[(\textbf{A2})] every pair of objects of $\Aa$ has a product and a coproduct;
+        \item[(\textbf{A3})] every morphism in $\Aa$ has both \textbf{kernel} and a \textbf{cokernel};
+        \item[(\textbf{A4})] for every $f \in \Hom_{\Aa}(A,B)$,
+        the canonical map $\operatorname{coim}f \to \im f$
+        defined in \hyperref[coim-im]{\textbf{Proposition~\ref*{coim-im}}}
+        is an isomorphism.
+    \end{itemize}
+\end{df!}
+
+\begin{rmk}
+    Axiom (\textbf{A4}) does not follow by the previous ones,
+    as shown in the following examples;
+    a category that satisfies (\textbf{A1}), (\textbf{A2}) and (\textbf{A3}) is usually called \textbf{pre-abelian}.
+    As already noticed, (\textbf{A4}) tells us
+    that in $\Aa$ it holds a sort of \textbf{First Isomorphism Theorem},
+    but many authors (for instance \parencite[]{borceux})
+    use an equivalent definition, where the last axiom 
+    is substituted by:
+    \begin{itemize}
+         \item[(\textbf{A4}*)] every monomorphism of $\Aa$ is a kernel
+        and any epimorphism of $\Aa$ is a cokernel.
+    \end{itemize}
+    An explanation for this equivalence may be found in \parencite[]{ab-eq-def}.
+\end{rmk}
+
+\begin{ex}
+    Let $k$ be a field and $\cat{Vect}_{k}$ be the
+    category of $k$-vector spaces.
+    We define the category $\cat{Fil}(\cat{Vect}_{k})$ 
+    of \textbf{filtered vector spaces}
+    to be the category whose objects are decreasing filtrations
+    \begin{equation*}
+        V_{\bullet} := V  \supset \dots \supset V_{n} 
+        \supset V_{n+1} \supset \dots \supset 0\,,
+    \end{equation*}
+    indexed on $\Z$, and morphisms 
+    $\phi_{\bullet} : V_{\bullet} \to W_{\bullet}$ 
+    are given by $k$-linear maps $\phi : V \to W$
+    such that $\phi(V_{n}) \subset W_{n}$ for every $n \in \Z$.
+    Then $\cat{Fil}(\cat{Vect}_{k})$ has the zero object
+    $0_{\bullet}$ given by the trivial
+    filtration $0 = 0 = \dots = 0$,
+    and every pair $V_{\bullet}, W_{\bullet}$ has biproduct
+    \begin{equation*}
+        V_{\bullet} \oplus W_{\bullet} 
+        = (V \oplus W)_{\bullet} 
+        = V_{} \oplus W_{} \supset \dots \supset V_{n} \oplus W_{n}
+        \supset V_{n+1} \oplus W_{n+1} \supset \dots \supset 0\,.
+    \end{equation*}
+    Moreover, this category satisfies the axiom (\textbf{A3}):
+    for any morphism $\phi_{\bullet} : V_{\bullet} \to W_{\bullet}$,
+    we have
+    \begin{align*}
+        \ker \phi_{\bullet} &= \ker \phi \supset \dots \supset (\ker \phi \cap V_{n}) 
+        \supset (\ker \phi \cap V_{n+1}) \supset \dots 0\,,\\
+        \Coker \phi_{\bullet} &= W/\im f \supset \dots \supset W_{n}/\im\left(f\vert_{V_{n}}\right)
+        \supset W_{n+1}/\im \left(f\vert_{V_{n+1}} \right) \supset \dots \supset 0\,.
+    \end{align*}
+    Nevertheless, $\cat{Fil}(\cat{Vect}_{k})$ is \textbf{not}
+    an abelian category, for axiom (\textbf{A4}) does not hold:
+    consider $V_{\bullet}, W_{\bullet}$ to be the two filtrations
+    \begin{equation*}
+        V_{n} := \begin{cases}
+            k\,, \quad &\text{if } n>0\,;\\
+            0\,, \quad &\text{if } n \le 0\,;
+        \end{cases}
+        \qquad
+        W_{n} := \begin{cases}
+            k\,, \quad &\text{if } n\ge0\,;\\
+            0\,, \quad &\text{if } n < 0\,,
+        \end{cases}
+    \end{equation*}
+    and $\phi_{\bullet} : V_{\bullet} \to W_{\bullet}$ to be the morphism
+    induced by the identity $1_{k} : k \to k$. 
+    Then both $\ker \phi_{\bullet}$ and $\Coker \phi_{\bullet}$
+    are the zero filtration, hence
+    \begin{equation*}
+        \operatorname{coim}\phi_{\bullet} = V_{\bullet}\,, \quad
+        \im \phi_{\bullet} = W_{\bullet}\,,
+    \end{equation*}
+    but the two objects are not isomorphic, for any arrow
+    $\psi_{\bullet}:W_{\bullet} \to V_{\bullet}$ has to vanish on $W_{0}=k$,
+    so it is necessarily induced by the zero map $k \to 0$.
+\end{ex}
+
+\begin{ex}
+    Let $\Aa = \cat{TopAb}$ be the category of topological abelian groups,
+    that is abelian groups endowed with a topology in such a way that
+    their operation $+$ and the inverse $x \mapsto -x$ are continuous maps;
+    morphisms in $\cat{TopAb}$ are continuous homomorphisms.
+    As for the category $\cat{Ab}$, one sees that $\cat{TopAb}$
+    is an additive category; moreover, kernels and cokernels always exist,
+    and for every arrow $f:G \to H$, one might check that
+    $\ker f$ is the group theoretic kernel of $f$,
+    endowed with the subspace topology $\ker f \subset G$,
+    while
+    \begin{equation*}
+        \Coker f = \left. H \middle/ \ol{f(G)} \right. {\,,}
+    \end{equation*}
+    where $\ol{f(G)}$ denotes the closure in $H$.
+    Thus, $\cat{TopAb}$ is a preabelian category, which is \textbf{not} abelian:
+    indeed, consider the additive groups $\Q$ and $\R$ with the euclidean topology.
+    The inclusion $\iota : \Q \subset \R$ is injective, hence $\ker \iota = 0$,
+    from which we deduce that $\operatorname{coim} \iota = \Q/0 = \Q$.
+    As $\Q$ is dense in $\R$, we see that 
+    $\Coker \iota = \left. \R \middle/ \ol{\Q}\right. = 0$,
+    so $\im \iota = \ker(\R \to 0) = \R$, thus $\operatorname{coim} \iota$
+    and $\im \iota$ are not isomorphic.
+\end{ex}
+
+\begin{ex!}\label{equiv-modr}
+    Let $R$ be a commutative ring with unit and $\cat{P}(R)$
+    be the preadditive category defined in 
+    \hyperref[ring-cat]{\emph{Example~\ref*{ring-cat}}}.
+    The category $\cat{Add}(\cat{P}(R),\cat{Ab})$ of additive functors
+    and natural tranformations is abelian, indeed it is equivalent
+    to $\Mod_{R}$. 
+    
+    Given an additive functor $F:\cat{P}(R) \to \cat{Ab}$,
+    the image $F(\ast)$ is an abelian group, endowed with a scalar multiplication
+    \begin{equation*}
+        R \times F(\ast) \longrightarrow F(\ast)\,, \quad
+        (r,g) \longmapsto F(r)(g)\,.
+    \end{equation*}
+    Since $F$ is additive, one checks that 
+    $$(r+r')g = F(r+r')(g) = F(r)(g)+F(r')(g) = rg +r'g$$
+    and since it is a functor, is follows $1_{R}g = g$ and $r(g+g') = rg+rg'$,
+    so $F(\ast)$ is an $R$-module. A natural transformation
+    $\phi: F \to G$ consists of a group homomorphism
+    $\phi' : F(\ast) \to G(\ast)$ such that for every $r \in R$
+    the following square commutes:
+    \begin{equation}\label{r-linear}
+        \begin{tikzcd}
+            F(\ast) \ar[r, "\phi'"] \ar[d, "r \cdot "] & G(\ast) \ar[d, "r\cdot"] \\
+            F(\ast) \ar[r, "\phi'"] & G(\ast)\,,
+        \end{tikzcd}
+    \end{equation}
+    that is $\phi'(rg) = r\phi'(g)$, hence $\phi'$ is $R$-linear.
+    
+    Conversely, given any $R$-module $M$, one defines an
+    additive functor $F:\cat{P}(R) \to \cat{Ab}$ by setting $F(\ast) = M$
+    and, for every $r \in R$, the morphisms $F(r) : M \to M$
+    are given by the multiplication $F(r)(m):=r\cdot m$.
+    Any $R$-linear map $\phi':M \to N$ in $\Mod_{R}$
+    describes the same diagram as in \eqref{r-linear},
+    so it induces a natural transformation between
+    additive functors $F \to G$, whose images are respectively 
+    $M$ and $N$. These two constructions are one the inverse of the other,
+    thus the equivalence is proved.
+\end{ex!}
+
+%%% COMPARE WITH DEFINITION IN https://stacks.math.columbia.edu/tag/00ZX
+
+The properties listed in 
+\hyperref[df-abel]{\textbf{Definition~\ref*{df-abel}}}
+give us the appropriate language to talk about exact sequences,
+and hence abelian categories seem the appropriate setting
+we were hoping to build to develop a notion of homology;
+but after a closer inspection, one might notice
+that something is missing... the algebra!
+It is not clear from \hyperref[df-abel]{\textbf{Definition~\ref*{df-abel}}} 
+if there exists of any algebraic operation in $\Aa$ or
+on its morphism, so that we can actually talk about ``groups''.
+Quite surprisingly, it turns out that any abelian
+category is $\cat{Ab}$-enriched!
+
+\begin{thm}
+    Every abelian category is an additive category.
+    \begin{proof}[Idea of proof]
+    Let $\Aa$ be an abelian category.
+    The main steps of the proof are the following:
+        \begin{enumerate}
+            \item for each object $A$ in $\Aa$, 
+            let $\Delta_{A}:A \to A \times A$ be the diagonal morphism
+            and $q_{A} : A \times A \to \Coker \Delta_{A}$ its cokernel.
+            One checks that $\Coker \Delta_{A}$ is isomorphic to $A$
+            via the composition $\operatorname{pr}_{1} \circ \langle 1_{A},0 \rangle$,
+            where $\operatorname{pr}_{1}$ is the projection on
+            the first component of the product;
+            
+            \item we define a map from the product to $A$, by composing
+            \begin{equation*}
+                \sigma_{A} : A \times A \overset{q}{\longrightarrow} \Coker \Delta_{A} 
+                \longrightarrow A\,,
+            \end{equation*}
+            which maybe though of as the ``\emph{subtraction}'' in $A$:
+            for any two arrows $f,g : B \to A$, we define $f-g$ to be the composite
+            \begin{equation*}
+            \begin{tikzcd}
+                f-g : B \ar[r,"{\langle f, g \rangle}"] 
+                & A \times A \ar[r, "\sigma_{A}"] & A\,.
+            \end{tikzcd}
+            \end{equation*}
+            \item For every pair of objects $A,B$ in $\Aa$, define 
+            \begin{equation*}
+                + : \Hom_{\Aa}(B,A) \times \Hom_{\Aa}(B,A) \longrightarrow \Hom_{\Aa}(B,A)\,,
+                \quad (f,g) \longmapsto f + g := f - (0_{BA} - g)\,.
+            \end{equation*}
+            One has to verify that this operation is associative, 
+            with neutral element $0_{BA}$ and commutative, so that
+            every set of morphisms $\Hom_{\Aa}(B,A)$ is an abelian group.
+            It follows that $\Aa$ is a preadditive category,
+            hence additive because it has a zero and both products
+            and coproducts (which are isomorphic by \hyperref[biproduct]{\textbf{Proposition~\ref*{biproduct}}}).
+        \end{enumerate}
+        For a full and detailed proof, check \parencite[1.6~Additivity of abelian categories]{borceux}.
+    \end{proof}
+\end{thm}
+
+As a consequence of \hyperref[coim-im]{\textbf{Proposition~\ref*{coim-im}}},
+one has the following result.
+
+\begin{thm}[\textbf{Image factorization}]
+    Let $\Aa$ be an abelian category. Any morphism $f$ in $\Aa$
+    can be factored uniquely as the composition $f = i \circ p$,
+    where $i$ is a monomorphism and $p$ is a epimorphism.
+    \begin{proof}
+        We can apply \hyperref[coim-im]{\textbf{Proposition~\ref*{coim-im}}} 
+        and take $i : \im f \hookrightarrow B$ and $p = \ol{f} \pi$,
+        where $\pi : A \to \operatorname{coim}f$.
+        All these maps are unique up to isomorphisms.
+    \end{proof}
+\end{thm}
+

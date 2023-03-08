@@ -1,0 +1,554 @@
+
+\section{Injective and projective resolutions}\todo{Fix this chapter structure. Follow the notes of Tamas.}
+
+Due to the very construction of the derived category, it is sometimes quite cumbersome to do explicit calculations there. Often, however, it is possible to work with a very special class of complexes for which morphisms in the derived category and in the homotopy category are the same thing. Depending on the kind of functors one is interested in, the notion of injective, respectively, projective objects will be crucial.
+As always, let $\Aa$ denote an abelian category.
+
+\begin{lemma}
+    A map $f:A \to B$ is a monomorphism if and only if $\ker f \simeq \cat{0}$.
+    Dually, $f$ is an epimorphism if and only if $\Coker f \simeq \cat{0}$.
+    \begin{proof}
+        If $f: A \to B$ is mono, 
+        then by the commutativity of the diagram
+        \begin{equation*}
+            \begin{tikzcd}
+            \ker f \ar[r, bend left, shift left=0.3ex] \ar[r, bend right, shift right=0.3ex, "0"'] 
+            & A \ar[r, "f"] & B
+            \end{tikzcd}
+        \end{equation*}
+        we deduce that the canonical map $\ker f \to A$
+        factors through the zero object, hence $\ker f \simeq \cat{0}$.
+        Conversely, if $\ker f$ is the zero object, for any two morphisms
+        $g,h:C \to A$ such that $gf=hf$ it holds $(g-h)f=0$,
+        which means we have a factorization
+        \begin{equation*}
+            \begin{tikzcd}
+                & \ker f \simeq \cat{0} \ar[dr] & & \\
+                C \ar[ur] \ar[rr, "g-h"'] & & A \ar[r, "f"] & B\,,
+            \end{tikzcd}
+        \end{equation*}
+        thus $g=h$ and $f$ is a monomorphism. Dually, one proves the statement
+        for epimorphisms.
+    \end{proof}
+\end{lemma}
+
+The previous lemma justifies the following notation,
+already used in the setting of abelian groups:
+a map $f:A \to B$ is a monomorphism if and only if the sequence
+\begin{equation*}
+    \begin{tikzcd}
+        \cat{0} \ar[r] & A \ar[r, "f"] & B
+    \end{tikzcd}
+\end{equation*}
+is exact, thus it will be convenient to represent monomorphisms
+in terms of this sequence, whose exactness won't be stressed further on.
+In a similar fashion, if $f:A \to B$ is an epimorphism,
+it will be drawn as
+\begin{equation*}
+    \begin{tikzcd}
+        A \ar[r, "f"] & B \ar[r] & \cat{0}\,.
+    \end{tikzcd}
+\end{equation*}
+
+
+\begin{df}
+    An object $P \in \Aa$ is called \textbf{projective}
+    if, given any epimorphism $A \to B$,
+    every map $P \to B$ can be lifted to a map $P \to A$,
+    making the following diagram commute
+    \begin{equation}\label{proj-diag}
+        \begin{tikzcd}
+            P \ar[d, "\exists"', dashed] \ar[dr] & & \\ 
+            A \ar[r] & B \ar[r] & 0 \,.
+        \end{tikzcd}
+    \end{equation}
+\end{df}
+
+Recall that, given any object $X \in \Aa$, the covariant functor
+\begin{equation*}
+    \Hom_{\Aa}(X,-) : \Aa \longrightarrow \Ab
+\end{equation*}
+is \emph{left exact}, i.e. by applying it to any
+short exact sequence
+\begin{equation*}
+    \begin{tikzcd}
+        \cat{0} \ar[r]
+        & A \ar[r]
+        & B \ar[r]
+        & C \ar[r]
+        & \cat{0}\,,
+    \end{tikzcd}
+\end{equation*}
+we obtain the following exact sequence of abelian groups:
+\begin{equation*}
+    \begin{tikzcd}
+        \cat{0} \ar[r]
+        & \Hom_{\Aa}(X,A) \ar[r]
+        & \Hom_{\Aa}(X,B) \ar[r]
+        & \Hom_{\Aa}(X,C)\,.
+    \end{tikzcd}
+\end{equation*}
+
+It is easy to see that projectivity is characterized
+by the exactness of this functor:
+\begin{prop}
+    An object $P \in \Aa$ is projective if and only
+    if $\Hom_{\Aa}(P,-)$ is an exact functor.
+    \begin{proof}
+        Since we already know that the $\Hom$
+        functor is left exact, it will suffice to check
+        exactness on the right. Thus, we notice that
+        any diagram of the form
+        \eqref{proj-diag}
+        %\begin{equation*}
+        %\begin{tikzcd}
+        %    P \ar[d, "\exists"', dashed] 
+        %    \ar[dr] & & \\ 
+        %    A \ar[r] & B \ar[r] & 0 \,
+        %\end{tikzcd}
+        %\end{equation*}
+        can be filled with a vertical arrow $P \to A$
+        if and only if the induced homomorphism
+        $\Hom_{\Aa}(X,A) \to \Hom_{\Aa}(X,B)$ is surjective.
+    \end{proof}
+\end{prop}
+
+\begin{rmk}
+    It will be useful to consider the following slightly more
+    general version of the diagram \eqref{proj-diag}:
+    if $P$ is projective, from the exactness of $\Hom_{\Aa}(P,-)$
+    we deduce that, given any commutative diagram of the form
+    \begin{equation*}
+        \begin{tikzcd}
+            & P \ar[d] \ar[dr, "0"] \ar[dl, "\exists"', dashed] & \\
+            A \ar[r] & B \ar[r] & C\,,
+        \end{tikzcd}
+    \end{equation*}
+    whose bottom row is exact, there exists a map $P \to A$ 
+    which fits in it.
+\end{rmk}
+
+The dual notion of the projective property
+is given by \textbf{injectivity}:
+
+\begin{df}
+    An object $I \in \Aa$ is called \textbf{injective} if,
+    given any monomorphism $A \to B$, 
+    every map $A \to I$ can be extended to a map $B \to I$,
+    in such a way that the following diagram commutes:
+    \begin{equation*}
+        \begin{tikzcd}
+            \cat{0} \ar[r] & A \ar[r] \ar[dr] & B \ar[d, dashed, "\exists"'] \\
+            & & I  \,.
+        \end{tikzcd}
+    \end{equation*}
+\end{df}
+
+\begin{rmk}
+    Note that injectivity and projectivity are indeed
+    dual notions, in the sense that an object $P \in \Aa$
+    is projective if and only if $P$ is injective in the
+    opposite category $\Aa^{op}$.
+    From this, we deduce a similar characterization
+    of injectivity in terms of $\Hom$ functors:
+    an object $I \in \Aa$ is injective if and only
+    if the contravariant functor 
+    \begin{equation*}
+        \Hom_{\Aa}(-,I) : \Aa^{op} \longrightarrow \Ab
+    \end{equation*}
+    is exact.
+\end{rmk}
+
+\begin{ex}
+    The direct sum of two injective objects is again injective:
+    assume $I,J \in \Aa$ are injective and $A \to B$ is a monomorphism;
+    then we have the following diagram
+    \begin{equation*}
+        \begin{tikzcd}[row sep=large]
+\cat{0} \arrow[r] & A \arrow[rr] \arrow[d] \arrow[rd] &                                                                                      & B \arrow[lld, "\exists"', dashed, shorten=3mm, crossing over] \arrow[d, "\exists"', dashed] \\
+            & I \arrow[rrd, hook, shorten=3mm]               & I \oplus J \arrow[l, two heads] \arrow[r, two heads] \arrow[rd, no head, equals] & J \arrow[d, hook]                                               \\
+            &                                   &                                                                                      & I \oplus J          \,,                                           
+\end{tikzcd}
+    \end{equation*}
+    which shows that any map $A \to I \oplus J$ extends to a morphism $B \to I \oplus J$.
+    In other words, we use that 
+    \begin{equation*}
+        \Hom_{\Aa}(I \oplus J, -) \simeq \Hom_{\Aa}(I,-) \oplus \Hom_{\Aa}(J,-)
+    \end{equation*}
+    is a sum of exact functors, and hence exact.
+    
+    Dually, one checks that a sum of projective objects is again projective.
+\end{ex}
+
+\begin{df}
+    We say that an abelian category $\Aa$ 
+    \textbf{has enough injective} (resp. \textbf{projective})
+    \textbf{objects} if, for any $A \in \Aa$,
+    there exists a monomorphism $\cat{0} \to A \to I$,
+    with $I \in \Aa$ injective 
+    (resp. an epimorphism $P \to A \to \cat{0}$,
+    with $P \in \Aa$ projective).
+
+    An \textbf{injective resolution} of an object $A \in \Aa$
+    is an exact sequence
+    \begin{equation*}
+        \begin{tikzcd}
+            \cat{0} \ar[r]
+            & A \ar[r]
+            & I^{0} \ar[r]
+            & I^{1} \ar[r]
+            & I^{2} \ar[r]
+            & \dots \,,
+        \end{tikzcd}
+    \end{equation*}
+    with all $I^{i} \in \Aa$ injective. Similarly,
+    a \textbf{projective resolution} of $A \in \Aa$
+    is an exact sequence
+    \begin{equation*}
+        \begin{tikzcd}
+            \dots \ar[r]
+            & P^{-2} \ar[r]
+            & P^{-1} \ar[r]
+            & P^{0} \ar[r]
+            & A \ar[r]
+            & \cat{0}\,,
+        \end{tikzcd}
+    \end{equation*}
+    where all $P^{i} \in \Aa$ are projective.
+\end{df}
+
+In other words, an injective resolution of $A \in \Aa$
+consists of a quasi isomorphism
+$A{[0]} \to I^{\bullet}$,
+where $I^{\bullet}$ is a complex of injective objects,
+such that $I^{i}=\cat{0}$, for $i < 0$.
+In an analogous way, a projective resolution
+of $A$ is a particular 
+quasi-isomorphism $P^{\bullet} \to A{[0]}$,
+where $P^{\bullet}$ is a complex with non-positive terms,
+which are projective. It follows that
+$A{[0]}, P^{\bullet}$ and $I^{\bullet}$
+are isomorphic in $\cat{D}(\Aa)$. In fact,
+the idea of the derived category as we understand it today,
+is that an object $A \in \Aa$ should be
+\emph{identified with all its resolutions}.
+We can actually show that resolutions are unique in some sense.
+
+\begin{prop}\label{res-htp}
+    Let $f : A \to B$ be a morphism in $\Aa$ and two projective resolutions
+    \begin{equation*}
+        P^{\bullet} \longrightarrow A{[0]}\,, \quad
+        Q^{\bullet} \longrightarrow B{[0]}\,.
+    \end{equation*}
+    Then there exists a morphism of resolutions 
+    $R(f) : P^{\bullet} \to Q^{\bullet}$ which extends $f$,
+    i.e. the following diagram in $\Aa$ commutes:
+    \begin{equation*}
+        \begin{tikzcd}
+            P^{0} \ar[r] \ar[d, "R(f)^{0}"'] 
+            & A \ar[d, "f"] \\
+            Q^{0} \ar[r] & B\,;
+        \end{tikzcd}
+    \end{equation*}
+    moreover, any two such extensions $R(f)$ and $R'(f)$ are homotopic.
+    \begin{proof}
+        We build the morphism $R(f)$ by induction on its degree:
+        to build the first step, consider the diagram
+        \begin{equation*}
+        \begin{tikzcd}
+            P^{0} \ar[r] \ar[d, "R(f)^{0}"', dashed] \ar[dr]
+            & A \ar[d, "f"] & \\
+            Q^{0} \ar[r] & B \ar[r] & \cat{0} \,;
+        \end{tikzcd}
+    \end{equation*}
+    since $Q^{0} \to B$ is an epimorphism and $P^{0}$
+    is projective, then there exists $R(f)^{0}:P^{0} \to Q^{0}$,
+    which makes the above diagram commutative.
+
+    Assume we already have $R(f)^{-j} : P^{-j} \to Q^{-j}$, 
+    for every $0 \le j < i$, such that
+    \begin{equation*}
+        d_{Q}^{-j} \circ R(f)^{-j} = R(f)^{-j+1} \circ d_{P}^{-j}\,;
+    \end{equation*}
+    then, consider the diagram
+    \begin{equation*}
+        \begin{tikzcd}
+            P^{-i} \ar[d, "\exists"', dashed] 
+            \ar[dr, "R(f)^{-i+1} \circ d_{P}^{-i}"]
+            && \\ %& P^{-i+1} \ar[d, "R(f)^{-i+1}"] & \\
+            Q^{-i} \ar[r] & Q^{-i+1} \ar[r] & Q^{-i+2}\,,
+        \end{tikzcd}
+    \end{equation*}
+    whose bottom row is exact; as $P^{-i}$ is projective and
+    \begin{equation*}
+        d^{-i+1}_{Q} \circ R(f)^{-i+1} \circ d_{P}^{-i}
+        = R(f)^{-i+2} \circ d_{P}^{-i-1} \circ d_{P}^{-i-2} = 0\,,
+    \end{equation*}
+    we deduce there exists $R(f)^{-i}:P^{-i} \to Q^{-i}$
+    which makes the diagram commute.
+
+    Now assume $R(f)$ and $R'(f)$ are two morphisms of resolutions
+    that extend $f:A \to B$. As in the previous part,
+    we build a homotopy $s$ between $R(f)$ and $R'(f)$ inductively:
+    start by setting $s^{1} : A \to Q^{0}$ to be the zero morphism,
+    and then consider the diagram
+        \begin{equation*}
+            \begin{tikzcd}
+                & P^{0} \ar[d, "R(f)^{0}-R'(f)^{0}"] \ar[dl, dashed, "\exists"']
+                & \\
+                Q^{-1} \ar[r] & Q^{0} \ar[r] & B \,,
+            \end{tikzcd}
+        \end{equation*}
+    whose bottom row is exact; we see that
+    \begin{equation*}
+       d_{Q}^{0} \circ (R(f)^{0}-R'(f)^{0}) 
+       = (f - f) \circ d^{0}_{P} = 0\,, 
+    \end{equation*}
+    thus there exists $s^{0}: P^{0} \to Q^{-1}$ that
+    makes the diagram commute because $P^{0}$ is projective.
+    Notice that at the $0$-th level it holds
+    \begin{equation*}
+        R(f)^{0}-R'(f)^{0} = s^{0}d^{-1}_{Q} + d^{0}_{P} s^{1}\,.
+    \end{equation*}
+
+    Similarly, to build the $(-i)$-th level of the homotopy,
+    once $s^{-j}:P^{-j} \to Q^{-i-1}$ are given for all $0 \le j <i$,
+    consider the commutative diagram
+    \begin{equation*}
+            \begin{tikzcd}
+                & P^{-i} \ar[d, "R(f)^{-i}-R'(f)^{-i}-s^{-i+1}d_{P}^{-i}"] 
+                \ar[dl, dashed, "\exists"']
+                & \\
+                Q^{-i-1} \ar[r] & Q^{-i} \ar[r] & Q^{-i+1} \,
+            \end{tikzcd}
+        \end{equation*}
+    and notice that
+    \begin{align*}
+        & d^{-i}_{Q} \circ \big( R(f)^{-i}-R'(f)^{-i}-s^{-i+1} \circ d_{P}^{-i} \big) \\
+        =& (R(f)^{-i+1}-R'(f)^{-i+1}) \circ d^{-i}_{P} - (d^{-i}_{Q} \circ s^{-i+1}) \circ d_{P}^{-i}\\
+        =& (R(f)^{-i+1}-R'(f)^{-i+1}) \circ d^{-i}_{P}
+        - \big( R(f)^{-i+1}-R'(f)^{-i+1} - s^{-i+2} \circ d^{-i+1}_{P} \big) 
+        \circ d_{P}^{-i} \\
+        =& - s^{-i+2} \circ d^{-i+1}_{P} \circ d_{P}^{-i} = 0\,,
+    \end{align*}
+    hence by projectivity of $P^{-i}$ we conclude that 
+    there exists $s^{-i}:P^{-i} \to Q^{-i-1}$ such that
+    \begin{equation*}
+        R(f)^{-i}-R'(f)^{-i} = s^{-i+1} \circ d^{-i}_{P} + d^{-i-1} \circ s^{-i}\,.
+    \end{equation*}
+    \end{proof}
+\end{prop}
+
+\begin{cor}\label{unique-res}
+    Any two projective resolutions of an object are homotopy equivalent.
+    \begin{proof}
+        Using the notation of \hyperref[res-htp]{Proposition~\ref*{res-htp}},
+        let $B=A$, $f = \cat{1}_{A}$ and then consider 
+        $R(\cat{1}_{A}) : P^{\bullet} \to Q^{\bullet}$
+        and $R'(\cat{1}_{A}) : Q^{\bullet} \to P^{\bullet}$
+        extensions of the identity. 
+        Since both $R'(\cat{1}_{A}) \circ R(\cat{1}_{A})$
+        and $\cat{1}_{P^{\bullet}}$ are cochain maps
+        $P^{\bullet} \to P^{\bullet}$ that extend the identity of $A$,
+        by the last part of \hyperref[res-htp]{Proposition~\ref*{res-htp}}
+        we conclude that 
+        $R'(\cat{1}_{A}) \circ R(\cat{1}_{A}) \sim \cat{1}_{P^{\bullet}}$.
+        Similarly, we deduce that $R(\cat{1}_{A}) \circ R'(\cat{1}_{A}) \sim \cat{1}_{Q^{\bullet}}$.
+    \end{proof}
+\end{cor}
+
+\begin{rmk}
+    \begin{enumerate}
+        \item In the proof of \hyperref[res-htp]{Proposition~\ref*{res-htp}}
+        we never used that $Q^{\bullet}$ was a projective resolution: indeed,
+        \hyperref[res-htp]{Proposition~\ref*{res-htp}} remains valid even if
+        we assume that $Q^{\bullet} \to B \to 0$ is an exact complex.
+
+        \item By reversing arrows and replacing projective resolutions with
+        injective ones, we obtain a dual version of 
+        \hyperref[res-htp]{Proposition~\ref*{res-htp}}, 
+        as well as a dual version of \hyperref[unique-res]{Corollary~\ref*{unique-res}}.
+
+        \item The meaning of \hyperref[unique-res]{Corollary~\ref*{unique-res}}
+        is that a projective resolution of an object is 
+        \emph{unique up to homotopy equivalence}, 
+        and the same holds true for an injective resolution.
+        This means that, for any object $A \in \Aa$, 
+        in the homotopy category $\cat{K}(\Aa)$ (and hence in $\cat{D}(\Aa)$)
+        there is at most
+        one projective resolution $P^{\bullet}$ of $A$
+        and at most one injective resolution $I^{\bullet}$ of $A$
+        \emph{up to isomorphism}.
+    \end{enumerate}
+\end{rmk}
+
+The fundamental idea of the derived category,
+as we understand it today, is that any object
+of the abelian category should be identified
+with all of its resolutions. 
+In fact, a more general result holds true:
+given an abelian category $\Aa$,
+let $\Ii$ be the full subcategory of its injective objects 
+and consider $\cat{K}^{+}(\Ii)$,
+the full subcategory of $\cat{K}^{+}(\Aa)$
+spanned by complexes with injective terms.
+Consider the natural immersion $\cat{K}^{+}(\Ii) \hookrightarrow \cat{K}^{+}(\Aa)$
+with $Q : \cat{K}^{+}(\Aa) \to \cat{D}^{+}(\Aa)$.
+
+\begin{thm}\label{inj-equivalence}
+    The functor $\cat{K}^{+}(\Ii) \to \cat{D}^{+}(\Aa)$ is an equivalence
+    of $\cat{K}^{+}(\Ii)$ with a full subcategory of $\cat{D}^{+}(\Aa)$.
+    Moreover, if $\Aa$ \textbf{has enough injectives}, the above functor
+    is an equivalence of $\cat{K}^{+}(\Ii)$ and $\cat{D}^{+}(\Aa)$.
+    \begin{proof}
+        Check \parencite[III.5.20]{gelfand}.
+        The proof is rather long and technical,
+        although not very complicated,
+        and passes through the definition of the
+        derived category as a \emph{localization}
+        of the homotopy category.
+    \end{proof}
+\end{thm}
+
+\begin{cor}
+    Suppose $\Aa$ is an abelian category with enough injectives.
+    Any complex $A^{\bullet}$ with 
+    $H^{n}(A^{\bullet}) = \cat{0}$ for $n<<0$
+    is isomorphic in $\cat{D}(\Aa)$ to a complex
+    $I^{\bullet}$ of injective objects $I^{i}$,
+    such that $I^{i}=\cat{0}$ for $i << 0$.
+    \begin{proof}
+        Suppose $\Aa$ is an abelian category with enough injectives.
+        By \hyperref[null-terms]{Exercise~\ref*{null-terms}}
+        we may assume $A^{i} = \cat{0}$, for $i << 0$,
+        thus $A^{\bullet} \in \cat{D}^{+}(\Aa)$
+        and by the equivalence $\cat{K}^{+}(\Ii) \simeq \cat{D}^{+}(\Aa)$
+        we have $A^{\bullet} \simeq I^{\bullet}$,
+        for some injective resolution $I^{\bullet}$.
+    \end{proof}
+\end{cor}
+
+As one might expect, a similar statement holds true for
+projective resolutions: if $\Pp$ is the full subcategory 
+of projective objects of $\Aa$, then $\cat{K}^{-}(\Pp)$
+is the full subcategory of $\cat{K}^{-}(\Aa)$ spanned by
+complexes with projective terms, and hence we have the following
+
+\begin{thm}\label{proj-equivalence}
+    The functor $\cat{K}^{-}(\Pp) \to \cat{D}^{-}(\Aa)$ is an equivalence
+    of $\cat{K}^{-}(\Pp)$ with a full subcategory of $\cat{D}^{-}(\Pp)$.
+    Moreover, if $\Aa$ \textbf{has enough projectives}, the above functor
+    is an equivalence of $\cat{K}^{-}(\Pp)$ and $\cat{D}^{-}(\Aa)$.
+
+    It follows that every complex $A^{\bullet}$ with 
+    $H^{n}(A^{\bullet}) = \cat{0}$ for $n>>0$
+    is isomorphic in $\cat{D}(\Aa)$ to a complex
+    $P^{\bullet}$ of projective objects $P^{i}$,
+    such that $P^{i}=\cat{0}$ for $i >> 0$.
+\end{thm}
+
+
+We now try to relate morphisms between complexes
+in the derived category and morphisms between their resolutions,
+in order to better understand how to do computations in $\cat{D}(\Aa)$.
+
+\begin{lemma}\label{lemma-qis}
+    Let $A^{\bullet} \to B^{\bullet}$ be a qis in $\cat{K}^{+}(\Aa)$.
+    Then for every complex of injective objects $I^{\bullet}$ 
+    which is bounded below, the induced map
+    \begin{equation*}
+        \Hom_{\cat{K}(\Aa)}(B^{\bullet}, I^{\bullet})
+        \longrightarrow \Hom_{\cat{K}(\Aa)}(A^{\bullet},I^{\bullet})\,,
+    \end{equation*}
+    is an isomorphism.
+    \begin{proof}
+        Since $\cat{K}^{+}(\Aa)$ is triangulated, 
+        we can complete the qis to a distinguished triangle
+        \begin{equation*}
+            A^{\bullet} \longrightarrow B^{\bullet}
+            \longrightarrow C^{\bullet}
+            \longrightarrow A^{\bullet}{[1]}\,,
+        \end{equation*}
+        and if we apply the cohomological functor
+        $\Hom_{\cat{K}(\Aa)}(-,I^{\bullet})$ we obtain a LECS;
+        thus, it is enough to show that 
+        $\Hom_{\cat{K}(\Aa)}(C^{\bullet},I^{\bullet}) = \cat{0}$
+        whenever the complex $C^{\bullet} \in \cat{K}^{+}(\Aa)$
+        is acyclic, i.e. any cochain map 
+        $f^{\bullet}:C^{\bullet} \to I^{\bullet}$
+        is null homotopic.
+
+        Indeed, by following the same procedure as in the proof
+        of \hyperref[res-htp]{Proposition~\ref*{res-htp}},
+        one can build a homotopy by induction: first, 
+        we may assume the first non-zero term of $C^{\bullet}$
+        is $C^{0}$ and set $s^{0}:C^{0} \to I^{-1}$ to be the zero map.
+        Since $I^{0}$ is injective, the morphism $f^{0}$
+        extends to a map $s^{1} : C^{1} \to I^{0}$ such that
+        \begin{equation*}
+            f^{0} = s^{1} \circ d^{0}_{C}
+            = s^{1} \circ d^{0}_{C} + d^{-1}_{I} \circ s^{0}\,.
+        \end{equation*}
+        If we have already built $s^{j}$ for $0 \le j < i$ such that
+        \begin{equation*}
+            f^{j-1} = s^{j} \circ d^{j-1}_{C} + d^{j-2}_{I} \circ s^{j-1}\,,
+        \end{equation*}
+        then consider the commutative diagram
+        \begin{equation*}
+            \begin{tikzcd}[row sep=large]
+                C^{i-2} \ar[r] \ar[d] 
+                & C^{i-1} \ar[r] \ar[d, "\alpha"'] 
+                & C^{i} \ar[dl, "\exists"', "s^{i}", dashed] \\
+                \cat{0} \ar[r] & I^{i-1} & \,,
+            \end{tikzcd}
+        \end{equation*}
+        with $\alpha = f^{i-1}- d_{I}^{i-2} \circ s^{i-1}$;
+        since the top row is exact and $I^{i-1}$ is projective,
+        there is an extension $s^{i} : C^{i} \to I^{i-1}$
+        such that
+        \begin{equation*}
+            f^{i-1} = s^{i} \circ d^{i-1}_{C} + d^{i-2}_{I} \circ s^{i-1}\,,
+        \end{equation*}
+        so the $s^{i}$ all together form the desired homotopy.
+    \end{proof}
+\end{lemma}
+
+\begin{lemma}
+    Given $A^{\bullet}, I^{\bullet} \in \cat{K}^{+}(\Aa)$,
+    with all $I^{i}$ injective objects, then
+    \begin{equation*}
+        \Hom_{\cat{K}(\Aa)}(A^{\bullet}, I^{\bullet})
+        = \Hom_{\cat{D}(\Aa)}(A^{\bullet}, I^{\bullet})\,.
+    \end{equation*}
+    \begin{proof}
+        Clearly the canonical functor $Q:\cat{K}(\Aa) \to \cat{D}(\Aa)$
+        induces a map 
+        \begin{equation*}
+        \Hom_{\cat{K}(\Aa)}(A^{\bullet}, I^{\bullet})
+        \longrightarrow \Hom_{\cat{D}(\Aa)}(A^{\bullet}, I^{\bullet})\,,
+        \qquad
+        \big(A^{\bullet} \xrightarrow{f^{\bullet}} I^{\bullet}\big)
+        \longmapsto \big(A^{\bullet} = A^{\bullet} \xrightarrow{f^{\bullet}} I^{\bullet}\big)\,,
+        \end{equation*}
+        and hence we have to show that, for every roof
+        \begin{equation*}
+            \begin{tikzcd}
+                & B^{\bullet} \ar[dl, "\textrm{qis}"'] \ar[dr] & \\
+                A^{\bullet} \ar[rr, dashed, "\exists !"]
+                & & I^{\bullet} \,,
+            \end{tikzcd}
+        \end{equation*}
+        there exists a unique morphism $A^{\bullet} \to I^{\bullet}$
+        which makes the diagram commute \emph{up to homotopy}.
+        This is equivalent to saying that, 
+        once a qis $B^{\bullet} \to A^{\bullet}$ is fixed,
+        there is a bijection 
+        $\Hom_{\cat{K}(\Aa)}(A^{\bullet}, I^{\bullet})
+        = \Hom_{\cat{K}(\Aa)}(B^{\bullet}, I^{\bullet})$,
+        but this is the content of \hyperref[lemma-qis]{Lemma~\ref*{lemma-qis}}.
+    \end{proof}
+\end{lemma}
+
+\textcolor{red}{Qui ho fatto un po' un casino per l'ordine,
+perché ho messo il teorema sull'equivalenza prima, aiuto.
+Rivedere un po' l'ordine di questa parte, magari seguire Tamas.}
