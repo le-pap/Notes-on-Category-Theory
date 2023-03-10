@@ -1,8 +1,410 @@
 
 \section{Hochschild (co)homology}
 
-	First read the article by Sarah Witherspoon.
-	Then take from Tamas, the Bonn course and maybe Keller.
+	% First read the article by Sarah Witherspoon.
+	% Then take from Tamas, the Bonn course and maybe Keller.
 	% https://www.ams.org/notices/202006/rnoti-p780.pdf
 	% https://pbelmans.ncag.info/assets/hh-2018-notes.pdf
 	% https://webusers.imj-prg.fr/~bernhard.keller/publ/HochschildCohomologyAndDerivedCategories.pdf
+	
+	For now, let $\Lambda$ be a commutative unital ring
+	and consider $A$ an associative $\Lambda$-algebra with unit $1_{A}$,
+	which is not necessarily commutative.
+	As always, we identify the two multiplicative identities via the
+	structure map $\lambda \in \Lambda \mapsto \lambda \cdot 1_{A}$.
+	
+	\begin{df}
+		We define the \textbf{opposite ring} $A^{op}$ to be the $\Lambda$-module $A$,
+		endowed with the multiplication $a \cdot^{op} b := ba$.
+		The \textbf{enveloping algebra} $A^{e}$ is the $\Lambda$-algebra
+		$A \otimes_{\Lambda} A^{op}$, where the multiplication
+		is defined on simple tensors by
+		\begin{equation*}
+			(a_{1} \otimes b_{1}) \cdot^{e} (a_{2}\otimes b_{2})
+			:= a_{1}a_{2} \otimes b_{2}b_{1}\,.
+		\end{equation*}
+	\end{df}
+	
+	\begin{rmk}
+		Notice that $A = A^{op}$ whenever $A$ is commutative.
+%		thus in this case $A^{e} \simeq A$.
+	\end{rmk}
+	
+	\begin{df}
+		Given two commutative unital rings $B$ and $R$,
+		a \textbf{$B$-$R$-bimodule} is an abelian group
+		which is both a left $B$-module and a right $R$-module
+		in such a way that the two structures are compatible,
+		i.e. it holds
+		\begin{equation*}
+			(bm)r = b(mr)\,, \quad \text{for every } b \in B, m \in M, r \in R\,.
+		\end{equation*}
+	\end{df}
+	
+	Notice that an $A$-$A$-bimodule structure on $M$ is the same as 
+	a left $A^{e}$-module, in which the scalar multiplication is given
+	by $(a_{1} \otimes a_{2}) \cdot m = a_{1} m a_{2}$.
+	For instance, if we consider $M$ to be the $n$-fold tensor product
+	\begin{equation*}
+		A^{\otimes n} := \underbrace{A \otimes_{\Lambda} \dots \otimes_{\Lambda} A}_{n \text{ times }}\,,
+	\end{equation*}
+	then its $A^{e}$-structure is given by
+	\begin{equation*}
+		(b \otimes c) \cdot (a_{1} \otimes \dots \otimes a_{n})
+		= ba_{1} \otimes \dots \otimes a_{n}c\,.
+	\end{equation*}
+	
+	\begin{df}
+		The \textbf{bar resolution} of $A$ is the sequence of $A$-$A$-bimodules
+		\begin{equation*}
+			\begin{tikzcd}
+				\mathrm{Bar}(A) : \dots \ar[r] 
+				& A^{\otimes 4} \ar[r, "d_{2}"]
+				& A^{\otimes 3} \ar[r, "d_{1}"]
+				& A^{\otimes 2}\,, % \ar[r, "d_{0}"]
+			%	& A \ar[r] & 0\,,
+			\end{tikzcd}
+		\end{equation*}
+		%	where $d_{0}$ is the multiplication $d_{0}(a \otimes b)=ab$ and
+		where $d_{n}:A^{\otimes n+2} \to A^{\otimes n+1}$ 
+		is defined for every $n \ge 0$ by
+		\begin{equation}\label{HHA-boundary}
+			d_{n}(a_{0} \otimes \dots \otimes a_{n+1})
+			= \sum_{i=0}^{n} (-1)^{i} a_{0} \otimes \dots \otimes a_{i}a_{i+1}
+			\otimes \dots \otimes a_{n+1}\,.
+		\end{equation}
+	\end{df}
+	
+	\begin{lemma}
+		Let $d_{0}:A \otimes A \to A$ be the multiplication $d_{0}(a \otimes b)=ab$.
+		Then the $\mathrm{Bar}(A) \to A \to 0$ is an acyclic complex.
+		\begin{proof}
+			For every $n \ge -1$, we define the $\Lambda$-linear map
+			\begin{equation*}
+				s_{n} : A^{\otimes n+2} \longmapsto A^{\otimes n+1}\,,
+				\quad s_{n}\left( a_{0} \otimes \dots \otimes a_{n+1} \right)
+				= 1 \otimes \otimes \dots \otimes a_{n+1}\,.
+			\end{equation*}
+			To conclude, it is enough to check that $s_{\bullet}$
+			defines a contracting homotopy, 
+			i.e. $ds + sd$ is the identity at each level.
+			For every simple tensor one computes
+			\begin{align*}
+				d_{n+1}s_{n}\left( a_{0} \otimes \dots \otimes a_{n+1} \right)
+				&= d_{n+1}\left(1 \otimes a_{0} \otimes \dots \otimes a_{n+1} \right) \\
+				&=  a_{0} \otimes \dots \otimes a_{n+1}
+				+ \sum_{i=0}^{n} (-1)^{i+1} \otimes a_{0} \otimes \dots \otimes a_{i}a_{i+1}
+				\otimes \dots \otimes a_{n+1} \\
+				&= a_{0} \otimes \dots \otimes a_{n+1}
+				- s_{n-1}\left( \sum_{i=0}^{n} (-1)^{i} a_{0} \otimes \dots \otimes a_{i}a_{i+1}
+				\otimes \dots \otimes a_{n+1} \right) \\
+				&= a_{0} \otimes \dots \otimes a_{n+1}
+				- s_{n-1}d_{n}(a_{0} \otimes \dots \otimes a_{n+1})\,.
+			\end{align*}\qedhere
+		\end{proof}
+	\end{lemma}
+	
+	Thus, the bar resolution is a chain complex in $C_{\bullet}({}_{A^{e}}\cat{Mod})$
+	which is quasi-isomorphic to $A[0]$. 
+%	If $A$ is \emph{free} as a $\Lambda$-module,
+%	then we deduce that each $n$-fold tensor product $A^{\otimes n}$ is a free $\Lambda$-module,
+%	and hence the bar resolution is a \emph{free resolution} of $A$ as an $A^{e}$-module.
+	
+	\begin{df}
+		Let $M$ be an $A$-$A$-bimodule. The \textbf{Hochschild chain complex 
+		with coefficients in $M$} is the complex
+		\begin{equation*}
+			C_{\bullet}(A;M) := M \otimes_{A^{e}} \mathrm{Bar}(A)\,.
+		\end{equation*}
+		Dually, we define the \textbf{Hochschild cochains
+		with coefficients in $M$} to be the complex
+		\begin{equation*}
+			C^{\bullet}(A;M) := \Hom_{A^{e}}(\mathrm{Bar}(A),M)\,.
+		\end{equation*}
+	\end{df}
+	
+	More explicitly, for every $n \ge 0$ we see there is 
+	an isomorphism of left $A^{e}$-modules
+	\begin{align*}
+		C_{n}(A;M) = M \otimes_{A^{e}} A^{\otimes (n+2)}
+		 &\xrightarrow{\sim} M \otimes_{\Lambda} A^{\otimes n}\,, \\
+		 m \otimes_{A^{e}} (a_{0} \otimes a_{1} \otimes \dots \otimes a_{n} \otimes a_{n+1})
+		 &\longmapsto a_{n+1}ma_{0} \otimes a_{1} \otimes \dots \otimes a_{n}\,,
+	\end{align*}
+	were we declare $A^{\otimes 0} = \Lambda$;
+	thus the induced boundary $\delta$ map looks like
+	\begin{align*}
+		\delta_{n}\left( m \otimes a_{1} \otimes \dots \otimes a_{n} \right)
+		&= ma_{1} \otimes \dots \otimes a_{n} \\
+		&+  m \otimes d_{n-2}\left(a_{1} \otimes \dots \otimes a_{n}\right) \\
+		&+ (-1)^{n} a_{n}m \otimes a_{1} \otimes \dots \otimes a_{n-1}\,.
+	\end{align*}
+	Similarly, one can find that the $n$-cochains are
+	\begin{equation}\label{HHcochains}
+		\Hom_{A^{e}}\left(A^{\otimes (n+2)},M\right)
+		\simeq \Hom_{\Lambda}\left(A^{\otimes n}, M\right)\,,
+	\end{equation}
+	thus we get the coboundary maps
+	\begin{align*}
+		\de_{n} f \left(a_{1} \otimes \dots \otimes a_{n} \right)
+		&= a_{1} f \left(a_{2} \otimes \dots \otimes a_{n} \right) \\
+		&+ \sum_{i=1}^{n-1}(-1)^{i} f\left(a_{1} \otimes \dots \otimes a_{i}a_{i+1} \otimes \dots \otimes a_{n}\right) \\
+		&+ (-1)^{n} f\left(a_{1} \otimes \dots \otimes a_{n-1}\right)a_{n}\,.
+	\end{align*}
+	
+	By additivity of $M \otimes_{A^{e}} -$ and $\Hom_{A^{e}}(-,M)$,
+	we see that the above sequences are indeed complexes, 
+	thus we can compute their (co)homology.
+	
+	\begin{df}
+		The \textbf{Hochschild homology} $\mathrm{HH}_{*}(A;M)$ of $A$
+		with coefficients in an $A$-$A$-bimodule $M$ is the
+		homology of the Hochschild chain complex, that is
+		\begin{equation*}
+			\mathrm{HH}_{n}(A;M) := H_{n}\left(C_{\bullet}(A;M) \right) 
+			= H_{n}\left(M \otimes_{\Lambda} A^{\otimes \bullet} \right)\,,
+		\end{equation*}
+		and similarly the \textbf{Hochschild cohomology} $\mathrm{HH}^*(A;M)$
+		is %given by
+		\begin{equation*}
+			\mathrm{HH}^{n}(A;M) := H^{n}\left(C^{\bullet}(A;M) \right)
+			= H^{n}\left(\Hom_{\Lambda}(A^{\otimes \bullet},M) \right)\,.
+		\end{equation*}
+		In case $M=A$, we simply write $\mathrm{HH}_{*}(A)$, resp. $\mathrm{HH}^{*}(A)$.
+	\end{df}
+	
+	\begin{ex}
+		Let $A = \Lambda = k$ be a field. 
+		We compute $\mathrm{HH}_{*}(k)$
+		by following the definition: since $k \otimes k \simeq k$ via the multiplication,
+		then we get the boundary maps
+		\begin{equation*}
+			d_{n}(x_{0} \otimes \dots \otimes x_{n+1}) 
+			= \sum_{i=0}^{n+1}(-1)^{i}x_{0}x_{1} \dots x_{n+1}
+			= (x_{0}x_{1} \dots x_{n+1}) \sum_{i=0}^{n+1}(-1)^{i}
+		\end{equation*}
+		and hence the bar resolution turns out to be
+		\begin{equation*}
+			\begin{tikzcd}[column sep=small]
+				\mathrm{Bar}(k):
+				& \dots \ar[r]
+				& k \ar[r, "\sim"]				
+				& k \ar[r, "0"] 
+				& k \ar[r, "\sim"]
+				& k \ar[r, "0"]
+				& k \ar[r]
+				& 0\,.
+			\end{tikzcd}
+		\end{equation*}
+		Thus the only non trivial cohomology group is $\mathrm{HH}_{0}(k) = k$.
+		Dually, if we want to compute the Hochschild cohomology
+		we notice that $\Hom_{k}(k^{\otimes n},k) \simeq k$ via the isomorphism
+		$f \mapsto f(1 \otimes \dots \otimes 1)$, and by composing with multiplications
+		one gets
+		\begin{equation*}
+			\begin{tikzcd}[column sep=small]
+				C^{\bullet}(k;k):
+				& 0 \ar[r]
+				& k \ar[r, "0"]
+				& k \ar[r, "\sim"]				
+				& k \ar[r, "0"] 
+				& k \ar[r, "\sim"]
+				& k \ar[r, "0"]
+				& \dots\,,
+			\end{tikzcd}
+		\end{equation*}
+		thus it holds $\mathrm{HH}^{0}(k) = k$ and $\mathrm{HH}^{n}(k) = 0$, for $n>0$.
+	\end{ex}
+	
+	As the previous Example shows,
+	computing the Hochschild cohomology of a $\Lambda$-algebra 
+	by using the bar resolution may be quite tedious and difficult; 
+	the next Proposition shows us a way to overcome this issue.
+	We first state an easy 
+	
+	\begin{lemma}\label{tensor-proj}
+		If $P_{1}$ and $P_{2}$ are projective $A$-modules, then so is $P_{1} \otimes_{A} P_{2}$.
+		\begin{proof}
+			We have the natural isomorphism of functors
+			\begin{equation*}
+				\Hom_{A}(P_{1} \otimes_{A} P_{2},-) \simeq 
+				\Hom_{A}(P_{1},\Hom_{A}(P_{2},-))\,,
+			\end{equation*}
+			from which we deduce that the left hand side is an exact functor.
+		\end{proof}				
+	\end{lemma}	
+	
+	\begin{prop}
+		Assume the algebra $A$ is projective as a $\Lambda$-module.
+		For every $A$-$A$-bimodule $M$ we have canonical isomorphisms
+		\begin{equation*}
+			\mathrm{HH}_{*}(A;M) \simeq \Tor_{*}^{A^{e}}(M,A)\,, \quad
+			\mathrm{HH}^{*}(A;M) \simeq \Ext^{*}_{A^{e}}(A,M)\,.
+		\end{equation*}
+		\begin{proof}
+			Since by the \hyperref[tensor-proj]{Lemma~\ref{tensor-proj}} the
+			$n$-fold tensor product $A^{\otimes n}$ is a projective $\Lambda$-module,
+			then $A^{\otimes n+2}$ is projective over $A^{e}$.
+			This means that $\mathrm{Bar}(A) \to A \to 0$ is a 
+			\emph{projective resolution} of $A$ as an $A^{e}$-module,
+			and hence computing Hochschild homology
+			(resp. Hochschild cohomology),
+			is the same as computing the left derived functor of $M \otimes_{A^{e}} -$,
+			in other words $\Tor^{A^{e}}_{*}(M,-)$
+			(resp. is the right derived functor of $\Hom_{A^{e}}(-,M)$, 
+			i.e. $\Ext^{*}_{A^{e}}(-,M)$).
+		\end{proof}
+	\end{prop}
+	
+	\begin{ex}
+		Let $\Lambda=k$ be a field and consider $A=k[t]$. We compute $\mathrm{HH}_{*}(k[t])$.
+		Since $k[t]$ is commutative, $A^{op} = A$ and hence $A^{e} \simeq k[x,y]$,
+		where $k[x,y]$ has the bimodule structure over $k[t]$  given by
+		\begin{equation*}
+			p(t) \cdot f(x,y) := p(x)f(x,y)\,, \quad f(x,y) \cdot q(t) := f(x,y)q(y) \,,
+		\end{equation*}
+		and vice versa $k[t]$ is a $k[x,y]$-module via the structure map $f(x,y) \mapsto f(t,t)$.
+		Thus, we may consider the following free resolution of $k[t]$, 
+		seen as a module over $k[x,y]$:
+		\begin{equation*}
+			\begin{tikzcd}
+				0 \ar[r]
+				& k[x,y] \ar[rr, "(x-y)\cdot"]
+				& & k[x,y] \ar[r]
+				& k[t] \ar[r]
+				& 0\,.
+			\end{tikzcd}
+		\end{equation*}
+		After tensoring the truncated resolution with $k[t]$, 
+		the multiplication by $(x-y)$ becomes the zero map, 
+		thus from
+		\begin{equation*}
+			\begin{tikzcd}
+				0 \ar[r]
+				& \underbrace{k{[x,y]} \otimes_{k[x,y]} k[t]}_{\simeq k[t]} \ar[r, "0"]
+				& \underbrace{k{[x,y]} \otimes_{k[x,y]} k[t]}_{\simeq k[t]} \ar[r] & 0\,,
+			\end{tikzcd}
+		\end{equation*}
+		we conclude that
+		\begin{equation*}
+			\mathrm{HH}_{n}(k[t]) =
+			\begin{cases}
+				k[t]\,, \quad &\text{if } n = 0,1\,; \\
+				0\,, \quad &\text{if } n \ge 2\,.
+			\end{cases}
+		\end{equation*}
+	\end{ex}
+	
+	\begin{ex}
+		Let $\Lambda = k$ be a field and $m \ge 2$.
+		We now show how to compute the Hochschild cohomology
+		of a \emph{truncated polynomial algebra} $A = k[t]/(t^m)$.
+		Define elements
+		\begin{equation*}
+			u := t \otimes 1 - 1 \otimes t\,,
+			\quad w := \sum_{i=0}^{m-1} t^{m-1-i} \otimes t^{i}\,,
+		\end{equation*}
+		then consider the $2$-cyclic free resolution
+		\begin{equation*}
+			\begin{tikzcd}
+				\dots \ar[r, "u \cdot"]
+				& A^{e} \ar[r, "w \cdot"]
+				& A^{e} \ar[r, "u \cdot"]
+				& A^{e} \ar[r, "w \cdot"]
+				& A^{e} \ar[r, "u \cdot"]
+				& A^{e} \ar[r]
+				& A \ar[r]
+				& 0\,.
+			\end{tikzcd}
+		\end{equation*}
+		One can show the above sequence is exact either by a straight computation,
+		or by showing that the following left $A$-linear maps define a 
+		contracting homotopy: set $s_{-1}(1) = 1 \otimes 1$ and for $k \ge 0$ take
+		\begin{equation*}
+			s_{2k}(1 \otimes x^{j}) = -\sum_{h=1}^{j} x^{j-h} \otimes x^{h-1} \,,
+			\quad s_{2k+1}(1 \otimes x^{j}) = \delta_{j,m-1} \otimes 1\,,
+		\end{equation*}
+		where $\delta_{i,j}$ is the Kroeneker delta.
+		
+		After applying $\Hom_{A^{e}}(-,A)$ and identifying 
+		$\Hom_{A^{e}}(A^{\otimes n},A) \simeq A$, one gets the complex
+		\begin{equation*}
+			\begin{tikzcd}[column sep=large]
+				\dots 
+				& A \ar[l, "0"']
+				& A \ar[l, "mx^{m-1} \cdot"']
+				& A \ar[l, "0"']
+				& A \ar[l, "mx^{m-1} \cdot"']
+				& A \ar[l, "0"']
+				& 0 \ar[l] \,,
+			\end{tikzcd}
+		\end{equation*}
+		thus one can compute the Hochschild cohomology,
+		being careful to distinguish between the two cases:
+		\begin{itemize}
+			\item if $\mathrm{char}(k)$ divides $m$, then every coboundary
+			map in the above complex is trivial and hence $\mathrm{HH}^{n}(A) \simeq A$
+			for every $n \ge 0$;
+			\item if $\mathrm{char}(k)$ does \emph{not} divide $m$,
+			then we see that
+			\begin{equation*}
+				\mathrm{HH}^{n}(A)  =
+				\begin{cases}
+					A\,, \quad &\text{if } n=0\,; \\
+					(t)/(t^{m})\,, \quad &\text{if } n \text{ is odd}\,; \\
+					k[t]/(t^{m-1})\,, \quad &\text{otherwise}\,.
+				\end{cases}
+			\end{equation*}
+		\end{itemize}
+	\end{ex}
+	
+	\begin{rmk}[\textbf{Interpretation of the Hochschild cohomology in low degree}]
+		Given a bimodule $M$ over $A$, 
+		in virtue of the isomorphism \eqref{HHcochains} we may identify
+		Hochschild $0$-cochains with elements of $M$:
+		\begin{equation*}
+			M \simeq \Hom_{A^{e}}(A \otimes_{\Lambda} A, M)\,,
+			\quad m \longmapsto \left( f : 1 \otimes 1 \mapsto m \right)\,,
+		\end{equation*}
+		thus $m \in M$ is a $0$-cocycle if $ma - am=0$, for every $a \in A$;
+		we deduce that the zeroth Hochschild cohomology is the
+		\textbf{submodule of invariants} of $M$:
+		\begin{equation*}
+			\mathrm{HH}^{0}(A;M) = \Set{m \in M | \forall_{a \in A}\, ma=am}\,.
+		\end{equation*}
+		In particular, if $M=A$ we recover the \textbf{centre} of the algebra $A$,
+		i.e. $\mathrm{HH}^{0}(A) = Z(A)$.
+		
+		By using $\Hom_{A^{e}}(A^{\otimes 3},M) \simeq \Hom_{k}(A,M)$,
+		a $1$-cocycle is a $k$-linear map $f:A \to M$ such that
+		\begin{equation*}
+			af(b) - f(ab) + f(a)b\,, \quad \text{for every } a,b \in A\,;
+		\end{equation*}
+		on other words, $f$ satisfies the \textbf{Liebniz rule}
+		\begin{equation*}
+			f(ab) = af(b) + f(a)b\,.
+		\end{equation*}
+		Thus, the Hochschild $1$-cocycles $Z^{1}(C^{\bullet}(A;M))$ 
+		is the module of $\Lambda$-derivations from $A$ into $M$,
+		written $\mathrm{Der}_{\Lambda}(A,M)$. 
+		A derivation of the form $\de_{0}m$, for some $m \in M$,
+		is called an \textbf{inner derivation} and by quotienting these
+		derivations out, we obtain the module of \textbf{outer derivations}:
+		\begin{equation*}
+			\mathrm{HH}^1(A;M) = \mathrm{OutDer}_{\Lambda}(A,M)\,.
+		\end{equation*}
+		In case $\Lambda = k$ is a field, outer derivations form a vector
+		space which may be endowed with a Lie braket 
+		$[D_{1},D_{2}]=D_{1} \circ D_{2} - D_{2} \circ D_{1}$;
+		then, we see that $\mathrm{HH}^{1}(A;M)$ has a natural
+		\textbf{Lie algebra} structure.
+		
+		As often happens with cohomology in degree $2$, the module
+		$\mathrm{HH}^{2}(A;M)$ classifies some particular $A$-$A$-bimodule
+		extensions, called \textbf{Hochschild extensions}.
+		One can show that $\mathrm{HH}^{3}(A;M)$ classifies 
+		other mathematical objects, namely c\textbf{rossed bimodules}.
+		These spaces  play an important role in the \emph{deformation theory of algebras}.
+	\end{rmk}
+	
+	
