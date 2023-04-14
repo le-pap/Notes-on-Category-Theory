@@ -1,22 +1,22 @@
-
 \section{DG-modules}
 
 	\begin{df}
 		Let $\Aa = (A,d)$ be a DG-algebra.
-		A \textbf{left DG-module} $\Mm$ over $\Aa$, or simply \textbf{$\Aa$-DG-modules},
-		is a cochain complex $\Mm = (M^{\bullet},d_{M})$ in $C^{\bullet}(\cat{Mod}_{A})$
+		A \textbf{left DG-module} $\Mm$ over $\Aa$, or simply \textbf{$\Aa$-DG-module},
+		is a cochain\footnote{Some authors, for instance Henri Cartan, use the homological indexing, which means they consider a differential of degree $-1$. These two concepts are basically the same: from our definition } 
+		complex $\Mm = (M^{\bullet},d_{M})$ in $C^{\bullet}(\cat{Mod}_{A})$
 		such that:
 		\begin{itemize}
 			\item the multiplication by an homogeneous element $a \in A^{k}$
 			is a group homomorphism of degree $k$, that is
 			\begin{equation*}
-				A^{k} \otimes_{\Aa} M^{h} \longrightarrow M^{k+h}\,,
+				A^{k} \otimes_{\Aa} M^{h} \longrightarrow M^{k+h}\,, \quad
 				a \otimes m \longmapsto am\,;
 			\end{equation*}
 			
 			\item the differential $d_{M}$ satisfies the following Liebniz rule:
 			\begin{equation}\label{graded-mod-liebniz}
-				d_{M}(am) = (da)m + (-1)^{\deg(a)}a(d_{M}m)\,,
+				d_{M}(am) = (da)m + (-1)^{|a|}a(d_{M}m)\,,
 				\quad \text{for } a \in \Aa, m \in \Mm\,.
 			\end{equation}
 		\end{itemize}
@@ -29,7 +29,7 @@
 		in an analogous way, but the Liebniz rule for the
 		right multiplication becomes
 		\begin{equation*}
-			d_{M}(ma) = (d_{M}m)a + (-1)^{\deg{m}}m(da)\,,
+			d_{M}(ma) = (d_{M}m)a + (-1)^{|m|}m(da)\,,
 			\quad \text{for } a \in \Aa, m \in \Mm\,.
 		\end{equation*}
 	\end{df}
@@ -49,12 +49,97 @@
 		$H^*(\Aa)$.
 	\end{ex}
 	
+	\begin{df}
+		Given a DG-module $\Mm$ over a DGA-algebra $\Aa=(A,d,\epsilon)$,
+		an \textbf{augmentation} on $\Mm$ is a $\Lambda$-linear homomorphism
+		$\epsilon_{\Mm}:\Mm \to \Lambda$ such that:
+		\begin{rmnumerate}
+			\item $\epsilon_{M} \circ d_{M} = 0$;
+			\item vanishes in positive degree, i.e. if $|m|>0$, then $\epsilon_{M}(m) = 0$;
+			\item it is compatible with augmentation on $\Aa$, that is
+			for every $a \in \Aa$ and every $m \in \Mm$, 
+			it holds $\epsilon_{\Mm}(am) = \epsilon(a)\epsilon_{\Mm}(m)$.
+		\end{rmnumerate}
+		An $\Aa$-DG-module $\Mm$ endowed with an augmentation is called \textbf{$\Aa$-DGA-module}.
+	\end{df}	
+	
+	\begin{ex}
+		Let $G$ be a topological group acting (on the left) on a topological space $X$.
+		The action $G \times X \to X$ induces a morphism on singular complexes
+		\begin{equation*}
+			S_{\bullet}(G) \otimes_{\Z} S_{\bullet}(X) \longrightarrow S_{\bullet}(X)\,,
+		\end{equation*}
+		which makes $S_{\bullet}(X)$ into a left DGA-module over $S_{\bullet}(G)$.
+	\end{ex}
+	
+	\begin{df}
+		Consider a homomorphism $f:(\Aa,\epsilon) \to (\Bb, \eta)$ of DGA-algebras over $\Lambda$,
+		an $\Aa$-DGA-module $\Mm$ and a $\Bb$-DGA-module $\Nn$.
+		A \textbf{DGA-homomorphism compatible} with $f$ is a $\Lambda$-linear
+		map of complexes $g:\Mm \to \Nn$ of degree $0$ such that: 
+		\begin{rmnumerate}
+			\item it is comptible with restriction of scalars, i.e. for every $a \in \Aa$
+			and every $m \in \Mm$ it holds $g(am) = f(a)g(m)$;
+			\item it preserves augmentations, that is $\eta_{\Nn} \circ g = \epsilon_{\Mm}$.
+		\end{rmnumerate}
+	\end{df}
+	
 	From now on we borrow all the terminology used for complexes of modules. 
 	For example, we say that a $\Aa$-DG-module $\Mm$ is \textbf{acyclic} 
 	if $H^{*}(\Mm) = \cat{0}$;
 	we say that a morphism $f:\Mm \to \Nn$ of $\Aa$-DG-modules 
 	is a \textbf{quasi-isomorphism} if it induces isomorphisms 
 	$f^*:H^{*}(\Mm) \simeq H^{*}(\Nn)$, and so on and so forth.
+	
+	When a DG-module $\Mm$ is endowed with an augmentation,
+	its structure becomes ``enough rigid'': in fact,
+	whenever we have a base of homogeneous elements of $\Mm$
+	(e.g. if the ground ring $\Lambda = k$ is a field),
+	we can always define a DGA-homomorphism from $\Mm$
+	to an acyclic module $\Nn \to \Lambda \to 0$; moreover, the quasi-isomorphism
+	class of this map is \emph{unique}.
+	The following result by Henri Cartan explains more precisely
+	what it means.
+	
+	\begin{thm}
+		Let $\Aa$ be DGA-algebra and $\Mm$ be a DGA-module over it, 
+		with a free basis of homogeneous elements; similarly,
+		consider $\Mm'$ to be a DGA-algebra over the DGA-algebra $\Aa'$,
+		and assume $\Mm'$ has a homogoeneous free basis.
+		Given a DGA-homomorphism $f:\Aa \to \Aa'$,
+		if both $\Mm$ and $\Mm'$ are acyclic, then there exists
+		a map $g:\Mm \to \Mm'$ compatible with $f$; moreover,
+		if $f*:H_{*}(\Aa) \to H_{*}(\Aa')$ is an isomorphism,
+		then also $g_{*}:H_{*}(\Mm) \to H_{*}(\Mm')$ is an isomorphism.
+		\begin{proof}
+			For details, look at \parencite{cartanDGA}.
+			Notice that Cartan uses the homological convention.
+			The proof shows that a map $g$ as above is defined
+			on a basis $\{m_{i}\}$ of $\Mm$ by the formula
+			\begin{equation*}
+				g\left( \sum_{i} a_{i} m_{i} \right) 
+				:= \sum_{i} (fa_{i}) m'_{i}\,,
+			\end{equation*}
+			where each homogeneous element $m_{i}$ of degree $k$
+			is sent to an element $m'_{i} \in \Mm'$ of the same degree,
+			which is built by induction on $k$ by following the rules:
+			\begin{itemize}
+				\item for each $m_{i} \in M_{0}$, consider $m'_{i} \in M'_{0}$
+				such that $\epsilon_{\Mm}(m_{i}) = \epsilon_{\Mm'}(m'_{i})$;
+				\item if $|m_{i}| \ge 1$, then pick $m'_{i}$ such that
+				$d'm'_{i} = g(dm_{i})$.
+			\end{itemize}
+			This construction is obviously non-unique, but it can be
+			shown that any two
+			homomorphisms built this way are \emph{homotopic}.
+		\end{proof}
+	\end{thm}
+	
+	By considering the case $f=\cat{1}_{\Aa}$, one obtains the following
+	\begin{cor}
+		Any two acyclic free DGA-modules $\Mm$ and $\Mm'$ over a DGA-algebra $\Aa$
+		are quasi-isomorphic.
+	\end{cor}
 	
 	\begin{df}
 		We define the \textbf{translation functor} 
@@ -67,7 +152,7 @@
 		in which the $A$-module structure on $M[1]$ is \textbf{twisted},
 		i.e. we define the scalar multiplication as
 		\begin{equation*}
-			a \ast m := (-1)^{\deg(a)} am\,,
+			a \ast m := (-1)^{|a|} am\,,
 		\end{equation*}
 		where $am$ is the multiplication in $M$.
 	\end{df}
@@ -75,7 +160,7 @@
 	
 	At this point we have enough structure to talk about \emph{triangles}:
 	in fact, our next goal is to develop enough theory to be able
-	to state and prove that the homotopy category $\cat{K}({}_{\Aa}\cat{DGMod})$
+	to state and prove that the homotopy category $\Kk(\Aa)$
 	is a triangulated category.
 	
 	
@@ -83,60 +168,207 @@
 		Two morphisms $f,g: \Mm \to \Nn$ in ${}_{\Aa}\cat{DGMod}$
 		are \textbf{homotopic} if there exists a homotopy
 		$s:\Mm \to \Nn[-1]$ of $A$-modules (possibly \textbf{not} of $\Aa$-DG-modules)
-		such that $$f-g=sd_{m} + d_{N}s\,,$$
-		in which case we write $f \sim g$.\todo{The article by Seidel and Thomas uses the
-		derived category of a DG-algebra, stating that it is \textbf{not} the same thing
-		as the derived catgory of an abelian category (see \textbf{Warning} at p.40).
-		I don't understand the difference!}
+		such that $$f-g=sd_{M} + d_{N}s\,,$$
+		in which case we write $f \sim g$.
 	\end{df}
 	
 	Since null-homotopic morphisms form a $2$-sided ideal in 
 	$\Hom_{{}_{\Aa}\cat{DGMod}}(\Mm,\Nn)$, we may quotient
 	by the equivalence relation $f \sim g$ given by homotopy
-	to obtain the \textbf{homotopy category} $\cat{K}({}_{\Aa}\cat{DGMod})$,
+	to obtain the \textbf{homotopy category} $\Kk(\Aa)$,
 	whose objects are $\Aa$-DG-modules and morphisms between them are
 	\begin{equation*}
-		\Hom_{\cat{K}({}_{\Aa}\cat{DGMod})}(\Mm,\Nn) := \Hom_{{}_{\Aa}\cat{DGMod}}(\Mm,\Nn)/\sim\,.
+		\Hom_{\Kk(\Aa)}(\Mm,\Nn) := \Hom_{{}_{\Aa}\cat{DGMod}}(\Mm,\Nn)/\sim\,.
 	\end{equation*}
 	
 	Given a morphism $f:\Mm \to \Nn$ in ${}_{\Aa}\cat{DGMod}$,
 	we may build the \textbf{cone} of $f$ in the usual way, namely
 	$\cat{C}(f) := N \oplus M[1]$ with differential $(d_{N} + f, -d_{M})$;
 	this naturally inherits a structure of $\Aa$-DG-module,
-	thus we may define a \textbf{strict triangle}\todo{Is it distinguished? Stack Project uses a different class of distinguished triangles...}
+	thus we may define a \textbf{strict triangle}
 	\begin{equation*}
 		\begin{tikzcd}
 			\Mm \ar[r, "f"] & \Nn \ar[r] & \cat{C}(f) \ar[r] & \Mm{[1]}\,.
 		\end{tikzcd}
 	\end{equation*}
-	An \textbf{exact triangle} in $\cat{K}({}_{\Aa}\cat{DGMod})$
-	is a diagram $\Mm' \to \Nn' \to \Kk' \to \Mm'[1]$
+	An \textbf{exact triangle} in $\Kk(\Aa)$
+	is a diagram $\Mm' \to \Nn' \to \Cc' \to \Mm'[1]$
 	which is isomorphic (in he homotopy category) to a strict
 	triangle as above: explicitly, there is a diagram
 	\begin{equation*}
 		\begin{tikzcd}
-			\Mm' \ar[r] \ar[d, "\sim"] & \Nn' \ar[r] \ar[d, "\sim"] & \Kk' \ar[r] \ar[d, "\sim"] & \Mm'{[1]} \ar[d, "\sim"] \\
+			\Mm' \ar[r] \ar[d, "\simeq"] & \Nn' \ar[r] \ar[d, "\simeq"] & \Cc' \ar[r] \ar[d, "\simeq"] & \Mm'{[1]} \ar[d, "\simeq"] \\
 			\Mm \ar[r, "f"] & \Nn \ar[r] & \cat{C}(f) \ar[r] & \Mm{[1]}\,,
 		\end{tikzcd}
 	\end{equation*}
 	which commutes up to homotopy, in which vertical maps are homotopy equivalences.
 	
-	As it happens for the homotopy category $\cat{K}(\Aa)$ of an abelian category $\Aa$,
-	it turns out that $\cat{K}({}_{\Aa}\cat{DGMod})$ becomes a triangulated category 
+	As it happens for the homotopy category $\cat{K}(\Bb)$ of an abelian category $\Bb$,
+	it turns out that $\Kk(\Aa)$ becomes a triangulated category 
 	if we equip it with
 	the translation functor $[1]$ and take the exact triangles as the family
 	of distinguished triangles. In this category, quasi-isomorphisms of $\Aa$-DG-modules
 	form a \emph{multiplicative system}, and hence we can 
-	build the \textbf{derived category} $\cat{D}({}_{\Aa}\cat{DGMod})$
-	by describing morphisms as \emph{roofs}; this category also inherits
+	build the \textbf{derived category} $\Dd(\Aa)$ by formally inverting
+	quasi-isomorphisms in $\Kk(\Aa)$: as it happens for $\cat{D}(\Bb)$,
+	morphisms are pictured as \emph{roofs}, and $\Dd(\Aa)$ also inherits
 	a triangulated structure.
 	
+	\begin{rmk}
+		Even though $\Kk(\Aa)$, resp. $\Dd(\Aa)$, is called 
+		the homotopy category of $\Aa$-DG-modules, resp. the derived category,
+		the reader must be careful that these constructions are \emph{not}
+		the usual ones described in 
+		\hyperref[Derived-categories]{Section~\ref{Derived-categories}} 
+		for abelian categories, 
+		for $\Kk(\Aa)$ is not isomorphic to $\cat{K}({}_{\Aa}\cat{DGMod})$ in general
+		(thus, we use a different symbol). Indeed, objects in $\Kk(\Aa)$ are
+		DG-modules seen already as complexes, while objects in $\cat{K}({}_{\Aa}\cat{DGMod})$
+		are complexes of DG-modules, which can be interpreted as bicomplexes.
+		This explains why we should morally prove again 
+		that $\Kk(\Aa)$ and $\Dd(\Aa)$ are triangulated,
+		as it happens in \parencite[Part II]{bernstein-lunts}, 
+		but in fact constructions are analogous for the classic homotopy and derived categories.
+	\end{rmk}
+	
+	Let $\Aa=(A,d)$ be a DG-algebra.
+	 Given two left DG-modules $\Mm$ and $\Nn$ over $\Aa$,
+	we define the \textbf{internal hom} to be 
+	the cochain complex $Hom^{\bullet}(\Mm,\Nn)$	of abelian groups
+	\begin{equation*}
+		Hom^{n}(\Mm,\Nn) := \Hom_{A}(M, N[n]) 
+		= \Set{f:M \to N[n] | f \text{ morphism of %graded 
+		} A\text{-modules}}\,,
+	\end{equation*}
+	where the differential $d$ is defined on $f \in Hom^{n}(\Mm,\Nn)$ by
+	\begin{equation*}
+		df := d_{\Nn} \circ f - (-1)^{n} f \circ d_{\Mm}\,.
+	\end{equation*}
+	We define the tensor product of $\Aa$-DG-modules in a similar fashion
+	as for DG-algebras: given $\Mm$ and $\Nn$ left DG-modules over $\Aa$, 
+	we define their \textbf{tensor product} $\Mm \otimes_{\Aa} \Nn$
+	to be the total complex associated to $M^{\bullet} \otimes_{A} \Nn^{\bullet}$,
+	that is the $A$-module $M \otimes_{A} N$ with the differential
+	\begin{equation*}
+		d(m \otimes n) := (d_{\Mm}m) \otimes n + (-1)^{|m|}m (d_{\Nn}n)\,.
+	\end{equation*}
+	
+	\begin{ex}
+		A $0$-cocycle of $Hom^{\bullet}(\Mm,\Nn)$ is a map of complexes:
+		indeed, by definition $f:\Mm \to \Nn$ is such that $d_{\Nn}f - fd_{\Mm}$.
+		Since $0$-coboundaries are null homotopic maps, one deduces that
+		\begin{equation*}
+			H^{0}\left(Hom^{\bullet}(\Mm,\Nn) \right)
+			= \Hom_{\Kk(\Aa)}(\Mm,\Nn)\,.
+		\end{equation*}
+	\end{ex}
+	
+	If $\Aa$ is a graded-commutative DG-algebra, 
+	then both $Hom^{\bullet}(\Mm,\Nn)$
+	and $\Mm \otimes_{\Aa} \Nn$ have a natural $\Aa$-DG-module structure,
+	in which scalar multiplications are defined for every $a \in \Aa$ by
+	\begin{equation*}
+		(a \cdot f) : m \mapsto af(m)\,, \quad
+		a \cdot (m \otimes n) := (-1)^{|a|\,|m|} am \otimes n\,.
+	\end{equation*}
+	One can check that both $Hom^{\bullet}(\Nn,-)$ and $- \otimes_{\Aa} \Nn$ are
+	endofunctors of ${}_{\Aa}\cat{DGMod}$ which send null-homotopic maps
+	to null-homotopic maps, thus they descend to additive functors
+	\begin{equation*}
+		- \otimes_{\Aa} \Nn\,, Hom^{\bullet}(\Nn,-) : \Kk(\Aa) \longrightarrow \Kk(\Aa)\,,
+	\end{equation*}
+	which are in fact \emph{triangulated} functors.
+	Moreover, given any three $\Aa$-DG-modules $\Mm,\Nn$ and $\Pp$,
+	there exist functorial isomorphisms
+	\begin{align*}
+		(\Mm \otimes_{\Aa} \Nn) \otimes_{\Aa} \Pp &\simeq \Mm \otimes_{\Aa} (\Nn \otimes_{\Aa} \Pp)\,,\\
+		Hom^{\bullet}(\Mm,Hom^{\bullet}(\Nn,\Pp)) &\simeq Hom^{\bullet}(M \otimes_{\Aa} \Nn,\Pp)\,\\
+		\Hom_{{}_{\Aa}\cat{DGMod}}(\Mm,Hom^{\bullet}(\Nn,\Pp)) &\simeq \Hom_{{}_{\Aa}\cat{DGMod}}(M \otimes_{\Aa} \Nn,\Pp)\,,\\
+		\Hom_{\Kk(\Aa)}(\Mm,Hom^{\bullet}(\Nn,\Pp)) &\simeq \Hom_{\Kk(\Aa)}(M \otimes_{\Aa} \Nn,\Pp)\,.
+	\end{align*}
+	One can sum up all these properties by saying that ${}_{\Aa}\cat{DGMod}$ is a
+	\emph{symmetrical monoidal closed category}, where the monoidal structure
+	is given by the tensor product $\otimes_{\Aa}$, with $\Aa$ as a neutral element,
+	and the internal hom as its right adjoint. For details, see for instance
+	\cite[\href{https://stacks.math.columbia.edu/tag/0FQ2}{Tag 0FQ2}]{stacksDGA}.
+	
+	As it happens for the classical notion of modules,
+	whenever we have a homomorphsim of DG-algebras $f:\Aa \to \Bb$,
+	we can give $\Bb$ a structure of $\Aa$-DG-module by setting the multiplication
+	$a \cdot b := f(a)b$. Hence, we can relate the category of DG-modules over
+	$\Aa$ and the ones over $\Bb$ via two functors:
+	\begin{itemize}
+		\item by \textbf{restriction of scalars}, which consists in considering
+		any $\Bb$-DG-module as a left module over $\Aa$, via the induced
+		multiplication defined above:
+		\begin{equation*}
+			f_{*}:{}_{\Bb}\cat{DGMod} \longrightarrow {}_{\Aa}\cat{DGMod}\,,
+			\quad \Mm \longmapsto f_{*}\Mm\,;
+		\end{equation*}
+		
+		\item by \textbf{extension of scalars}, given by the assignment
+		\begin{equation*}
+			f^{*}:{}_{\Aa}\cat{DGMod} \longrightarrow {}_{\Bb}\cat{DGMod}\,,
+			\quad \Mm \longmapsto \Bb \otimes_{\Aa} \Mm\,.
+		\end{equation*}
+	\end{itemize}
+	The two functors are adjoint to each other, 
+	namely for every $\Aa$-DG-module $\Mm$
+	and every $\Bb$-DG-module $\Nn$, 
+	there are isomorphisms
+	\begin{equation*}
+		\Hom_{{}_{\Bb}\cat{DGMod}}(f^{*}\Mm,\Nn) \simeq \Hom_{{}_{\Aa}\cat{DGMod}}(\Mm,f_{*}\Nn)\,,
+	\end{equation*}
+	and one can check that they preserve homotopy equivalences, 
+	thus induce adjoint functors between the homotopy categories.
+	If both $\Aa$ and $\Bb$ are graded-commutative, then
+	for every $\Mm, \Mm'$ DG-modules over $\Aa$ it holds
+	\begin{equation*}
+		\Bb \otimes_{\Aa} (\Mm \otimes_{\Aa} \Mm')
+		\simeq (\Bb \otimes_{\Aa} \Mm) \otimes_{\Bb} (\Bb \otimes_{\Aa} \Mm')\,.
+	\end{equation*}
+	
+	\begin{df}
+		A left DG-module $\Pp$ over $\Aa$ is called \textbf{$\Kk$-projective}
+		if one of the two following conditions holds:
+		\begin{rmnumerate}
+			\item $\Hom_{\Kk(\Aa)}(\Pp,-) = \Hom_{\Dd(\Aa)}(\Pp,-)$;
+			\item for every acyclic $\Aa$-DG-module $\Cc$, 
+			then the complex $Hom^{\bullet}(\Pp,\Cc)$ is acyclic.
+		\end{rmnumerate}
+	\end{df}
+	
+	The conditions i) and ii) are equivalent (see \parencite[Lemma~10.12.2.2]{bernstein-lunts}).
+	Given any DG-module $\Mm$ over $\Aa$, there exists a canonical construction,
+	called the \textbf{bar construction}, of a $\Kk$-projective module $B(\Mm)$
+	together with a quasi-isomorphism $B(\Mm) \to \Mm$. 
+	Thanks to this, whenever $\Aa$ is graded-commutative
+	one may define the right derived functor
+	\begin{equation*}
+		RHom^{\bullet}(\Mm,-) : \Dd(\Aa) \longrightarrow \Dd(\Aa)\,,
+		\quad \Nn \longmapsto RHom^{\bullet}(\Mm,\Nn) := Hom^{\bullet}(B(\Mm),\Nn)
+	\end{equation*}
+	and the left derived functor of the tensor product, i.e.
+	\begin{equation*}
+		- \overset{\cat{L}}{\otimes}_{\Aa} \Mm : \Dd(\Aa) \longrightarrow \Dd(\Aa)\,,
+		\quad \Nn \longmapsto \Nn \overset{\cat{L}}{\otimes}_{\Aa} \Mm := \Nn \otimes_{\Aa} B(\Mm)\,,
+	\end{equation*}
+	thus, for any homomorphism $f:\Aa \to \Bb$ of DG-algebras,
+	one can define extension of scalars between derived categories;
+	this induces an adjunction
+	\begin{equation*}
+		\Hom_{\Dd(\Bb)}(f^{*}\Mm,\Nn) \simeq \Hom_{\Dd(\Aa)}(\Mm,f_{*}\Nn)\,.
+	\end{equation*}
+	
 	\begin{thm}
-		If $\Phi:\Aa \to \Bb$ is a quasi-isomorphism of DG-algebras,
-		then the ``\emph{restriction of scalars}'' induces an exact equivalence
-		$\Phi^*: \cat{D}({}_{\Bb}\cat{DGMod}) \to \cat{D}({}_{\Aa}\cat{DGMod})$ 
+		If $f:\Aa \to \Bb$ is a quasi-isomorphism of DG-algebras,
+		then the extension of scalars induces an exact equivalence
+		$f^*: \Dd(\Aa) \to \Dd(\Bb)$ 
 		of triangulated categories.
-	\end{thm}\todo{It is explained in Equivariant Sheaves.}
+		\begin{proof}
+			The complete proof can be found in \parencite[Theorem~10.12.5.1]{bernstein-lunts}.
+		\end{proof}
+	\end{thm}
 	
 	
 	

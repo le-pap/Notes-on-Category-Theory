@@ -1,0 +1,200 @@
+
+
+Let $k$ be a fixed field. All categories in this chapter are assumed to be $k$-linear.
+Recall that, in a $k$-linear category $\Aa$,
+for any two cochain complexes $C^{\bullet}, D^{\bullet} \in C^{\bullet}(\Aa)$
+one can define the complex $\Hom^*(C^{\bullet}, D^{\bullet})$
+of $k$-vector spaces, whose cohomology is given by
+\begin{equation*}
+	H^{i} \Hom^*(C^{\bullet}, D^{\bullet})
+	= \Hom_{\cat{K}(\Aa)}(C^{\bullet},D^{\bullet}[i])\,.
+\end{equation*}
+We already know that $\Aa$ is both tensored and cotensored over finite dimensional vector spaces.
+If $\Aa$ contains infinite products and arbitrary direct sums\todo{I should see a precise definition},
+then one can define objects $V \otimes_{k} A$ and $[V,C^{\bullet}]$ in $\Aa$,
+for any vector space $V$ and any object $A \in \Aa$.
+One can check that in $C^{\bullet}(\Aa)$ there are the following canonical monomorphism:
+\begin{align}\label{tensor-adjs}
+	V \otimes \Hom^*(D^{\bullet}, C^{\bullet}) 
+	&\longrightarrow \Hom^{*}(D^{\bullet}, V \otimes C^{\bullet})\,, \\
+	\Hom^{*}(D^{\bullet},C^{\bullet}) \otimes V 
+	&\longrightarrow \Hom^{*}([V,D^{\bullet}],C^{\bullet})\,, \\
+	\Hom^{*}(C^{\bullet},[V,D^{\bullet}]) \otimes E^{\bullet}
+	&\longrightarrow [V, \Hom^{*}(C^{\bullet},D^{\bullet}) \otimes E^{\bullet}]\,.
+\end{align}
+These maps are isomorphisms if $V$ is finite dimensional,
+and they are quasi-isomorphisms if $V$ has finite-dimensional cohomology.\todo{I should learn these facts.}
+
+From now on, fix an abelian category $\Aa$.
+
+\begin{df}
+	A \textbf{Serre subcategory} of $\Aa$ is a non-empty full subcategory $\Ss \subset \Aa$
+	such that, given an exact sequence $A \to B \to C$, if both $A$ and $C$ are in $\Ss$,
+	then also $B$ is in $\Ss$.
+\end{df}
+
+\begin{df}
+	We define a full subcategory $\Bb \subset \Aa$ satisfying the following conditions:
+	\begin{itemize}
+		\item[(\textbf{C1})]\label{C1} $\Bb$ is a Serre subcategory of $\Aa$;
+		
+		\item[(\textbf{C2})]\label{C2} $\Bb$ contains infinite direct sums and products;
+		
+		\item[(\textbf{C3})]\label{C3} $\Bb$ has enough injectives 
+		and \emph{any} direct sum of injectives is again injective;
+		
+		\item[(\textbf{C4})]\label{C4} given any epimorphism $f:A \to B$ with $B \in \Bb$,
+		there exists an object $A'$ in $\Bb$ and a morphism $g:A' \to A$ 
+		such that $fg$ is again an epimorphism:
+		\begin{equation*}
+			\begin{tikzcd}
+				A \ar[dr, "f"] & & \\
+				A' \ar[r] \ar[u, "g", dashed] & B \ar[r] & \cat{0}\,.
+			\end{tikzcd}
+		\end{equation*}
+	\end{itemize}
+\end{df}
+
+\begin{rmk}
+	Since $\Bb$ is a Serre subcategory, 
+	the map $g$ in property (\hyperref[C4]{\textbf{C4}}) can be taken to be a monomorphism.\todo{Why this}
+\end{rmk}
+
+\begin{df!}\label{cat-K}
+	Let $\xK \subset K^{+}(\Aa)$ be the full subcategory whose objects are
+	bounded below cochain complexes $I^{\bullet}$ with injective terms
+	with bounded cohomology in $\Bb$, that is $H^{i}(I^{\bullet}) \in \Bb$ for all $i$
+	and $H^{i}(I^{\bullet}) = 0$ for $i >> 0$.
+\end{df!}
+
+Our aim is to prove that $\xK$ is equivalent to the bounded derived category $\cat{D}^{b}(\Bb)$.
+Now recall that $C^{b}_{\Bb}(\Aa)$ is the category of bounded cochain complexes
+whose cohomology objects lie in $\Bb$.\todo{Put these results in the derived cat part.}
+
+\begin{prop}
+	Abelian categories have fibre products.
+	\begin{proof}
+		Given $f:A \to M$ and $g:B \to M$ morphisms in an abelian category $\Aa$,
+		the commutativity constraint of a square
+		\begin{equation*}
+			\begin{tikzcd}
+				T \ar[d, "t_{A}"'] \ar[r, "t_{B}"] & B \ar[d, "g"] \\
+				A \ar[r, "f"] & M
+			\end{tikzcd}
+		\end{equation*}
+		can be rewritten as $ft_{A} - gt_{B} = 0$. 
+		Thus, we can translate the fibre product universal property into
+		a kernel property: we know that $\ker(f \pi_{A} - g \pi_{B}) \subset A \oplus B$ exists,
+		and it satisfies
+		\begin{equation*}
+			\begin{tikzcd}[column sep=large]
+				T \ar[dddr, bend right, "t_{A}"'] \ar[rrrd, bend left=15pt, "t_{B}"] 
+				\ar[dr, dashed] & & & \\
+				& \ker(f \pi_{A} - g \pi_{B}) \ar[rr] \ar[dr,hook, dashed] \ar[dd]
+				& & B \ar[dd, "g"] \\
+				& & A \oplus B \ar[dl, "\pi_{A}"'] \ar[ur, "\pi_{B}"] \ar[dr] & \\ %\ar[dr,"f \pi_{A} - g \pi_{B}"] & \\
+				& A \ar[rr, "f"] & & M\,,
+			\end{tikzcd}
+		\end{equation*}
+		and hence $A \times_{M} B = \ker(f \pi_{A} - g \pi_{B})$.
+	\end{proof}
+\end{prop}
+
+\begin{df}
+	Let $f:A \to M$ and $g:B \to M$ be morphisms in $\Aa$.
+	If $f$ is a monomorphism, then the fibre product will be denoted by $g^{-1}(A)$.
+	If both $f$ and $g$ are monomorphisms, then their fibre product
+	is called \textbf{intersection} $A \cap B$ and we define their \textbf{sum}
+	$A + B := \mathrm{im}(f \pi_{A} - g \pi_{B})$.\todo{Move this part to the AbCat.}
+\end{df}
+
+\begin{lemma}\label{equivalence-bounded-coh}
+	For any $C^{\bullet} \in C^{b}_{\Bb}(\Aa)$,
+	there is a complex $E^{\bullet} \in C^{b}(\Bb)$
+	and a monomorphism $\iota^{\bullet} : E^{\bullet} \to C^{\bullet}$
+	which is a qis.
+	\begin{proof}
+		Let $N$ be the largest integer such that $C^{N} \ne \cat{0}$.
+		We build the complex $E^{\bullet}$ inductively
+		by setting $E^{n}=\cat{0}$, for every $n > N$, 
+		and by using property (\hyperref[C4]{\textbf{C4}}) of $\Bb$ in the following way:
+		for $n \ge N$, assume $E^{n+1}$ has been built; then for (\hyperref[C4]{\textbf{C4}})
+		there exists diagrams
+		\begin{equation*}
+			\begin{tikzcd}
+				\left( d_{C}^{n} \right)^{-1}(E^{n+1}) \ar[dr, "d_{C}^{n}", two heads] & & &
+				\ker d^{n}_{C} \ar[dr, two heads] & \\
+				F^{n} \ar[u, hook, dashed] \ar[r, dashed, two heads] & E^{n+1} \cap \mathrm{im}d_{C}^{n}\,,
+				& & G^{n} \ar[r, dashed, two heads] \ar[u, hook, dashed] & H^{n}(C^{\bullet})\,,
+			\end{tikzcd}
+		\end{equation*}
+		with $F^{n}$ and $G^{n}$ in $\Bb$. For $n=N$, notice that
+		$F^{N}, G^{N} \hookrightarrow C^{N}$, so inductively one gets $F^{n}$ and $G^{n}$
+		as subobjects of $C^{n}$. Thus, define $E^{\bullet}$ to be the complex with terms
+		$E^{n} = F^{n} + G^{n}$ and differential inherited by $C^{\bullet}$, 
+		that is $d_{E}^{n} := d_{C}^{n}\vert_{E^{n}}$.
+		We have a natural inclusion $\iota^{\bullet}:E^{\bullet} \to C^{\bullet}$,
+		so the complex $E^{\bullet}$ is %obviously 
+		bounded, and by (\hyperref[C1]{\textbf{C1}}) every $E^{n}$ is an object in $\Bb$.
+		
+		For every $n$, notice that the $n$-cocycles of $E^{\bullet}$ are
+		by definition $\ker d_{E}^{n} = E^{n} \cap \ker d_{C}^{n}$,
+		hence the map $E^{n} \cap \ker d_{C}^{n} \to H^{n}(C^{n})$ is an epimorphism
+		by the definition of $G^{n}$ (see the commutative triangle on the right),
+		with kernel given by $E^{n} \cap \mathrm{im}d_{C}^{n-1}$, 
+		which equals to
+		\begin{equation*}
+			E^{n} \cap \mathrm{im}d_{C}^{n-1} 
+			= \mathrm{im}\left(F^{n-1} \twoheadrightarrow (E^{n} \cap \mathrm{im}d_{C}^{n-1}) \right)
+			= \mathrm{im} d_{E}^{n-1}
+		\end{equation*}
+		by construction. This shows that the inclusion $\iota^{\bullet}:E^{\bullet} \to C^{\bullet}$
+		induces %isomorphisms 
+		$H^{*}(E^{\bullet}) \simeq H^{*}(C^{\bullet})$.
+	\end{proof}
+\end{lemma}
+
+It follows by \parencite[Proposition~III.2.10]{GM}\todo{Insert this in the part of DerCat} 
+that the functor induced
+by the inclusion on the derived cateogories $\cat{D}^{b}(\Bb) \to \cat{D}^{b}_{\Bb}(\Aa)$
+is an exact equivalence.
+
+\begin{thm}
+	There is an exact equivalence of triangulated categories $\xK \simeq \cat{D}^{b}(\Bb)$.
+	\begin{proof}
+		Since $\Aa$ has enough injectives, 
+		then $\xK$ is equivalent to the full subcategory $\xD \subset \cat{D}^{+}(\Aa)$
+		of bounded below complexes $C^{\bullet}$ with bounded cohomology, 
+		with each $H^{n}(C^{\bullet}) \in \Bb$, i.e. cohomology of $C^{\bullet}$
+		satisfies the property in \hyperref[cat-K]{Definition~\ref{cat-K}}.
+		We know that $\cat{D}^{b}_{\Bb}(\Aa)$ is equivalent to $\xD$
+		via the functor induced by the inclusion, and together with
+		\hyperref[equivalence-bounded-coh]{Lemma~\ref{equivalence-bounded-coh}}
+		one gets the sequence of exact equivalences
+		\begin{equation*}
+			\begin{tikzcd}
+				\cat{D}^{b}(\Bb) \ar[r, "\sim"]
+				& \cat{D}^{b}_{\Bb}(\Aa) \ar[r, "\sim"]
+				& \xD
+				& \xK \ar[l, "\sim"']\,,
+			\end{tikzcd}
+		\end{equation*}
+		from which we deduce that $\xK$ and $\cat{D}^{b}(\Bb)$
+		are equivalent as triangulated categories.
+	\end{proof}
+\end{thm}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

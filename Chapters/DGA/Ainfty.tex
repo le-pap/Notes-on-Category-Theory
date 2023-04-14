@@ -1,5 +1,209 @@
 
-\section{Ainfty-algebras}
+\section{$A_{\infty}$-algebras}
 
 	Read the brief description in the article of braid groups and compare with
-	something by Borislav Mladenov, which I found by chance.
+	something by Borislav Mladenov, which I found by chance.\todo{STUDY THESE.}
+	
+	\begin{df}
+		An \textbf{$A_{\infty}$-algebra} is a graded $\Lambda$-algebra $\Aa = \oplus_{i \in \Z} A_{i}$
+		together with graded $\Lambda$-linear maps
+		\begin{equation*}
+			m_{n} : A^{\otimes n} \longrightarrow A\,, \quad n \ge 1\,,
+		\end{equation*}
+		where each $m_{n}$ has degree $2 - n$ and satisfies the \textbf{Stasheff identities}
+		\begin{equation}\label{stacheff-id}
+			\sum_{r+s+t=n} (-1)^{r+st} m_{r+1+t}(1^{\otimes r} \otimes m_{s} \otimes 1^{\otimes t}) = 0\,.
+		\end{equation}
+		Sometimes we denote the $A_{\infty}$-algebra by $(A,m_{\bullet})$
+		to emphasize the notation chosen for these higher multiplication maps. 
+		If $m_{1} = 0$, then $A$ is called \textbf{minimal}.
+	\end{df}
+	
+	We now give an interpretation to the \emph{Stasheff identities} for small values of $n$.
+	When $n=1$, then we have to plug $s=t=0$ in \eqref{stacheff-id}, 
+	so that $m_{1}$ is a degree $1$ map which satisfies
+	\begin{equation*}
+		m_{1}^{2} = 0\,.
+	\end{equation*}
+	This means that $m_{1}$ is a differential on $A$, and hence $(A,m_{1})$
+	turns into a cochain complex. Thus, we will write $d:=m_{1}$.
+	
+	When $n=2$, then in \eqref{stacheff-id} we can either plug $s=2$ and $s=t=0$,
+	or $s=1$ and $t+s=1$, so that the relation reads
+	\begin{equation*}
+		dm_{2} - m_{2}(1 \otimes d + d \otimes 1) = 0\,.
+	\end{equation*}
+	Since $m_{2}:A \otimes A \to A$ is a degree zero map,
+	we can think of it as a multiplication and thus write 
+	$m_{2}(a \otimes b) = a \cdot b$ for all homogeneous elements $a, b \in A$.
+	Thus, the above relations can be rewritten as
+	\begin{equation*}
+		d(a \cdot b) = da \cdot b + (-1)^{|a|} a \cdot db\,,
+	\end{equation*}
+	which means that $m_{1}=d$ is a graded derivation
+	with respect to the multiplication $m_{2}$.
+	
+	Notice that the differential $m_{1}=d$ induces a differential $\delta$
+	on the complex $\Hom_{\Lambda}(A^{\otimes 3}, A)$,
+	which sends a map $f:A^{\otimes 3} \to A$ to the coboundary
+	\begin{equation*}
+		\delta(f)(a \otimes b \otimes c)
+		= d\big(f(a \otimes b \otimes c)\big)
+		- f(da \otimes b \otimes c)
+		+ (-1)^{|a|-1} f(a \otimes db \otimes c)
+		+ (-1)^{|a|+|b|-1} f(a \otimes b \otimes dc)\,,
+	\end{equation*}
+	for any $a,b,c$ homogeneous elements.
+	 Thus, the Stasheff identity for $n=3$, given by
+	 \begin{align*}
+	 	&m_{1}m_{3} + m_{2}\left(m_{2} \otimes 1\right) - m_{2}\left( 1 \otimes m_{2} \right) \\
+	 	+ &m_{3}\left(m_{1} \otimes 1 \otimes 1 \right) + m_{3}\left(1 \otimes m_{2} \otimes 1\right) 
+	 	+ m_{3}\left(1 \otimes 1 \otimes m_{1} \right) = 0\,,
+	 \end{align*}
+	 can be thought of as
+	 \begin{equation*}
+	 	\delta(m_{3}) = m_{2}\left(1 \otimes m_{2} \right) - m_{2}\left(m_{2} \otimes 1\right)\,,
+	 \end{equation*}
+	 that is, $m_{2}$ is associative up to a coboundary in this $\Hom$ complex. 
+	 It follows that the cohomology of $(A,m_{1})$ is a graded associative 
+	 algebra with multiplication induced by $m_{2}$.\todo{Witherspoon grives many examples.}
+	
+	\begin{df}
+		A \textbf{morphism} of $A_{\infty}$-algebras, 
+		also called \textbf{$A_{\infty}$-moprhism},
+		$f_{\bullet}:(A,m_{\bullet}^{A}) \to (B,m_{\bullet}^{B})$
+		is a family of graded $\Lambda$-linear maps
+		\begin{equation*}
+			f_{n} : A^{\otimes n} \longrightarrow B\,, \quad n \ge 1\,,
+		\end{equation*}
+		where each $f_{n}$ has degree $1-n$ and satisfies the relations
+		\begin{equation}\label{stasheff-morph}
+			\sum_{r+s+t=n} (-1)^{r+st} f_{r+1+t}(1^{\otimes r} \otimes m_{s}^{A} \otimes 1^{\otimes t}) =
+			\sum_{i_{1}+ \dots + i_{r}=n} (-1)^{u} m_{r}^{B}(f_{i_{1}} \otimes \dots \otimes f_{i_{r}})\,,
+		\end{equation}
+		where $u = u(i_{1}, \dots, i_{r}) := \sum_{k=1}^{r-1}(r-k)(i_{k}-1)$.
+	\end{df}
+	
+	The identity morphism $\cat{1}_{\bullet}: (A,m_{\bullet}) \to (A,m_{\bullet})$
+	is given by the identity $\cat{1}_{1} = \cat{1}_{A}$ and the zero map in higher degrees.
+	If $f_{\bullet}:A \to B$ and $g:B \to C$ are two morphisms of $A_{\infty}$-algebras,
+	we define their composition $(gf)_{\bullet}$ to be given by the maps
+	\begin{equation*}
+		(gf)_{n} := \sum_{i_{1}+ \dots + i_{r}=n} (-1)^{u} g_{r} \left(f_{i_{1}} \otimes \dots \otimes f_{i_{r}}\right)\,,
+	\end{equation*}
+	where the integer $u$ is defined as above.
+	
+	As before, we interpret low degree terms of an $A_{\infty}$-morphism.
+	When $n=1$, equation \eqref{stasheff-morph} boils down to
+	\begin{equation*}
+		f_{1}m_{1}^{A} = m_{1}^{B}f_{1}\,,
+	\end{equation*}
+	which tells us that $f_{1}$ is a cochain map.
+	Thus, as in the case of cochain complexes, we say that an $A_{\infty}$-morphism $f_{\bullet}$
+	is a \textbf{quasi-isomorphism} if $f_{1}$ induces an isomorphism $H^{*}(A) \simeq H^{*}(B)$.
+	
+	If $n=2$, then \eqref{stasheff-morph} reads
+	\begin{equation*}
+		f_{1}m_{2}^{A} = m_{2}^{B}(f_{1} \otimes f_{1}) + \delta(f_{2})\,,
+	\end{equation*}
+	where $\delta$ is the coboundary map of $\Hom_{\Lambda}(A^{\otimes 3},A)$.
+	That is, up to the coboundary $\delta(f_{2})$, the map $f_{1}$ 
+	is an algebra homomorphism with respect to multiplication $m_{2}$.
+	
+	
+	
+	\begin{ex}
+		If $A$ is any DG-algebra, we may take $m_{1}$ to be its differential, 
+		$m_{2}$ its multiplication, and $m_{n} = 0$ for $n \ge 3$, 
+		to define an $A_{\infty}$-algebra structure on $A$.
+	\end{ex}
+	
+	\begin{ex}
+		An associative algebra $A$ itself may be viewed as a DG-algebra with zero differential, 
+		and thus as an $A_{\infty}$-algebra in this way. 
+		If an $A_{\infty}$-algebra $A$ is concentrated in degree $0$, 
+		i.e. $A_{i} = 0$ for all $i \ne 0$, 
+		then the maps $m_{n}$ are necessarily zero maps for all $n  \ne 2$ 
+		since $|m_{n}| = 2-n$, so $A$ is simply an associative algebra.
+	\end{ex}
+	
+	We would like to use the language of $A_{\infty}$-morphisms in 
+	the case of DG-algebras. Let $(A,\epsilon)$ an augmented graded algebra
+	and $\Bb = (B,d)$ a DG-algebra. As noticed in the previous examples,
+	we may think of them as particular $A_{\infty}$-algebras 
+	with non-trivial higher operations given by
+	$m_{2}^{B}$, resp. $m_{2}^{A}$, which is the multiplication in $\Bb$, resp. in $A$,
+	and $m_{1}^{B}=d$. Thus, an $A_{\infty}$-morphism $f_{\bullet}:A \to \Bb$
+	is a sequence of $\Lambda-\Lambda$-bimodule morphisms 
+	\begin{equation*}
+		f_{n} \in \Hom_{\Lambda-\Lambda}\left( (A^{+})^{\otimes q}, \Bb[1-n] \right)\,, \quad n \ge 1\,,
+	\end{equation*}
+	which satisfy the Stasheff identities
+	\begin{equation*}
+		\sum_{r+t=n-2} (-1)^{n-2+t} f_{n-1}(1^{\otimes r} \otimes m_{2}^{A} \otimes 1^{\otimes t}) 
+		= df_{n}
+		+ \sum_{i=1}^{n-1} (-1)^{i-1} m_{2}^{B}(f_{i}\otimes f_{n-i})\,.
+	\end{equation*}
+	This means that, for homogeneous elements $a_{1}, \dots, a_{n} \in A$, 
+	an $A_{\infty}$-morphism satisfies the relations
+	\begin{align*}
+		df_{n}(a_{1} \otimes \dots \otimes a_{n})
+		&= \sum_{i=1}^{n-1} (-1)^{u} 
+		\Big( f_{n}(a_{1} \otimes \dots \otimes a_{i}a_{i+1} \otimes \dots \otimes a_{n} ) \\
+		&+ f_{i}(a_{1} \otimes \dots \otimes a_{i})f_{n-i}(a_{n+1} \otimes 
+		\dots \otimes a_{n}) \Big)\,,
+	\end{align*}
+	where the sign is given by $u = -i + \sum_{k=1}^{i}|a_{k}|$.
+	
+	The following construction shows how one can see $A_{\infty}$-morphisms 
+	simply as a convenient way of encoding DG-morphisms from a certain large 
+	DG-algebra canonically associated to $A$, a kind of ``\emph{thickening} of $A$''.
+	Consider the graded $\Lambda$-bimodule $V:=A^{+}[1]$ and form the 
+	tensor algebra 
+	\begin{equation*}
+		Th(A) := \Lambda \oplus \bigoplus_{r \ge 1} V^{\otimes r}\,,
+	\end{equation*}
+	whose elements are linear combinations
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

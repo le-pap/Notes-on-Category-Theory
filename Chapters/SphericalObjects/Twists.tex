@@ -1,0 +1,205 @@
+
+\section{Twist functors and spherical objects}
+
+Recall that, given any two complexes $C^{\bullet}, D^{\bullet}$ with terms in $\Aa$,
+we denote by 
+	\begin{equation*}
+		\Hom_{\cat{C}^{\bullet}(\Aa)}^{*}(C^{\bullet},D^{\bullet})
+		= \bigoplus_{n \in \Z} \Hom_{\cat{C}^{\bullet}(\Aa)}(C^{\bullet},D^{\bullet}[n])\,,
+	\end{equation*}
+and we do so for all other categories whose objects are complexes.
+Since $\Aa$ is a $k$-linear category, the set defined above is a $k$-vector space.
+
+\begin{df}
+	We call an object $E^{\bullet} \in \xK$ \textbf{twistable} if it satisfies
+	the following finiteness conditions:
+	\begin{itemize}
+		\item[(\textbf{S1})]\label{S1} %the complex $E^{\bullet}$
+		it is bounded;
+		
+		\item[(\textbf{S2})]\label{S2} for any $F^{\bullet}$ in $\xK$,
+		both $\Hom_{\xK}^{*}(E^{\bullet},F^{\bullet})$ and $\Hom_{\xK}^{*}(F^{\bullet},E^{\bullet})$
+		have finite dimension over $k$.
+	\end{itemize}
+\end{df}
+
+\begin{df}
+	Given a twistable complex $E^{\bullet}$,
+	we define the \textbf{twist functor} around $E^{\bullet}$ 
+	to be the cone of the following evaluation map:
+	\begin{equation*}
+		T_{E} : \xK \longrightarrow \xK\,,
+		\quad T_{E}(F^{\bullet}) := 
+		\cat{C}\left( \Hom^{*}(E^{\bullet},F^{\bullet}) \otimes E^{\bullet} 
+		\xrightarrow{ev} F^{\bullet} \right)\,.
+	\end{equation*}
+\end{df}
+
+A remark on the well-definition of this functor may be needed:
+since $E^{\bullet}$ is bounded and $F^{\bullet}$ is bounded from below,
+then the complex $\Hom^{*}(E^{\bullet},F^{\bullet})$ is also 
+bounded from below, thus $\Hom^{*}(E^{\bullet},F^{\bullet})$
+is an object in $C^{b}(\cat{Vect}_{k})$.
+As $E^{\bullet}$ has injective terms, by property (\hyperref[C3]{\textbf{C3}}) 
+we deduce that $\Hom^{*}(E^{\bullet},F^{\bullet}) \otimes E^{\bullet}$
+is again a bounded below complex made of injective objects.
+Notice that $\Hom^{*}(E^{\bullet},F^{\bullet})$ is quasi-isomorphic
+to the complex $\Hom^{*}_{\xK}(E^{\bullet},F^{\bullet})$,
+which is finite-dimensional by (\hyperref[S2]{\textbf{S2}}),
+and since $- \otimes E^{\bullet}$ preserves quasi-isomorphisms
+it holds
+\begin{equation*}
+	H^{*}\left( \Hom^{*}(E^{\bullet},F^{\bullet}) \otimes E^{\bullet} \right)
+	\simeq H^{*}\left( \Hom^{*}_{\xK}(E^{\bullet},F^{\bullet}) \otimes E^{\bullet} \right)
+	\simeq \Hom^{*}_{\xK}(E^{\bullet},F^{\bullet}) \otimes H^*(E^{\bullet})\,,
+\end{equation*}
+where the last isomorphism is due to the additivity of $H^{*}$.
+It follows that the above cohomology is bounded, with objects in $\Bb$
+by (\hyperref[C2]{\textbf{C2}}), 
+therefore $\Hom^{*}(E^{\bullet},F^{\bullet}) \otimes E^{\bullet} \in \xK$.
+By inspecting the associated LECS, one sees that $T_{E}(F^{\bullet}$ lies in $\xK$,
+so $T_{E}$ is a well-defined functor. Moreover, it is triangulated\todo{Check this!}.
+
+
+\begin{prop}
+	A qis between twistable objects $E_{1}^{\bullet} \to E_{2}^{\bullet}$
+	gives rise to an isomorphism of twist functors $T_{E_{1}} \simeq T_{E_{2}}$.
+	\begin{proof}
+		Given any $F^{\bullet} \in \xK$, 
+		since the complexes $\Hom^{*}(E_{i}^{\bullet}),F^{\bullet}) \otimes E_{i}^{\bullet}$
+		with $i,j \in \{1,2\}$ are quasi-isomorphic, then by the diagram
+		\begin{equation*}
+			\begin{tikzcd}
+				\Hom^{*}(E_{1}^{\bullet},F^{\bullet}) \otimes E_{1}^{\bullet} \ar[r, "ev"]
+				& F^{\bullet} \ar[r] \ar[d, equals]
+				& T_{E_{1}}(F^{\bullet}) \\
+				\Hom^{*}(E_{2}^{\bullet},F^{\bullet}) \otimes E_{1}^{\bullet} \ar[r] \ar[u] \ar[d]
+				& F^{\bullet} \ar[r] \ar[d, equals]
+				& C^{\bullet} \ar[u, dashed] \ar[d, dashed] \\
+				\Hom^{*}(E_{2}^{\bullet},F^{\bullet}) \otimes E_{2}^{\bullet} \ar[r, "ev"]
+				& F^{\bullet} \ar[r]
+				& T_{E_{2}}(F^{\bullet}) 
+			\end{tikzcd}
+		\end{equation*}
+		one deduces that $T_{E_{1}}(F^{\bullet})$ and $T_{E_{2}}(F^{\bullet})$
+		are quasi-isomorphic. Since $\xK$ is a category of complexes of injectives,
+		quasi-isomorphisms are in fact isomorphisms.
+	\end{proof}
+\end{prop}
+
+\begin{cor}
+	For any $j \in \Z$, the functor $T_{E[j]}$ is isomorphic to $T_{E}$.
+	\begin{proof}
+		Given any $F^{\bullet} \in \xK$, the $n$-th term of the
+		complex $\Hom^{*}(E^{\bullet}[j],F^{\bullet}) \otimes E^{\bullet}[j]$
+		is
+		\begin{align*}
+			\Big( \Hom^{*}(E^{\bullet}[j],F^{\bullet}) \otimes E^{\bullet}[j] \Big)^{n}
+			&= \bigoplus_{k \in \Z} \Hom^{k}(E^{\bullet}[j],F^{\bullet}) \otimes (E^{\bullet}[j])^{-k+n} \\
+			&\simeq \bigoplus_{k \in \Z} \Hom^{k}(E^{\bullet},F^{\bullet}[-j]) \otimes E^{-k+j+n} \\
+			&= \bigoplus_{k \in \Z} \Hom^{k-j}(E^{\bullet},F^{\bullet}) \otimes E^{-(k-j)+n} \\
+			&= \bigoplus_{p \in \Z} \Hom^{p}(E^{\bullet},F^{\bullet}) \otimes E^{-p+n} \\
+			&= \Big( \Hom^{*}(E^{\bullet},F^{\bullet}) \otimes E^{\bullet} \Big)^{n}\,.
+		\end{align*}
+		The sign convention is such that all these isomorphisms together define
+		an isomorphism of complexes, thus the associated twist functors are isomorphic.
+	\end{proof}
+\end{cor}
+
+\begin{df}
+	Given a twistable object $E^{\bullet} \in \xK$, 
+	we define the \textbf{dual twist functor} to be %the cone
+	\begin{equation*}
+		T'_{E}: \xK \longrightarrow \xK\,, \quad
+		T'_{E}(F^{\bullet}) := \cat{C}\left( F^{\bullet} \xrightarrow{ev'} 
+		[\Hom^{*}(F^{\bullet},E^{\bullet}),E^{\bullet}]  \right)
+	\end{equation*}
+\end{df}
+
+By a similar argument as for $T_{E}$, the dual twist functor actually
+takes values in $\xK$, and the name ``\emph{dual}'' is justified by the following
+
+\begin{lemma}
+	For every $E^{\bullet}$ twistable, the functor $T'_{E}$ is left adjoint to $T_{E}$.
+	\begin{proof}
+		Given $F^{\bullet},G^{\bullet} \in \xK$, 
+		we need to show the	exists a natural isomorphism
+		\begin{equation*}
+			\Hom^{*}_{\xK}(T'_{E}(F^{\bullet}),G^{\bullet}) 
+			\simeq \Hom^{*}_{\xK}(F^{\bullet},T_{E}(G^{\bullet}))\,.
+		\end{equation*}
+		If we find a qis $\Hom^{*}(T'_{E}(F^{\bullet}),G^{\bullet}) 
+		\to \Hom^{*}(F^{\bullet},T_{E}(G^{\bullet}))$,
+		then the claim follows by taking $H^{0}$ on both sides.
+			
+		By applying $\Hom^{*}(F^{\bullet},-)$ to the distinguished triangle
+		\begin{equation*}
+			\begin{tikzcd}
+			\Hom^{*}(E^{\bullet},G^{\bullet}) \otimes E^{\bullet} \ar[r, "ev"]
+			& G^{\bullet} \ar[r]
+			& T_{E}(G^{\bullet}) \ar[r]
+			& \Big( \Hom^{*}(E^{\bullet},G^{\bullet}) \otimes E^{\bullet} \Big){[1]}\,,
+			\end{tikzcd}
+		\end{equation*}
+		we notice that $\Hom^{*}(F^{\bullet},T_{E}(G^{\bullet})) \simeq \cat{C}(ev_{*})$;
+		dually, it holds
+		\begin{equation*}
+			\Hom^{*}(T'_{E}(F^{\bullet}),G^{\bullet}) \simeq 
+			\cat{C}\left( \Hom^{*} \big([\Hom^{*}(F^{\bullet},E^{\bullet}),E^{\bullet}],G^{\bullet} \big)
+			\xrightarrow{(ev')^{*}} \Hom^{*}(F^{\bullet},G^{\bullet}) \right)\,.
+		\end{equation*}
+		Thus, if we consider the composition morphism
+		\begin{equation*}
+			\circ : \Hom^{*}(E^{\bullet},G^{\bullet}) \otimes_{k} \Hom^{*}(F^{\bullet},E^{\bullet})
+			\longrightarrow \Hom^{*}(F^{\bullet},G^{\bullet})\,, \quad
+			\phi^{\bullet} \otimes \psi^{\bullet} \longmapsto \phi^{\bullet} \circ \psi^{\bullet}\,,
+		\end{equation*}
+		thanks to the natural quasi-isomorphisms \eqref{tensor-adjs},
+		we can build a zigzag of qis, which are natural both in $F^{\bullet}$ and in $G^{\bullet}$:
+		\begin{equation*}
+			\Hom^{*}(E^{\bullet},G^{\bullet}) \otimes E^{\bullet}
+			\longleftarrow \cat{C}(ev_{*})
+			\longleftarrow \cat{C}(\circ)
+			\longrightarrow \cat{C}\big( (ev')^{*} \big)
+			\longrightarrow \Hom^{*}(T'_{E}(F^{\bullet}),G^{\bullet})\,,
+		\end{equation*}
+		hence the thesis.
+	\end{proof}
+\end{lemma}
+
+
+
+\begin{df}
+	An object $E^{\bullet} \in \xK$ is \textbf{$n$-spherical} for some $n > 0$
+	if it satisfies (\hyperref[S1]{\textbf{S1}}), (\hyperref[S2]{\textbf{S2}})
+	and the following two properties:
+	\begin{itemize}
+		\item[(\textbf{S3})]\label{S3} its endomorphism algebra is the cohomology of the $n$-sphere
+		$\Hom^{*}_{\xK}(E^{\bullet},E^{\bullet}) \simeq H^{*}_{\textrm{sing}}(S^{n};k)$, that is
+		\begin{equation*}
+			\Hom^{j}_{\xK}(E^{\bullet},E^{\bullet}) \simeq
+			\begin{cases}
+				k \,, \quad &\text{if } j=0,n\,; \\
+				0 \,, \quad &\text{otherwise}.
+			\end{cases}
+		\end{equation*}
+		
+		\item[(\textbf{S4})]\label{S4} \textbf{Poincaré duality}: for all $F^{\bullet}$
+		and all $j \in \Z$, the composition morphism
+		\begin{equation*}
+			\Hom^{j}(F^{\bullet},E^{\bullet}) \otimes_{k} \Hom^{n-j}(E^{\bullet},F^{\bullet})
+			\longrightarrow \Hom^{n}(E^{\bullet},E^{\bullet}) \simeq k
+		\end{equation*}
+		is a non degenerate pairing.
+	\end{itemize}
+\end{df}
+
+
+\begin{thm}
+	The spherical twist around an $n$-spherical object is an exact self-equivalence of $\xK$.
+	\begin{proof}
+		Given $F^{\bullet} \in \xK$, then $T_{E}T'_{E}(F^{\bullet})$
+	\end{proof}
+\end{thm}
+
+

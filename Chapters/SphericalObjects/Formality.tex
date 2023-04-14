@@ -1,0 +1,38 @@
+
+
+Applications of DG methods to homological algebra 
+often hinge on constructing a chain of quasi-isomorphisms 
+connecting two given DG-algebras. 
+For instance, in the situation explained in the previous  section, 
+one can try to use the DG-algebra $end(E)$ to study the twists
+$T_{E_{i}}$ via the functor $\Psi_{E}$. 
+What really matters for this purpose is only the quasi-isomorphism type of $end(E)$. 
+In general, quasi-isomorphism type is a rather subtle invariant.
+ However, there are some cases where the cohomology already determines the quasi-isomorphism type.
+ 
+\begin{df}
+	A DG-algebra $\Aa$ is called \textbf{formal} if
+	it is quasi-isomorphic to its own cohomology algebra $H^{*}(\Aa)$
+	thought as a DG-algebra with zero differentials.
+\end{df}
+
+\begin{ex}
+	Any algebra $A$ seen as a DG-algebra concentrated in degree $0$ is formal.
+\end{ex}
+
+\begin{df}
+	A graded algebra $A$ is called \textbf{intrinsically formal}
+	if any two DG-algebras $\Bb, \Cc$ such that $H^{*}(\Bb) \simeq A \simeq H^{*}(\Cc)$,
+	then $\Bb$ and $\Cc$ are quasi-isomorphic.
+\end{df}
+
+Equivalently, one can say that $A$ is intrinsically formal if any DG-algebra $\Bb$
+whose cohomology is $A$ is formal.
+
+\begin{ex}
+	Any graded algebra $A$ concentrated in degree zero is intrinsically formal.\todo{Explain why.}
+\end{ex}
+
+The aim of this section is to find a characterization of intrinsic formality,
+which can be computed via Hochschild cohomology of the right $A$-modules obtianed
+by shifting $A$ suitably.

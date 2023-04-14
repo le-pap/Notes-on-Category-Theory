@@ -42,7 +42,7 @@ thus we safe a section to define this notion.
 		\end{equation*}
 		such that $A = \bigoplus_{k \in \Z} A^{k}$.
 		An element of $A^{k}$ is said \textbf{homogeneous of degree $k$};
-		sometimes we will simply write $\deg(x)$ instead of $k$,
+		sometimes we will simply write $|x|$ instead of $k$,
 		for a homogeneous element $x \in A^{k}$.
 		
 		A graded $\Lambda$-algebra is \textbf{graded-commutative} 
@@ -112,7 +112,7 @@ thus we safe a section to define this notion.
 	given by homomorphisms of unital $\Lambda$-algebras
 	\begin{equation*}
 		f : A \longrightarrow B\,, \quad 
-		\text{s.t. } f\left(1_{A}\right) = 1_{B}\,,
+		\text{such that } f\left(1_{A}\right) = 1_{B}\,,
 	\end{equation*}
 	which are also maps of complexes, that is 
 	$f(A^{k}) \subset B^{k}$ and $f \circ d = \delta \circ f$.
@@ -124,7 +124,7 @@ thus we safe a section to define this notion.
 		$\Aa^{op} = (A^{op},d)$ as the DG-algebra whose elements and differential
 		are the same of $\Aa$, but we consider a new multiplication
 		\begin{equation*}
-			a \cdot^{op} b := (-1)^{\deg{a}\deg{b}} ba\,,
+			a \cdot^{op} b := (-1)^{|a|\,|b|} ba\,,
 		\end{equation*}
 		where $ba$ denotes the usual multiplication in $\Aa$.
 		Notice that $\Aa$ is graded-commutative if and only if $\Aa = \Aa^{op}$.
@@ -180,31 +180,37 @@ thus we safe a section to define this notion.
 		\end{equation*}
 	\end{ex}
 	
-	
-	From now on, we will consider DG-algebras with terms of 
-	non-negative degree, that is $A^{k} = \cat{0}$ for $k<0$,
-	and set $\Aa^{+} := \bigoplus_{k \ge 0} A^{k}$ for the
-	submodule of positive degree elements.
+	We write $\iota_{\Aa} : \Lambda \to A$ to be the structure map
+	$\iota(\lambda) := \lambda \cdot 1_{A}$.
 	
 	\begin{df}
 		An \textbf{augmentation} on a DG-algebra $\Aa$
 		is a morphism $\epsilon : \Aa \to \Lambda$
 		of unital $\Lambda$-algebras such that $\epsilon \circ d = 0$ and
-		\begin{equation*}
-			\epsilon(x) = 0\,, \quad \text{for }
-			x \in \Aa^{+}\,.
-		\end{equation*}
+		$\epsilon \circ \iota_{\Aa} = \cat{1}_{\Lambda}$.
+		Its kernel is a two-sided ideal of $\Aa$,
+		called the \textbf{augmentation ideal} $\Aa^{+} := \ker \epsilon$.
 	\end{df}
 	
-	Thus, an augmentation is determined by its restriction to $A^{0}$.
-	If we write $\iota : \Lambda \to A$ be the map
-	$\iota(\lambda) := \lambda \cdot 1_{A}$, 
-	then $\epsilon \circ \iota = \cat{1}_{\Lambda}$ and hence
+	Notice that the condition $\epsilon d = 0$ implies
+	that there is a well defined aumentation on $H^*(\Aa)$.
+	Since $\epsilon$ is a retraction on $\Lambda$,
 	we may identify the ground ring $\Lambda$ with a subring of $A$;
 	in particular, notice that $\Lambda$ is a direct summand of $A$
 	by the \hyperref[split-lemma]{Split Lemma}.
-	Notice that the condition $\epsilon d = 0$ implies
-	that there is a well defined aumentation on $H^*(\Aa)$.
+	Thus, an augmentation is determined by its restriction to $A^{0}$.
+	
+	From now on, we will consider DG-algebras with terms of non-negative degree,
+	that is $A^{k} = \cat{0}$ for $k<0$. In this case,
+	the augmetation ideal coincides with the
+	submodule of positive degree elements
+	$\Aa^{+} = \bigoplus_{k \ge 0} A^{k}$.
+	If moreover $\Aa$ is \textbf{connected},
+	that is $A^{k} = \cat{0}$ for $k<0$ and $\iota_{\Aa}:\Lambda \to A^{0}$
+	is an isomorphism, then $\Aa$ has a unique augmentation map
+	given by $\iota_{\Lambda}^{-1}$.
+	
+
 	
 	
 	\begin{df}
@@ -226,15 +232,15 @@ thus we safe a section to define this notion.
 	
 	We will write $\cat{DGA}_{\Lambda}$ for the category of
 	DGA-algebras over $\Lambda$.
-	Notice that a DGA-homomorphism induces a morphism $f*:H*(\Aa) \to H^*(\Aa')$
+	Notice that a DGA-homomorphism induces a morphism $f*:H^*(\Aa) \to H^*(\Aa')$
 	of DGA-algebras, hence cohomology defines a covariant functor
 	$H^*:\cat{DGA}_{\Lambda} \to \cat{DGA}_{\Lambda}$.
 	
 	\begin{ex}
-		Given a topological space $X$, let $S(X)$ denote its
+		Given a topological space $X$, let $S_{\bullet}(X)$ denote its
 		singular simplicial complex. For each pair of spaces $X,Y$,
 		one can define a chain map 
-		$\sigma : S(X) \otimes_{\Z} S(Y) \to S(X \times Y)$.
+		$\sigma : S_{\bullet}(X) \otimes_{\Z} S_{\bullet}(Y) \to S_{\bullet}(X \times Y)$.
 		Now, assume $X$ is a topological group, 
 		with a continuous multiplication
 		\begin{equation*}
@@ -244,18 +250,18 @@ thus we safe a section to define this notion.
 		then the composition
 		\begin{equation*}
 			\begin{tikzcd}
-				S(X) \otimes_{\Z} S(X) \ar[r, "\sigma"]
-				& S(X \times X) \ar[r, "\mu_{\bullet}"]
-				& S(X)
+				S_{\bullet}(X) \otimes_{\Z} S_{\bullet}(X) \ar[r, "\sigma"]
+				& S_{\bullet}(X \times X) \ar[r, "\mu_{\bullet}"]
+				& S_{\bullet}(X)
 			\end{tikzcd}
 		\end{equation*}
-		defines an associative multiplication on $S(X)$,
+		defines an associative multiplication on $S_{\bullet}(X)$,
 		whose neutral element is the $0$-simplex $e$,
 		called \textbf{Pontrjagin product}.
 		Moreover, there exists an augmentation $\epsilon : S(X) \to \Z$
 		which sends each $0$-simplex (i.e. a point of $X$) to $1 \in \Z$,
 		and vanishes on higher dimensional simplices;
-		this makes $S(X)$ into a DGA-algebra\footnote{In this case, $S(X)$ is a
+		this makes $S_{\bullet}(X)$ into a DGA-algebra\footnote{In this case, $S_{\bullet}(X)$ is a
 		DGA-algebra whose differential follows the \emph{homological} convention,
 		while our definition is based on the cochain complex convention.}.
 	\end{ex}
@@ -276,13 +282,13 @@ thus we safe a section to define this notion.
 			\end{equation*}
 			equipped with the differential $D$ defined by
 			\begin{equation*}
-				D(a \otimes b) = da \otimes b + (-1)^{\deg(a)}a \otimes \delta b\,.
+				D(a \otimes b) = da \otimes b + (-1)^{|a|}a \otimes \delta b\,.
 				% \quad \text{for } a \in A^{k}\,.
 			\end{equation*}
 			We can define the multiplication
 			\begin{equation*}
 				(a \otimes b) \cdot (a' \otimes b')
-				:= (-1)^{\deg(a)\deg(a')}(aa') \otimes (bb')\,,
+				:= (-1)^{|a|\,|a'|}(aa') \otimes (bb')\,,
 			\end{equation*}
 			in such a way that $(A^{\bullet} \otimes B^{\bullet},D)$
 			becomes a DG-algebra: indeed, it holds
@@ -324,7 +330,7 @@ thus we safe a section to define this notion.
 			This shows that $\Aa \otimes \Bb 
 			= (A^{\bullet} \otimes B^{\bullet}, D, \alpha)$
 			is a DGA-algebra.
-			One can check that $\cat{DG}_{\Lambda}$ equipped with $\otimes$
+			One can check that $\cat{DGA}_{\Lambda}$ equipped with $\otimes$
 			becomes a monoidal category by
 			an analgous argument as for $C^{\bullet}(\cat{Mod}_{\Lambda})$.
 		\end{proof}

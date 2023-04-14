@@ -84,13 +84,17 @@
 \KOMAoption{chapterprefix}{false}
 \renewcommand{\thedummy}{\arabic{dummy}}
 \maketitle
+
 My original intention is to collect here some 
 material about derived categories, with applications to
 algebraic geometry, which will hopefully turn out to be 
 useful for my thesis.
 I will mainly follow the first chapters of the book
 ``\textit{Fourier-Mukai transforms in algebraic geometry}''
-by Daniel Huybrects \parencite[]{huybrechts}. 
+by Daniel Huybrects \parencite[]{huybrechts} for the part concerning
+the construction of derived categories.
+My final goal is to develop enough machinery to
+understand the proof of \parencite[Lemma~2.18]{seidel-thomas}.
 
 \hrulefill
 
@@ -122,11 +126,11 @@ Last update: \today
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{Structure of the thesis}
+%\chapter{Structure of the thesis}
+%
+%	\input{Chapters/Structure.tex}
+%
 
-	\input{Chapters/Structure.tex}
-
-% I comment from here
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -181,7 +185,7 @@ Last update: \today
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
+
 %\chapter{Enriched categories}
 %
 %In the section of \hyperref[AdditiveCategories]{Additive categories}
@@ -204,54 +208,54 @@ Last update: \today
 %%Questo serve solo a capire i prodotti tensori 
 %%nelle $k$-linear categories.
 %
-%%   \input{Chapters/EnrichedCategories/MonoidalCategories.tex}
-%%    \input{Chapters/EnrichedCategories/EnrichedCategories.tex}
-%%    \input{Chapters/EnrichedCategories/Tensors.tex}
-%%    \input{Chapters/AbelianCategories/k-linearCategories.tex}
-%
-%
+%    \input{Chapters/EnrichedCategories/MonoidalCategories.tex}
+%    \input{Chapters/EnrichedCategories/EnrichedCategories.tex}
+%    \input{Chapters/EnrichedCategories/Tensors.tex}
+%    \input{Chapters/AbelianCategories/k-linearCategories.tex}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%
-%
-%\chapter{Triangulated categories}
-%
-%While studying algebraic topology and geometry,
-%abelian categories arise as a natural
-%setting to develop homological algebra.
-%In many cases, we come across long exact sequences 
-%in homology, e.g. the Mayer-Vietoris sequence for
-%a topological space, which are a powerful tool
-%for the study of our object of interest,
-%starting from some sort of decomposition.
-%Triangulated categories are a special kind of
-%abelian categories, endowed with a \emph{shift functor}
-%which allows us to build long exact sequences of objects.
-%Thanks to this, we will develop
-%new techniques to study (co)homology objects.
-%
-%%    \input{Chapters/TriangulatedCategories/Homotopy.tex}
-%%    \input{Chapters/TriangulatedCategories/ConesCylinders.tex}
-%%    \input{Chapters/TriangulatedCategories/Bicomplexes.tex}
-%%    \input{Chapters/TriangulatedCategories/K(A).tex}
-%%    \input{Chapters/TriangulatedCategories/TriangulatedCategories.tex}
-%%    \input{Chapters/TriangulatedCategories/EquivalencesTriangulatedCat.tex}
-%%    \input{Chapters/TriangulatedCategories/Exceptional.tex}
-%
-%
+
+
+
+\chapter{Triangulated categories}
+
+While studying algebraic topology and geometry,
+abelian categories arise as a natural
+setting to develop homological algebra.
+In many cases, we come across long exact sequences 
+in homology, e.g. the Mayer-Vietoris sequence for
+a topological space, which are a powerful tool
+for the study of our object of interest,
+starting from some sort of decomposition.
+Triangulated categories are a special kind of
+abelian categories, endowed with a \emph{shift functor}
+which allows us to build long exact sequences of objects.
+Thanks to this, we will develop
+new techniques to study (co)homology objects.
+
+    \input{Chapters/TriangulatedCategories/Homotopy.tex}
+    \input{Chapters/TriangulatedCategories/ConesCylinders.tex}
+    \input{Chapters/TriangulatedCategories/Bicomplexes.tex}
+    \input{Chapters/TriangulatedCategories/K(A).tex}
+    \input{Chapters/TriangulatedCategories/TriangulatedCategories.tex}
+    \input{Chapters/TriangulatedCategories/EquivalencesTriangulatedCat.tex}
+    \input{Chapters/TriangulatedCategories/Exceptional.tex}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%\chapter{Derived categories}
-%
-%%	\input{Chapters/DerivedCategories/DerivedCategory.tex}
-%%	\input{Chapters/DerivedCategories/InjProj.tex}
-%%	\input{Chapters/DerivedCategories/DerivedFunctors.tex}
-%%	\input{Chapters/DerivedCategories/SpectralSequences.tex}
-%
+
+\chapter{Derived categories}
+
+	\input{Chapters/DerivedCategories/DerivedCategory.tex}
+	\input{Chapters/DerivedCategories/InjProj.tex}
+	\input{Chapters/DerivedCategories/DerivedFunctors.tex}
+%	\input{Chapters/DerivedCategories/SpectralSequences.tex}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -261,8 +265,9 @@ Last update: \today
 	
 	\input{Chapters/DGA/DG-algebras.tex}
 	\input{Chapters/DGA/DG-modules.tex}
-%	\input{Chapters/DGA/Ainfty.tex}
 	\input{Chapters/DGA/Hochschild.tex}
+	\input{Chapters/DGA/Path.tex}
+	\input{Chapters/DGA/Ainfty.tex}
 %	\input{Chapters/DGA/Formality.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -271,9 +276,10 @@ Last update: \today
 
 \chapter{Spherical objects}
 
-	\input{Chapters/SphericalObjects/Actions.tex}
-
-
+%	\input{Chapters/SphericalObjects/Actions.tex}
+	\input{Chapters/SphericalObjects/Generalities.tex}
+	\input{Chapters/SphericalObjects/Twists.tex}
+	\input{Chapters/SphericalObjects/Formality.tex}
 	
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -281,8 +287,8 @@ Last update: \today
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\missingfigure{To print bibliography, you must change 
-`Quick build' settings to pdf + bib + pdf(x2) + pdfviewer.}
+%\missingfigure{To print bibliography, you must change 
+%`Quick build' settings to pdf + bib + pdf(x2) + pdfviewer.}
 
 
 \nocite{*}
